@@ -174,8 +174,8 @@ export function GameCanvas() {
         onPauseResume={pauseResume}
       />
       
-      <div className="flex-1 overflow-auto p-2 pb-16">
-        <div className="flex gap-4 h-full">
+      <div className="flex-1 overflow-auto p-2 pb-24">
+        <div className="flex gap-4 h-full pb-8">
           {/* Columna izquierda: 2 tableros */}
           <div className={`flex flex-col gap-2 transition-all ${isManualMode ? 'flex-[4]' : 'flex-1'}`}>
             <div className="relative">
