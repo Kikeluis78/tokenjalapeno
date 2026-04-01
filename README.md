@@ -33,3 +33,4 @@ Este kit de inicio usa [Mini Apps UI Kit](https://github.com/worldcoin/mini-apps
 ## Contribuciones
 
 Esta plantilla fue hecha con ayuda del increíble equipo de [supercorp-ai](https://github.com/supercorp-ai).
+# tokenjalapeno
