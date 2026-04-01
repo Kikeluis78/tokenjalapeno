@@ -1,6 +1,4 @@
 
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-
 interface CarruselOverlayProps {
   currentIndex: number;
   totalBoards: number;

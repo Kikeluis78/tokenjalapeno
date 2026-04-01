@@ -4,19 +4,11 @@ import { motion } from 'framer-motion';
 interface GameHeaderProps {
   humanScore: number;
   iaScore: number;
-  gameStarted: boolean;
-  isPaused: boolean;
-  onStartGame: () => void;
-  onPauseResume: () => void;
 }
 
 export function GameHeader({ 
   humanScore, 
-  iaScore, 
-  gameStarted, 
-  isPaused, 
-  onStartGame, 
-  onPauseResume 
+  iaScore
 }: GameHeaderProps) {
   return (
     <div className="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 border-b-2 border-black py-2 px-3">

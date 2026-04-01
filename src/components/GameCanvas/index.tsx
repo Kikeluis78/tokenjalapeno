@@ -9,6 +9,12 @@ import { CarruselOverlay } from '@/components/CarruselOverlay';
 import { LOTTERY_CARDS } from '@/data/cards';
 import confetti from 'canvas-confetti';
 
+interface Card {
+  id: number;
+  name: string;
+  emoji: string;
+}
+
 const generateRandomBoard = () => {
   const shuffled = [...LOTTERY_CARDS].sort(() => Math.random() - 0.5);
   return shuffled.slice(0, 16);
@@ -24,13 +30,13 @@ export function GameCanvas() {
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [cantadasIds, setCantadasIds] = useState<number[]>([]);
   const [iaSelectedIds, setIaSelectedIds] = useState<number[]>([]);
-  const [currentCard, setCurrentCard] = useState<any>(null);
+  const [currentCard, setCurrentCard] = useState<Card | null>(null);
   const [currentBoardIndex, setCurrentBoardIndex] = useState(0);
   const [allBoards] = useState(() => 
     Array.from({ length: 10 }, () => generateRandomBoard())
   );
   const [iaCards] = useState(() => generateRandomBoard());
-  const [remainingCards, setRemainingCards] = useState<any[]>([]);
+  const [remainingCards, setRemainingCards] = useState<Card[]>([]);
   const [showVictoryModal, setShowVictoryModal] = useState(false);
   const [winner, setWinner] = useState<'human' | 'ia' | null>(null);
 
@@ -120,7 +126,7 @@ export function GameCanvas() {
     setIsPaused(!isPaused);
   };
 
-  const handleSelect = (carta: any) => {
+  const handleSelect = (carta: Card) => {
     if (isManualMode && cantadasIds.includes(carta.id)) {
       setSelectedIds(prev => 
         prev.includes(carta.id) ? prev.filter(id => id !== carta.id) : [...prev, carta.id]
@@ -168,10 +174,6 @@ export function GameCanvas() {
       <GameHeader 
         humanScore={humanScore}
         iaScore={iaScore}
-        gameStarted={gameStarted}
-        isPaused={isPaused}
-        onStartGame={startGame}
-        onPauseResume={pauseResume}
       />
       
       <div className="flex-1 overflow-auto p-2 pb-24">
