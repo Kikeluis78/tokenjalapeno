@@ -1,0 +1,51 @@
+{
+  "name": "loteria-mexica-by-jalapeno",
+  "version": "0.1.0",
+  "homepage": "https://docs.worldcoin.org/mini-apps",
+  "description": "Loteria Mexica by Jalapeño - Gana tokens jugando",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
+    "@worldcoin/mini-apps-ui-kit-react": "^1.6.0",
+    "@worldcoin/minikit-js": "latest",
+    "@worldcoin/minikit-react": "latest",
+    "canvas-confetti": "^1.9.4",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.38.0",
+    "iconoir-react": "^7.11.0",
+    "konva": "^10.2.3",
+    "next": "^15.2.8",
+    "next-auth": "^5.0.0-beta.25",
+    "react": "^19.0.3",
+    "react-dom": "^19.0.3",
+    "react-icons": "^5.6.0",
+    "react-konva": "^19.2.3",
+    "sweetalert2": "^11.26.24",
+    "tailwind-merge": "^3.2.0",
+    "three": "^0.183.2",
+    "use-sound": "^5.0.0",
+    "viem": "2.23.5"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eruda": "^3.4.1",
+    "eslint": "^9",
+    "eslint-config-next": "15.2.3",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
