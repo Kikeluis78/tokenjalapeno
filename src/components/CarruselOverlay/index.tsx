@@ -27,7 +27,7 @@ export function CarruselOverlay({
         style={{
           padding: '0',
           backgroundColor: 'transparent',
-          color: 'white',
+          color: 'red',
           fontSize: '80px',
           fontWeight: 'bold',
           border: 'none',
@@ -46,7 +46,7 @@ export function CarruselOverlay({
         style={{
           padding: '0',
           backgroundColor: 'transparent',
-          color: 'white',
+          color: 'red',
           fontSize: '80px',
           fontWeight: 'bold',
           border: 'none',

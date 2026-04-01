@@ -202,8 +202,7 @@ export function GameCanvas() {
                 seleccionadoIds={iaSelectedIds}
                 cantadasIds={cantadasIds}
                 disabled={true}
-                showOverlay={!isPlaying}
-                overlayTitle="TABLERO IA"
+                showOverlay={false}
               />
             </div>
           </div>

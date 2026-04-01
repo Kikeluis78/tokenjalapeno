@@ -31,7 +31,7 @@ export function Tablero({ cartas, seleccionadoIds = [], cantadasIds = [], disabl
                 disabled={disabled}
                 className={`
                   aspect-[2/2.5] rounded-xl overflow-hidden bg-white shadow relative
-                  ${isSelected ? 'border-4 border-green-500 shadow-lg' : 'border border-black'}
+                  ${isSelected ? 'border-4 border-blue-500 shadow-lg' : 'border border-black'}
                   ${disabled ? 'opacity-50 pointer-events-none' : 'active:scale-95'}
                 `}
               >
@@ -41,6 +41,9 @@ export function Tablero({ cartas, seleccionadoIds = [], cantadasIds = [], disabl
                 </div>
                 {isCantada && (
                   <div className="absolute inset-0 bg-yellow-400/40 border-2 border-yellow-500 rounded-xl animate-pulse" />
+                )}
+                {isSelected && (
+                  <div className="absolute inset-0 bg-blue-500/30 border-2 border-blue-600 rounded-xl" />
                 )}
                 {showPeanut && isSelected && (
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
