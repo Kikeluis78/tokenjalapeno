@@ -140,6 +140,29 @@ export function GameCanvas() {
     startGame();
   };
 
+  const handleNewGame = () => {
+    setShowVictoryModal(false);
+    setGameStarted(false);
+    setIsPlaying(false);
+    setSelectedIds([]);
+    setIaSelectedIds([]);
+    setCantadasIds([]);
+    setCurrentCard(null);
+    setWinner(null);
+  };
+
+  const handleContinueSameBoard = () => {
+    setShowVictoryModal(false);
+    setIsPlaying(false);
+    setSelectedIds([]);
+    setIaSelectedIds([]);
+    setCantadasIds([]);
+    setCurrentCard(null);
+    setWinner(null);
+    const shuffled = [...LOTTERY_CARDS].sort(() => Math.random() - 0.5);
+    setRemainingCards(shuffled);
+  };
+
   return (
     <div className="h-screen w-full bg-linear-to-br from-purple-900 via-pink-800 to-orange-600 flex flex-col">
       <GameHeader 
@@ -221,20 +244,29 @@ export function GameCanvas() {
             <div className="text-8xl mb-4">
               {winner === 'human' ? '🎉' : '🤖'}
             </div>
-            <h2 className="text-4xl font-black mb-4">
-              {winner === 'human' ? '¡LOTERÍA!' : '¡IA GANÓ!'}
+            <h2 className="text-4xl font-black mb-4 text-gray-800">
+              {winner === 'human' ? '¡VICTORIA HUMANA!' : '¡IA GANÓ!'}
             </h2>
-            <p className="text-xl mb-6">
+            <p className="text-lg mb-8 text-gray-600">
               {winner === 'human' 
-                ? '¡Felicidades! Completaste tu tablero' 
-                : 'La IA completó su tablero primero'}
+                ? '¡Felicidades! Has completado tu tablero y ganaste esta ronda' 
+                : 'La IA completó su tablero primero. ¡Inténtalo de nuevo!'}
             </p>
-            <button
-              onClick={() => setShowVictoryModal(false)}
-              className="px-8 py-3 bg-green-600 text-white font-bold rounded-lg text-xl"
-            >
-              Continuar
-            </button>
+            
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={handleNewGame}
+                className="w-full px-6 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-lg transition-colors"
+              >
+                🔄 Nuevo Tablero
+              </button>
+              <button
+                onClick={handleContinueSameBoard}
+                className="w-full px-6 py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg text-lg transition-colors"
+              >
+                ▶️ Mismo Tablero
+              </button>
+            </div>
           </div>
         </div>
       )}
