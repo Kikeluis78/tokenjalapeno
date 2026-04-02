@@ -24,13 +24,12 @@ export function GameCanvas() {
   const [humanScore, setHumanScore] = useState(0);
   const [iaScore, setIaScore] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isManualMode, setIsManualMode] = useState(false);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [cantadasIds, setCantadasIds] = useState<number[]>([]);
   const [iaSelectedIds, setIaSelectedIds] = useState<number[]>([]);
-  const [currentCard, setCurrentCard] = useState<Card | null>(null);
+  const [currentCard, setCurrentCard] = useState<Card | undefined>(undefined);
   const [currentBoardIndex, setCurrentBoardIndex] = useState(0);
   const [allBoards] = useState(() => 
     Array.from({ length: 10 }, () => generateRandomBoard())
@@ -122,10 +121,6 @@ export function GameCanvas() {
     setIsPlaying(!isPlaying);
   };
 
-  const pauseResume = () => {
-    setIsPaused(!isPaused);
-  };
-
   const handleSelect = (carta: Card) => {
     if (isManualMode && cantadasIds.includes(carta.id)) {
       setSelectedIds(prev => 
@@ -153,7 +148,7 @@ export function GameCanvas() {
     setSelectedIds([]);
     setIaSelectedIds([]);
     setCantadasIds([]);
-    setCurrentCard(null);
+    setCurrentCard(undefined);
     setWinner(null);
   };
 
@@ -163,7 +158,7 @@ export function GameCanvas() {
     setSelectedIds([]);
     setIaSelectedIds([]);
     setCantadasIds([]);
-    setCurrentCard(null);
+    setCurrentCard(undefined);
     setWinner(null);
     const shuffled = [...LOTTERY_CARDS].sort(() => Math.random() - 0.5);
     setRemainingCards(shuffled);

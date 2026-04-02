@@ -27,7 +27,8 @@ export const useAudio = () => {
       // Efectos de sonido simples por ahora
       if (effect === 'victory') {
         // Crear sonido de victoria con Web Audio API
-        const audioContext = new (window.AudioContext || (window as AudioContext).webkitAudioContext)();
+        const AudioContextClass = window.AudioContext || (window as typeof window & { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+        const audioContext = new AudioContextClass();
         const oscillator = audioContext.createOscillator();
         const gainNode = audioContext.createGain();
         

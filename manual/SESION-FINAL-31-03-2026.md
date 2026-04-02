@@ -223,21 +223,35 @@ interface GameCanvasState {
 
 ## 🗂️ REPOSITORIOS Y GIT
 
-### Repositorios creados
-1. **https://github.com/Kikeluis78/Loteria.git** (inicial)
-2. **https://github.com/Kikeluis78/Jalapeno.git** (limpio)
-3. **https://github.com/SanJuanOnline/TokenJalapeno.git** (para Vercel - pendiente)
+### Repositorios y Git
 
-### Configuración Git
+#### Repositorio Final
+- **URL**: https://github.com/Kikeluis78/Jalapeno
+- **Usuario**: Kikeluis78
+- **Email**: enriquegv078@gmail.com
+- **Estado**: Código completo y sin errores de TypeScript
+
+#### Configuración Git Estándar
 ```bash
 git config user.name "Kikeluis78"
 git config user.email "enriquegv078@gmail.com"
 ```
 
+**NOTA IMPORTANTE**: Usar únicamente la cuenta Kikeluis78 para todos los repositorios de GitHub del proyecto.
+
 ### Commits realizados
-- Initial commit: Proyecto base completo (74 archivos, 19,034 líneas)
-- Mejorar modal de victoria con opciones de reinicio
-- Agregar padding para ver footer completo en móviles
+- **Initial commit**: Proyecto base completo (74 archivos, 19,034 líneas)
+- **Mejorar modal de victoria**: Opciones de reinicio implementadas
+- **Agregar padding**: Footer visible en móviles
+- **Mejorar colores**: Cartas marcadas azules, overlay IA eliminado
+- **Corregir TypeScript**: Todos los errores de deployment solucionados
+
+### Errores de TypeScript Corregidos
+- ✅ Eliminados imports no usados (`FaChevronLeft`, `FaChevronRight`)
+- ✅ Cambiado `any` por tipos específicos (`Card`, `Card[]`, `AudioContext`)
+- ✅ Eliminadas props no usadas del `GameHeader`
+- ✅ Agregada interfaz `Card` completa
+- ✅ Código listo para deployment en producción
 
 ---
 
