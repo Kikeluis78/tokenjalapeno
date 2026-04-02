@@ -13,9 +13,13 @@ interface TableroProps {
   showOverlay?: boolean;
   overlayTitle?: string;
   showPeanut?: boolean;
+  isIA?: boolean;
 }
 
-export function Tablero({ cartas, seleccionadoIds = [], cantadasIds = [], disabled = false, onSeleccionar, showOverlay = false, overlayTitle, showPeanut = false }: TableroProps) {
+export function Tablero({ cartas, seleccionadoIds = [], cantadasIds = [], disabled = false, onSeleccionar, showOverlay = false, overlayTitle, showPeanut = false, isIA = false }: TableroProps) {
+  const selectedColor = isIA ? 'border-red-600' : 'border-blue-600';
+  const selectedBg = isIA ? 'bg-red-600/50' : 'bg-blue-600/50';
+  
   return (
     <div className="w-full max-w-md mx-auto bg-linear-to-br from-green-700 to-green-900 p-3 rounded-2xl shadow-2xl relative">
       <div className="bg-green-800 p-2 rounded-xl">
@@ -31,7 +35,7 @@ export function Tablero({ cartas, seleccionadoIds = [], cantadasIds = [], disabl
                 disabled={disabled}
                 className={`
                   aspect-[2/2.5] rounded-xl overflow-hidden bg-white shadow relative
-                  ${isSelected ? 'border-4 border-blue-500 shadow-lg' : 'border border-black'}
+                  ${isSelected ? `border-4 ${selectedColor} shadow-lg` : 'border border-black'}
                   ${disabled ? 'opacity-50 pointer-events-none' : 'active:scale-95'}
                 `}
               >
@@ -40,10 +44,10 @@ export function Tablero({ cartas, seleccionadoIds = [], cantadasIds = [], disabl
                   <div className="text-[8px] text-center font-bold mt-1 leading-tight">{carta.name}</div>
                 </div>
                 {isCantada && (
-                  <div className="absolute inset-0 bg-yellow-400/40 border-2 border-yellow-500 rounded-xl animate-pulse" />
+                  <div className="absolute inset-0 bg-yellow-400/50 border-2 border-yellow-500 rounded-xl animate-pulse" />
                 )}
                 {isSelected && (
-                  <div className="absolute inset-0 bg-blue-500/30 border-2 border-blue-600 rounded-xl" />
+                  <div className={`absolute inset-0 ${selectedBg} border-2 ${selectedColor} rounded-xl`} />
                 )}
                 {showPeanut && isSelected && (
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">

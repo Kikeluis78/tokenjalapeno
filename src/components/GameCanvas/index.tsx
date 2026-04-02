@@ -31,17 +31,24 @@ export function GameCanvas() {
   const [iaSelectedIds, setIaSelectedIds] = useState<number[]>([]);
   const [currentCard, setCurrentCard] = useState<Card | undefined>(undefined);
   const [currentBoardIndex, setCurrentBoardIndex] = useState(0);
-  const [allBoards] = useState(() => 
+  const [allBoards, setAllBoards] = useState(() => 
     Array.from({ length: 10 }, () => generateRandomBoard())
   );
-  const [iaCards] = useState(() => generateRandomBoard());
+  const [iaCards, setIaCards] = useState(() => generateRandomBoard());
   const [remainingCards, setRemainingCards] = useState<Card[]>([]);
   const [showVictoryModal, setShowVictoryModal] = useState(false);
   const [winner, setWinner] = useState<'human' | 'ia' | null>(null);
 
-  // Detectar victoria
+  // Detectar victoria - solo cuando se llenan los 16 espacios del cartón
   useEffect(() => {
-    if (selectedIds.length === 16) {
+    const humanBoard = allBoards[currentBoardIndex];
+    const humanBoardIds = humanBoard.map(c => c.id);
+    const humanMatches = selectedIds.filter(id => humanBoardIds.includes(id));
+    
+    const iaBoardIds = iaCards.map(c => c.id);
+    const iaMatches = iaSelectedIds.filter(id => iaBoardIds.includes(id));
+    
+    if (humanMatches.length === 16) {
       setIsPlaying(false);
       setWinner('human');
       setShowVictoryModal(true);
@@ -72,13 +79,13 @@ export function GameCanvas() {
           requestAnimationFrame(frame);
         }
       }());
-    } else if (iaSelectedIds.length === 16) {
+    } else if (iaMatches.length === 16) {
       setIsPlaying(false);
       setWinner('ia');
       setShowVictoryModal(true);
       setIaScore(prev => prev + 1);
     }
-  }, [selectedIds, iaSelectedIds]);
+  }, [selectedIds, iaSelectedIds, allBoards, currentBoardIndex, iaCards]);
 
   useEffect(() => {
     if (gameStarted && isPlaying && remainingCards.length > 0) {
@@ -88,12 +95,15 @@ export function GameCanvas() {
         setCantadasIds(prev => [...prev, nextCard.id]);
         setRemainingCards(prev => prev.slice(1));
         
-        // Modo automático: marcar en tablero humano
+        // Modo automático: marcar solo si la carta está en el tablero humano
         if (!isManualMode) {
-          setSelectedIds(prev => [...prev, nextCard.id]);
+          const humanBoard = allBoards[currentBoardIndex];
+          if (humanBoard.some(c => c.id === nextCard.id)) {
+            setSelectedIds(prev => [...prev, nextCard.id]);
+          }
         }
         
-        // IA siempre marca automáticamente
+        // IA marca solo si la carta está en su tablero
         if (iaCards.some(c => c.id === nextCard.id)) {
           setIaSelectedIds(prev => [...prev, nextCard.id]);
         }
@@ -109,7 +119,7 @@ export function GameCanvas() {
       
       return () => clearInterval(interval);
     }
-  }, [gameStarted, isPlaying, remainingCards, isManualMode, iaCards]);
+  }, [gameStarted, isPlaying, remainingCards, isManualMode, iaCards, allBoards, currentBoardIndex]);
 
   const startGame = () => {
     setGameStarted(true);
@@ -123,9 +133,13 @@ export function GameCanvas() {
 
   const handleSelect = (carta: Card) => {
     if (isManualMode && cantadasIds.includes(carta.id)) {
-      setSelectedIds(prev => 
-        prev.includes(carta.id) ? prev.filter(id => id !== carta.id) : [...prev, carta.id]
-      );
+      const humanBoard = allBoards[currentBoardIndex];
+      // Solo permitir marcar si la carta está en el tablero del jugador
+      if (humanBoard.some(c => c.id === carta.id)) {
+        setSelectedIds(prev => 
+          prev.includes(carta.id) ? prev.filter(id => id !== carta.id) : [...prev, carta.id]
+        );
+      }
     }
   };
 
@@ -150,6 +164,9 @@ export function GameCanvas() {
     setCantadasIds([]);
     setCurrentCard(undefined);
     setWinner(null);
+    // Regenerar todos los cartones para nueva partida
+    setAllBoards(Array.from({ length: 10 }, () => generateRandomBoard()));
+    setIaCards(generateRandomBoard());
   };
 
   const handleContinueSameBoard = () => {
@@ -160,6 +177,7 @@ export function GameCanvas() {
     setCantadasIds([]);
     setCurrentCard(undefined);
     setWinner(null);
+    // Nuevo orden aleatorio de las 54 cartas
     const shuffled = [...LOTTERY_CARDS].sort(() => Math.random() - 0.5);
     setRemainingCards(shuffled);
   };
@@ -200,6 +218,7 @@ export function GameCanvas() {
                 cantadasIds={cantadasIds}
                 disabled={true}
                 showOverlay={false}
+                isIA={true}
               />
             </div>
           </div>
@@ -229,6 +248,14 @@ export function GameCanvas() {
                   : 'Marcado automático'}
               </div>
             </button>
+
+            <a
+              href="/home"
+              className="w-full py-4 rounded-lg font-bold text-white text-xs shadow-lg flex flex-col items-center gap-1 bg-red-600 hover:bg-red-700 transition-colors"
+            >
+              <div className="text-2xl">🚪</div>
+              <div className="text-sm font-black">SALIR</div>
+            </a>
           </div>
         </div>
       </div>
