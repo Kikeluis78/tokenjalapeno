@@ -62,7 +62,7 @@ export function Tablero({ cartas, seleccionadoIds = [], cantadasIds = [], disabl
       
       {/* Overlay */}
       {showOverlay && (
-        <div className="absolute inset-0 bg-black/80 rounded-2xl flex flex-col items-center justify-center backdrop-blur-sm">
+        <div className="absolute inset-0 bg-black rounded-2xl flex flex-col items-center justify-center">
           {overlayTitle && (
             <div className="text-white font-black text-xl mb-3">{overlayTitle}</div>
           )}
