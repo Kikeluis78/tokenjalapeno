@@ -232,17 +232,15 @@ export function GameCanvas() {
             <CartaCantada 
               carta={currentCard} 
               isPlaying={isPlaying}
-              onPlayPause={togglePlayPause}
+              onPlayPause={gameStarted ? togglePlayPause : startGame}
             />
             
             {boardSelected && !gameStarted && (
-              <button
-                onClick={startGame}
-                className="w-full py-4 rounded-lg font-bold text-white text-xs shadow-lg flex flex-col items-center gap-1 bg-green-600 hover:bg-green-700 transition-colors"
-              >
-                <div className="text-2xl">🎤</div>
-                <div className="text-sm font-black">CANTAR</div>
-              </button>
+              <div className="w-full py-4 rounded-lg font-bold text-white text-xs shadow-lg flex flex-col items-center gap-1 bg-gray-500">
+                <div className="text-2xl">👆</div>
+                <div className="text-sm font-black">PRESIONA CANTAR</div>
+                <div className="text-[10px] opacity-80 font-normal">Arriba para iniciar</div>
+              </div>
             )}
             
             <button
