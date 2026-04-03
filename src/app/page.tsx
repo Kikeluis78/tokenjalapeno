@@ -7,7 +7,7 @@ import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { AuthButton } from '@/components/AuthButton';
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); // Cambiado a false por defecto
 
   if (loading) {
     return <LoadingSpinner onComplete={() => setLoading(false)} />;

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { GameHeader } from '@/components/GameHeader';
 import { Tablero } from '@/components/Tablero';
 import { CartaCantada } from '@/components/CartaCantada';
@@ -21,8 +22,10 @@ const generateRandomBoard = () => {
 };
 
 export function GameCanvas() {
+  const router = useRouter();
   const [humanScore, setHumanScore] = useState(0);
   const [iaScore, setIaScore] = useState(0);
+  const [boardSelected, setBoardSelected] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isManualMode, setIsManualMode] = useState(false);
@@ -121,8 +124,13 @@ export function GameCanvas() {
     }
   }, [gameStarted, isPlaying, remainingCards, isManualMode, iaCards, allBoards, currentBoardIndex]);
 
+  const handleSelectBoard = () => {
+    setBoardSelected(true);
+  };
+
   const startGame = () => {
     setGameStarted(true);
+    setIsPlaying(true);
     const shuffled = [...LOTTERY_CARDS].sort(() => Math.random() - 0.5);
     setRemainingCards(shuffled);
   };
@@ -151,11 +159,21 @@ export function GameCanvas() {
     setCurrentBoardIndex(prev => Math.min(allBoards.length - 1, prev + 1));
   };
 
-  const handleSelectBoard = () => {
-    startGame();
+  const handleNewGame = () => {
+    setShowVictoryModal(false);
+    setBoardSelected(false);
+    setGameStarted(false);
+    setIsPlaying(false);
+    setSelectedIds([]);
+    setIaSelectedIds([]);
+    setCantadasIds([]);
+    setCurrentCard(undefined);
+    setWinner(null);
+    setAllBoards(Array.from({ length: 10 }, () => generateRandomBoard()));
+    setIaCards(generateRandomBoard());
   };
 
-  const handleNewGame = () => {
+  const handleContinueSameBoard = () => {
     setShowVictoryModal(false);
     setGameStarted(false);
     setIsPlaying(false);
@@ -164,22 +182,6 @@ export function GameCanvas() {
     setCantadasIds([]);
     setCurrentCard(undefined);
     setWinner(null);
-    // Regenerar todos los cartones para nueva partida
-    setAllBoards(Array.from({ length: 10 }, () => generateRandomBoard()));
-    setIaCards(generateRandomBoard());
-  };
-
-  const handleContinueSameBoard = () => {
-    setShowVictoryModal(false);
-    setIsPlaying(false);
-    setSelectedIds([]);
-    setIaSelectedIds([]);
-    setCantadasIds([]);
-    setCurrentCard(undefined);
-    setWinner(null);
-    // Nuevo orden aleatorio de las 54 cartas
-    const shuffled = [...LOTTERY_CARDS].sort(() => Math.random() - 0.5);
-    setRemainingCards(shuffled);
   };
 
   return (
@@ -201,7 +203,7 @@ export function GameCanvas() {
                 onSeleccionar={handleSelect}
                 showPeanut={isManualMode}
               />
-              {!gameStarted && (
+              {!boardSelected && (
                 <CarruselOverlay
                   currentIndex={currentBoardIndex}
                   totalBoards={allBoards.length}
@@ -211,14 +213,14 @@ export function GameCanvas() {
                 />
               )}
             </div>
-            <div className={`transition-all ${isManualMode ? 'scale-[0.33]' : 'scale-100'} origin-top`}>
+            <div className={`transition-all ${gameStarted ? 'scale-[0.33]' : 'scale-100'} origin-top`}>
               <Tablero 
                 cartas={iaCards}
                 seleccionadoIds={iaSelectedIds}
                 cantadasIds={cantadasIds}
                 disabled={true}
-                showOverlay={true}
-                overlayTitle=""
+                showOverlay={!gameStarted}
+                overlayTitle={!gameStarted ? "IA" : ""}
                 isIA={true}
               />
             </div>
@@ -231,6 +233,16 @@ export function GameCanvas() {
               isPlaying={isPlaying}
               onPlayPause={togglePlayPause}
             />
+            
+            {boardSelected && !gameStarted && (
+              <button
+                onClick={startGame}
+                className="w-full py-4 rounded-lg font-bold text-white text-xs shadow-lg flex flex-col items-center gap-1 bg-green-600 hover:bg-green-700 transition-colors"
+              >
+                <div className="text-2xl">🎤</div>
+                <div className="text-sm font-black">CANTAR</div>
+              </button>
+            )}
             
             <button
               onClick={() => setIsManualMode(!isManualMode)}
@@ -251,7 +263,7 @@ export function GameCanvas() {
             </button>
 
             <button
-              onClick={() => window.location.href = '/home'}
+              onClick={() => router.push('/')}
               className="w-full py-4 rounded-lg font-bold text-white text-xs shadow-lg flex flex-col items-center gap-1 bg-red-600 hover:bg-red-700 transition-colors"
             >
               <div className="text-2xl">🚪</div>
