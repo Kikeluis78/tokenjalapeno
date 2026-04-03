@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { GameHeader } from '@/components/GameHeader';
 import { Tablero } from '@/components/Tablero';
 import { CartaCantada } from '@/components/CartaCantada';
@@ -22,7 +21,6 @@ const generateRandomBoard = () => {
 };
 
 export function GameCanvas() {
-  const router = useRouter();
   const [humanScore, setHumanScore] = useState(0);
   const [iaScore, setIaScore] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
@@ -253,7 +251,7 @@ export function GameCanvas() {
             </button>
 
             <button
-              onClick={() => router.push('/home')}
+              onClick={() => window.location.href = '/home'}
               className="w-full py-4 rounded-lg font-bold text-white text-xs shadow-lg flex flex-col items-center gap-1 bg-red-600 hover:bg-red-700 transition-colors"
             >
               <div className="text-2xl">🚪</div>
