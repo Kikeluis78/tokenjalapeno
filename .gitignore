@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 !.env.sample
+
+# manual - documentación local (no subir)
+/manual
