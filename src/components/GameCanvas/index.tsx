@@ -8,6 +8,7 @@ import { CartaCantada } from '@/components/CartaCantada';
 import { Footer } from '@/components/Footer';
 import { CarruselOverlay } from '@/components/CarruselOverlay';
 import { LOTTERY_CARDS } from '@/data/cards';
+import { audioManager } from '@/utils/audio';
 import confetti from 'canvas-confetti';
 
 interface Card {
@@ -56,6 +57,8 @@ export function GameCanvas() {
       setWinner('human');
       setShowVictoryModal(true);
       setHumanScore(prev => prev + 1);
+      audioManager.stopBackgroundMusic();
+      audioManager.playVictorySound();
       
       // Confeti
       const duration = 3000;
@@ -87,6 +90,8 @@ export function GameCanvas() {
       setWinner('ia');
       setShowVictoryModal(true);
       setIaScore(prev => prev + 1);
+      audioManager.stopBackgroundMusic();
+      audioManager.playDefeatSound();
     }
   }, [selectedIds, iaSelectedIds, allBoards, currentBoardIndex, iaCards]);
 
@@ -134,6 +139,7 @@ export function GameCanvas() {
     setIsPlaying(true);
     const shuffled = [...LOTTERY_CARDS].sort(() => Math.random() - 0.5);
     setRemainingCards(shuffled);
+    audioManager.startBackgroundMusic();
   };
 
   const togglePlayPause = () => {
@@ -154,10 +160,12 @@ export function GameCanvas() {
 
   const handlePrevBoard = () => {
     setCurrentBoardIndex(prev => Math.max(0, prev - 1));
+    audioManager.playArrowSound();
   };
 
   const handleNextBoard = () => {
     setCurrentBoardIndex(prev => Math.min(allBoards.length - 1, prev + 1));
+    audioManager.playArrowSound();
   };
 
   const handleNewGame = () => {
@@ -300,6 +308,12 @@ export function GameCanvas() {
                 className="w-full px-6 py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg text-lg transition-colors"
               >
                 ▶️ Mismo Tablero
+              </button>
+              <button
+                onClick={() => router.push('/')}
+                className="w-full px-6 py-4 bg-gray-600 hover:bg-gray-700 text-white font-bold rounded-lg text-lg transition-colors"
+              >
+                🚪 Salir al Menú
               </button>
             </div>
           </div>
