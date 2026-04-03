@@ -92,32 +92,33 @@ export function GameCanvas() {
 
   useEffect(() => {
     if (gameStarted && isPlaying && remainingCards.length > 0) {
+      const nextCard = remainingCards[0];
+      setCurrentCard(nextCard);
+      setCantadasIds(prev => [...prev, nextCard.id]);
+      
+      // Modo automático: marcar solo si la carta está en el tablero humano
+      if (!isManualMode) {
+        const humanBoard = allBoards[currentBoardIndex];
+        if (humanBoard.some(c => c.id === nextCard.id)) {
+          setSelectedIds(prev => [...prev, nextCard.id]);
+        }
+      }
+      
+      // IA marca solo si la carta está en su tablero
+      if (iaCards.some(c => c.id === nextCard.id)) {
+        setIaSelectedIds(prev => [...prev, nextCard.id]);
+      }
+      
+      // Voz
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(nextCard.name);
+        utterance.lang = 'es-MX';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      }
+      
       const timeout = setTimeout(() => {
-        const nextCard = remainingCards[0];
-        setCurrentCard(nextCard);
-        setCantadasIds(prev => [...prev, nextCard.id]);
         setRemainingCards(prev => prev.slice(1));
-        
-        // Modo automático: marcar solo si la carta está en el tablero humano
-        if (!isManualMode) {
-          const humanBoard = allBoards[currentBoardIndex];
-          if (humanBoard.some(c => c.id === nextCard.id)) {
-            setSelectedIds(prev => [...prev, nextCard.id]);
-          }
-        }
-        
-        // IA marca solo si la carta está en su tablero
-        if (iaCards.some(c => c.id === nextCard.id)) {
-          setIaSelectedIds(prev => [...prev, nextCard.id]);
-        }
-        
-        // Voz
-        if ('speechSynthesis' in window) {
-          const utterance = new SpeechSynthesisUtterance(nextCard.name);
-          utterance.lang = 'es-MX';
-          utterance.rate = 0.9;
-          window.speechSynthesis.speak(utterance);
-        }
       }, 3000);
       
       return () => clearTimeout(timeout);
