@@ -92,7 +92,7 @@ export function GameCanvas() {
 
   useEffect(() => {
     if (gameStarted && isPlaying && remainingCards.length > 0) {
-      const interval = setInterval(() => {
+      const timeout = setTimeout(() => {
         const nextCard = remainingCards[0];
         setCurrentCard(nextCard);
         setCantadasIds(prev => [...prev, nextCard.id]);
@@ -120,7 +120,7 @@ export function GameCanvas() {
         }
       }, 3000);
       
-      return () => clearInterval(interval);
+      return () => clearTimeout(timeout);
     }
   }, [gameStarted, isPlaying, remainingCards, isManualMode, iaCards, allBoards, currentBoardIndex]);
 
