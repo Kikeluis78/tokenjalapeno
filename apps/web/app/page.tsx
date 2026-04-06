@@ -16,16 +16,16 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-900 via-red-800 to-yellow-700">
-      {/* Título con icono en esquina superior izquierda */}
-      <div className="absolute top-6 left-6 flex items-center gap-3">
-        <div className="text-5xl">🌶️</div>
-        <h1 className="font-[family-name:var(--font-alfa-slab)] text-3xl md:text-4xl text-red-600 drop-shadow-[0_6px_12px_rgba(0,0,0,0.9)]">
-          JALAPEÑO TOKEN<sup className="text-lg">®</sup>
+      {/* Título con icono en esquina superior izquierda - Optimizado móvil */}
+      <div className="absolute top-4 left-4 flex items-center gap-2">
+        <div className="text-3xl">🌶️</div>
+        <h1 className="text-xl font-black text-red-600 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] leading-tight" style={{ fontFamily: 'var(--font-alfa-slab)' }}>
+          JALAPEÑO<br />TOKEN<sup className="text-xs">®</sup>
         </h1>
       </div>
 
       {/* Contenido central */}
-      <div className="min-h-screen flex items-center justify-center p-6">
+      <div className="min-h-screen flex items-center justify-center px-6 pt-20">
         <div className="text-center">
           <p className="text-2xl text-yellow-300 font-bold">
             ¡Bienvenido al juego!

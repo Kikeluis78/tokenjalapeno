@@ -23,35 +23,35 @@ export const Spinner = ({ onComplete }: SpinnerProps) => {
   };
 
   return (
-    <div className="fixed inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-purple-900 via-pink-800 to-orange-700 p-6">
-      {/* Título Jalapeño Token */}
-      <div className="mb-8">
-        <h2 className="text-6xl md:text-7xl font-black text-red-600 drop-shadow-[0_6px_12px_rgba(0,0,0,0.9)] text-center" style={{ fontFamily: 'var(--font-alfa-slab)' }}>
-          JALAPEÑO TOKEN<sup className="text-3xl">®</sup>
+    <div className="fixed inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-purple-900 via-pink-800 to-orange-700 px-4 py-6">
+      {/* Título Jalapeño Token - Optimizado para móvil */}
+      <div className="w-full max-w-sm mb-6">
+        <h2 className="text-4xl font-black text-red-600 drop-shadow-[0_6px_12px_rgba(0,0,0,0.9)] text-center leading-tight" style={{ fontFamily: 'var(--font-alfa-slab)' }}>
+          JALAPEÑO<br />TOKEN<sup className="text-xl">®</sup>
         </h2>
       </div>
 
       {/* Imagen Jalapeño */}
-      <div className="w-full max-w-md aspect-square mb-12 flex items-center justify-center">
-        <div className="text-[12rem] animate-bounce drop-shadow-2xl">🌶️</div>
+      <div className="w-full max-w-xs aspect-square mb-8 flex items-center justify-center">
+        <div className="text-8xl animate-bounce drop-shadow-2xl">🌶️</div>
       </div>
 
       {/* Barra de progreso */}
-      <div className="w-full max-w-md mb-8">
-        <div className="h-6 bg-gray-900/50 rounded-full overflow-hidden border-4 border-white/20 shadow-2xl">
+      <div className="w-full max-w-sm mb-6">
+        <div className="h-4 bg-gray-900/50 rounded-full overflow-hidden border-2 border-white/20 shadow-2xl">
           <div
             className={`h-full transition-all duration-300 ${getProgressColor(progress)}`}
             style={{ width: `${progress}%` }}
           />
         </div>
-        <p className="text-white text-center mt-3 font-black text-2xl drop-shadow-lg">
+        <p className="text-white text-center mt-2 font-black text-xl drop-shadow-lg">
           {progress}%
         </p>
       </div>
 
       {/* Título estilo Lotería Mexicana */}
-      <div className="text-center space-y-4">
-        <h1 className="text-5xl md:text-6xl font-black leading-tight">
+      <div className="text-center space-y-3 px-4">
+        <h1 className="text-3xl font-black leading-tight">
           <span className="inline-block text-red-500 drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)] animate-pulse">L</span>
           <span className="inline-block text-yellow-400 drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">O</span>
           <span className="inline-block text-green-500 drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)] animate-pulse">T</span>
@@ -70,10 +70,10 @@ export const Spinner = ({ onComplete }: SpinnerProps) => {
           <span className="inline-block text-red-400 drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)] animate-pulse">A</span>
         </h1>
         
-        <p className="text-2xl md:text-3xl font-bold text-yellow-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] animate-pulse">
+        <p className="text-xl font-bold text-yellow-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] animate-pulse">
           Juega y gana tokens
         </p>
-        <p className="text-xl md:text-2xl font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+        <p className="text-lg font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
           y recompensas en <span className="text-blue-400">WLD</span>
         </p>
       </div>
