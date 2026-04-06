@@ -2,16 +2,26 @@
 
 import { useState } from 'react';
 import { Spinner } from '@/components/spinner';
+import { VerifyModal } from '@/components/modals';
 
 export default function Page() {
   const [showSpinner, setShowSpinner] = useState<boolean>(true);
+  const [isVerified, setIsVerified] = useState<boolean>(false);
 
   const handleSpinnerComplete = () => {
     setShowSpinner(false);
   };
 
+  const handleVerify = () => {
+    setIsVerified(true);
+  };
+
   if (showSpinner) {
     return <Spinner onComplete={handleSpinnerComplete} />;
+  }
+
+  if (!isVerified) {
+    return <VerifyModal onVerify={handleVerify} />;
   }
 
   return (
