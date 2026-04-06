@@ -49,72 +49,68 @@ export const BoardCarousel = () => {
         </p>
       </motion.div>
 
-      {/* Carrusel de tableros - TABLERO HUMANO MÁS GRANDE */}
-      <div className="w-full max-w-2xl mb-8">
-        <div className="flex items-center justify-between mb-6">
-          {/* Flecha izquierda */}
-          <button
-            onClick={handlePrev}
-            disabled={currentBoardIndex === 0}
-            className="text-7xl text-white disabled:opacity-30 transition hover:scale-110 active:scale-95 drop-shadow-lg"
-          >
-            ←
-          </button>
-
-          {/* Tablero actual - MÁS GRANDE Y CON MEJOR DISEÑO */}
-          <motion.div
-            key={currentBoardIndex}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="flex-1 mx-6"
-          >
-            <div className="bg-gradient-to-br from-yellow-500 via-yellow-600 to-orange-600 rounded-3xl p-6 shadow-2xl border-4 border-yellow-300">
-              <div className="bg-red-700 rounded-2xl p-1 mb-3">
-                <h3 className="text-white font-black text-center text-xl">TU TABLERO</h3>
-              </div>
-              <div className="grid grid-cols-4 gap-3">
-                {currentBoard?.map((card) => (
-                  <BoardCard key={card.id} card={card} />
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Flecha derecha */}
-          <button
-            onClick={handleNext}
-            disabled={currentBoardIndex === allBoards.length - 1}
-            className="text-7xl text-white disabled:opacity-30 transition hover:scale-110 active:scale-95 drop-shadow-lg"
-          >
-            →
-          </button>
-        </div>
-
-        {/* Botón seleccionar */}
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={selectBoard}
-          className="w-full bg-gradient-to-r from-red-600 to-orange-600 text-white font-black text-3xl py-5 rounded-2xl shadow-2xl border-4 border-white"
+      {/* Carrusel de tableros - DISEÑO SEGÚN PDF */}
+      <div className="w-full max-w-4xl flex items-center justify-center gap-8 mb-8">
+        {/* Flecha izquierda */}
+        <button
+          onClick={handlePrev}
+          disabled={currentBoardIndex === 0}
+          className="text-7xl text-red-500 disabled:opacity-30 transition hover:scale-110 active:scale-95 drop-shadow-lg"
         >
-          ✓ SELECCIONAR
-        </motion.button>
+          ◀
+        </button>
+
+        {/* Tablero actual - CENTRADO Y GRANDE */}
+        <motion.div
+          key={currentBoardIndex}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="flex-shrink-0"
+        >
+          <div className="bg-gradient-to-br from-yellow-400 via-yellow-500 to-orange-500 rounded-3xl p-6 shadow-2xl border-8 border-white">
+            <div className="grid grid-cols-4 gap-3 bg-white p-4 rounded-2xl">
+              {currentBoard?.map((card) => (
+                <BoardCard key={card.id} card={card} />
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Flecha derecha */}
+        <button
+          onClick={handleNext}
+          disabled={currentBoardIndex === allBoards.length - 1}
+          className="text-7xl text-red-500 disabled:opacity-30 transition hover:scale-110 active:scale-95 drop-shadow-lg"
+        >
+          ▶
+        </button>
       </div>
 
+      {/* Botón seleccionar - ESTILO PDF */}
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={selectBoard}
+        className="w-full max-w-md bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-black text-3xl py-6 rounded-full shadow-2xl border-4 border-white mb-8"
+      >
+        Seleccionar
+      </motion.button>
+
       {/* VS Indicator */}
-      <div className="text-5xl font-black text-white drop-shadow-lg mb-4 animate-pulse">
+      <div className="text-4xl font-black text-white drop-shadow-lg mb-4">
         VS
       </div>
 
-      {/* Tablero de la IA - MÁS PEQUEÑO */}
-      <div className="w-full max-w-xs">
-        <div className="bg-gray-900/80 rounded-xl p-3 shadow-xl border-2 border-gray-600">
-          <div className="bg-blue-700 rounded-lg p-1 mb-2">
-            <p className="text-white font-bold text-center text-sm">TABLERO IA</p>
+      {/* Tablero de la IA - COMPACTO ABAJO */}
+      <div className="w-full max-w-sm">
+        <div className="bg-gray-900/90 rounded-2xl p-4 shadow-xl border-4 border-gray-600">
+          <div className="bg-blue-700 rounded-lg p-2 mb-3 flex items-center justify-center gap-2">
+            <span className="text-2xl">🤖</span>
+            <p className="text-white font-bold text-center text-lg">IA</p>
           </div>
-          <div className="grid grid-cols-4 gap-1.5">
+          <div className="grid grid-cols-4 gap-2 bg-gray-800 p-2 rounded-lg">
             {iaBoard?.map((card) => (
-              <div key={card.id} className="bg-gray-700 rounded-md p-1.5 flex flex-col items-center justify-center aspect-square border border-gray-600">
+              <div key={card.id} className="bg-gray-700 rounded-lg p-2 flex flex-col items-center justify-center aspect-square border border-gray-600">
                 <span className="text-xl">{card.emoji}</span>
                 <span className="text-[0.45rem] text-gray-300 text-center leading-tight">{card.name}</span>
               </div>
