@@ -25,8 +25,7 @@ Este documento establece el protocolo completo para el desarrollo de la Mini App
 # Node.js (v18 o superior)
 node --version
 
-# pnpm (recomendado)
-npm install -g pnpm
+# npm viene incluido con Node.js
 
 # Foundry (para smart contracts)
 curl -L https://foundry.paradigm.xyz | bash
@@ -107,7 +106,7 @@ npx @worldcoin/create-mini-app@latest jalapeno-lottery
 cd jalapeno-lottery
 
 # Instalar dependencias
-pnpm install
+npm install
 
 # Configurar variables de entorno
 cp .env.example .env.local
@@ -372,7 +371,7 @@ export function BuyTicketButton({ roundId }: { roundId: number }) {
 
 ```bash
 # Terminal 1: Iniciar servidor de desarrollo
-pnpm dev
+npm run dev
 
 # Terminal 2: Iniciar ngrok
 ngrok http 3000
