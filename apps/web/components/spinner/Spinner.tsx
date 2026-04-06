@@ -25,16 +25,31 @@ export const Spinner = ({ onComplete }: SpinnerProps) => {
 
   return (
     <div className="fixed inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-purple-900 via-pink-800 to-orange-700 px-4 py-6">
-      {/* Logo Spinner - Centrado */}
-      <div className="w-full max-w-sm mb-12 flex justify-center">
-        <div className="relative w-64 h-64 animate-pulse">
+      {/* Título Lotería - Arriba y más grande */}
+      <div className="w-full max-w-lg flex justify-center mb-8">
+        <div className="relative w-96 h-28">
           <Image
-            src="/logoSpinner.png"
-            alt="Jalapeño Token"
+            src="/tituloLoteria.png"
+            alt="Lotería Mexicana"
             fill
             className="object-contain drop-shadow-2xl"
             priority
           />
+        </div>
+      </div>
+
+      {/* Logo Spinner - Circular sin fondo blanco */}
+      <div className="w-full max-w-sm mb-12 flex justify-center">
+        <div className="relative w-56 h-56 rounded-full overflow-hidden bg-gradient-to-br from-red-500 via-yellow-500 to-green-500 p-1 animate-pulse shadow-2xl">
+          <div className="w-full h-full rounded-full overflow-hidden bg-white/10 backdrop-blur-sm">
+            <Image
+              src="/logoSpinner.png"
+              alt="Jalapeño Token"
+              fill
+              className="object-cover scale-110"
+              priority
+            />
+          </div>
         </div>
       </div>
 
@@ -51,21 +66,8 @@ export const Spinner = ({ onComplete }: SpinnerProps) => {
         </p>
       </div>
 
-      {/* Título Lotería - Imagen */}
-      <div className="w-full max-w-md flex justify-center">
-        <div className="relative w-80 h-24">
-          <Image
-            src="/tituloLoteria.png"
-            alt="Lotería Mexicana"
-            fill
-            className="object-contain drop-shadow-2xl"
-            priority
-          />
-        </div>
-      </div>
-
       {/* Subtítulo */}
-      <div className="text-center space-y-3 px-4 mt-6">
+      <div className="text-center space-y-3 px-4">
         <p className="text-xl font-bold text-yellow-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] animate-pulse">
           Juega y gana tokens
         </p>

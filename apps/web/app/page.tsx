@@ -1,11 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Spinner } from '@/components/spinner';
 import { VerifyModal } from '@/components/modals';
 import Image from 'next/image';
 
 export default function Page() {
+  const router = useRouter();
   const [showSpinner, setShowSpinner] = useState<boolean>(true);
   const [isVerified, setIsVerified] = useState<boolean>(false);
 
@@ -15,6 +17,10 @@ export default function Page() {
 
   const handleVerify = () => {
     setIsVerified(true);
+  };
+
+  const handlePlayGame = () => {
+    router.push('/game');
   };
 
   if (showSpinner) {
@@ -42,7 +48,7 @@ export default function Page() {
 
       {/* Header con logo */}
       <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
-        <div className="relative w-12 h-12">
+        <div className="relative w-16 h-16">
           <Image
             src="/logoHome.png"
             alt="Jalapeño Token"
@@ -50,7 +56,7 @@ export default function Page() {
             className="object-contain"
           />
         </div>
-        <h1 className="text-base font-black text-red-600 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]" style={{ fontFamily: 'var(--font-alfa-slab)' }}>
+        <h1 className="text-lg font-black text-red-600 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]" style={{ fontFamily: 'var(--font-alfa-slab)' }}>
           JALAPEÑO TOKEN<sup className="text-xs">®</sup>
         </h1>
       </div>
@@ -59,7 +65,10 @@ export default function Page() {
       <div className="min-h-screen flex items-center justify-center px-6 pt-24 pb-8 relative z-10">
         <div className="w-full max-w-sm space-y-4">
           {/* Humano vs IA - ACTIVO */}
-          <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-black text-xl py-6 px-6 rounded-2xl shadow-2xl transform transition hover:scale-105 active:scale-95">
+          <button 
+            onClick={handlePlayGame}
+            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-black text-xl py-6 px-6 rounded-2xl shadow-2xl transform transition hover:scale-105 active:scale-95"
+          >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <span className="text-4xl">🤖</span>
