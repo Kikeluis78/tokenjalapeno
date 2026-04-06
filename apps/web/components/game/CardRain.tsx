@@ -17,18 +17,18 @@ export const CardRain = () => {
     return () => clearTimeout(timer);
   }, [startGame]);
 
-  // Generar 30 cartas aleatorias para la lluvia
-  const rainCards = Array.from({ length: 30 }, (_, i) => ({
+  // Generar 50 cartas para cubrir toda la pantalla horizontalmente
+  const rainCards = Array.from({ length: 50 }, (_, i) => ({
     id: i,
     card: LOTTERY_CARDS[Math.floor(Math.random() * LOTTERY_CARDS.length)],
     delay: Math.random() * 2,
-    x: Math.random() * 100,
+    x: (i % 10) * 10 + Math.random() * 8, // Distribuir uniformemente en toda la pantalla
     duration: 2 + Math.random() * 2
   }));
 
   return (
     <div className="fixed inset-0 bg-gradient-to-br from-purple-900 via-pink-800 to-orange-700 overflow-hidden">
-      {/* Lluvia de cartas */}
+      {/* Lluvia de cartas - cubrir toda la pantalla */}
       {rainCards.map((item) => (
         <motion.div
           key={item.id}

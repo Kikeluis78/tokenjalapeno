@@ -22,7 +22,7 @@ export const LOTTERY_CARDS: Card[] = [
   { id: 15, name: "La Pera", emoji: "🍐" },
   { id: 16, name: "La Bandera", emoji: "🇲🇽" },
   { id: 17, name: "El Bandolón", emoji: "🪕" },
-  { id: 18, name: "El Violoncello", emoji: "🎻" },
+  { id: 18, name: "El Violin", emoji: "🎻" },
   { id: 19, name: "La Garza", emoji: "🦢" },
   { id: 20, name: "El Pájaro", emoji: "🐦" },
   { id: 21, name: "La Mano", emoji: "✋" },
