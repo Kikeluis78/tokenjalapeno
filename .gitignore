@@ -34,3 +34,8 @@ npm-debug.log*
 # Misc
 .DS_Store
 *.pem
+
+# Confidential Documentation
+*CONFIDENCIAL*
+manual/*CONFIDENCIAL*
+manual/Jalapeno-Token-CONFIDENCIAL.md
