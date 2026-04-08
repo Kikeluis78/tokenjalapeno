@@ -6,6 +6,7 @@ import { useGameStore } from '@/lib/game/store';
 import { HeaderCarrusel } from './HeaderCarrusel';
 import { TableroUsuario } from './TableroUsuario';
 import { ContadorCartas } from './ContadorCartas';
+import { CartasSalidas } from './CartasSalidas';
 import { TableroIA } from './TableroIA';
 import { Footer } from './Footer';
 import { VictoryModal } from './VictoryModal';
@@ -42,11 +43,11 @@ export const GamePlay = () => {
   if (!selectedBoard) return null;
 
   return (
-    <div className="min-h-screen bg-[#111827] px-4 py-5 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-[#1a0b2e] via-[#2d1b3d] to-[#1a0b2e] px-4 py-5 text-white">
       <div className="mx-auto flex min-h-[100dvh] w-full max-w-[480px] flex-col gap-3">
         <HeaderCarrusel currentCard={currentCard} />
 
-        <section className="grid grid-cols-[1.5fr_0.9fr] gap-2.5">
+        <section className="grid grid-cols-[1fr_auto] gap-3">
           <TableroUsuario
             board={selectedBoard}
             calledCards={calledCards}
@@ -54,8 +55,9 @@ export const GamePlay = () => {
             onMarkCard={markCard}
           />
 
-          <div className="flex flex-col gap-2.5">
+          <div className="flex w-32 flex-col gap-2">
             <ContadorCartas calledCardIds={calledCards} cardsById={cardsById} />
+            <CartasSalidas calledCardIds={calledCards} cardsById={cardsById} />
             <TableroIA board={iaBoard} markedCards={iaMarked} />
           </div>
         </section>

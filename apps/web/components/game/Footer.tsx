@@ -7,22 +7,21 @@ interface FooterProps {
 
 export const Footer = ({ isPlaying, onPlay }: FooterProps) => {
   return (
-    <section className="mt-auto space-y-2.5 pt-1">
-      <div className="rounded-2xl border border-white/10 bg-white/5 p-3.5">
-        <h3 className="mb-1 text-xs font-bold text-white">🏆 Premios / Info</h3>
-        <p className="text-[11px] leading-relaxed text-white/70">
-          Completa tu tablero antes que la IA. Solo puedes marcar cartas que ya hayan salido.
-        </p>
-      </div>
-
+    <section className="space-y-2">
       <button
         type="button"
         onClick={onPlay}
         disabled={isPlaying}
-        className="w-full rounded-2xl bg-emerald-500 px-4 py-3.5 text-sm font-bold text-black transition active:scale-[0.98] disabled:cursor-not-allowed disabled:bg-white/20 disabled:text-white/60"
+        className="w-full transform rounded-2xl bg-gradient-to-r from-emerald-500 to-green-600 py-4 text-base font-black text-white shadow-lg transition hover:scale-105 active:scale-95 disabled:cursor-not-allowed disabled:bg-white/20 disabled:text-white/60 disabled:hover:scale-100"
       >
-        {isPlaying ? 'Jugando...' : '▶️ Play'}
+        {isPlaying ? '⏸️ Jugando...' : '▶️ Iniciar Juego'}
       </button>
+
+      <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
+        <p className="text-center text-[10px] leading-relaxed text-white/60">
+          Completa tu tablero antes que la IA
+        </p>
+      </div>
     </section>
   );
 };
