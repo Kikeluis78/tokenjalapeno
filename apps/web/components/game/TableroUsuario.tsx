@@ -17,7 +17,7 @@ export const TableroUsuario = ({ board, calledCards, markedCards, onMarkCard }: 
         <h3 className="text-[10px] font-bold uppercase tracking-wide text-white drop-shadow">Tu Tablero</h3>
       </div>
 
-      {/* Grid de cartas sin borde blanco */}
+      {/* Grid de cartas sin espacios */}
       <div className="flex-1 overflow-hidden rounded-lg">
         <div className="grid h-full grid-cols-4 gap-0">
           {board.map((card) => {
@@ -29,8 +29,9 @@ export const TableroUsuario = ({ board, calledCards, markedCards, onMarkCard }: 
                 key={card.id}
                 type="button"
                 onClick={() => onMarkCard(card.id)}
+                disabled={!isCalled}
                 className={[
-                  'relative aspect-square border border-gray-700 p-1.5 text-center transition active:scale-95',
+                  'relative border border-gray-700 p-2 text-center transition active:scale-95 disabled:cursor-not-allowed',
                   isMarked
                     ? 'bg-emerald-500/90'
                     : isCalled
@@ -38,15 +39,15 @@ export const TableroUsuario = ({ board, calledCards, markedCards, onMarkCard }: 
                       : 'bg-gradient-to-br from-gray-900 to-gray-800',
                 ].join(' ')}
               >
-                <div className="flex h-full flex-col items-center justify-center">
-                  <span className="text-2xl leading-none sm:text-3xl">{card.emoji}</span>
-                  <span className="mt-1 text-[8px] font-bold leading-tight text-white sm:text-[9px]">
+                <div className="flex h-full flex-col items-center justify-center gap-0.5">
+                  <span className="text-3xl leading-none">{card.emoji}</span>
+                  <span className="text-[8px] font-bold leading-tight text-white">
                     {card.name}
                   </span>
                 </div>
                 {isMarked && (
                   <div className="absolute inset-0 flex items-center justify-center bg-emerald-600/40">
-                    <span className="text-4xl drop-shadow-lg">✓</span>
+                    <span className="text-5xl drop-shadow-lg">🥜</span>
                   </div>
                 )}
               </button>

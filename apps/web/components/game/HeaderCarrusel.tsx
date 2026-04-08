@@ -16,12 +16,9 @@ export const HeaderCarrusel = ({ currentCard }: HeaderCarruselProps) => {
 
       {currentCard ? (
         <div className="rounded-lg border border-white/20 bg-gradient-to-br from-purple-600/30 to-pink-600/30 p-2">
-          <div className="flex items-center gap-2">
-            <span className="text-3xl">{currentCard.emoji}</span>
-            <div className="flex-1">
-              <p className="text-xs font-bold text-white">{currentCard.name}</p>
-              <p className="text-[9px] italic text-white/70">{currentCard.phrase}</p>
-            </div>
+          <div className="flex flex-col items-center gap-1 text-center">
+            <span className="text-4xl">{currentCard.emoji}</span>
+            <p className="text-xs font-bold text-white">{currentCard.name}</p>
           </div>
         </div>
       ) : (

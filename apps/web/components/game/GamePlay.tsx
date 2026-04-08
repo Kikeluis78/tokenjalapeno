@@ -44,16 +44,16 @@ export const GamePlay = () => {
   if (!selectedBoard) return null;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#1a0b2e] via-[#2d1b3d] to-[#1a0b2e] px-3 py-4">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#1a0b2e] via-[#2d1b3d] to-[#1a0b2e] px-3 py-3">
       {/* Botón salir */}
       <button
         onClick={() => router.push('/')}
-        className="absolute left-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-red-600/80 text-white shadow-lg transition hover:bg-red-700 active:scale-95"
+        className="absolute left-3 top-3 z-10 rounded-lg bg-red-600/90 px-3 py-1.5 text-xs font-bold text-white shadow-lg transition hover:bg-red-700 active:scale-95"
       >
-        ✕
+        ← Salir del juego
       </button>
 
-      <div className="mx-auto flex h-[100dvh] w-full max-w-[480px] gap-2">
+      <div className="mx-auto flex h-[100dvh] w-full max-w-[480px] gap-3 pt-12">
         {/* Columna izquierda - Tablero Usuario */}
         <div className="flex flex-1 flex-col">
           <TableroUsuario
@@ -71,12 +71,12 @@ export const GamePlay = () => {
           <CartasSalidas calledCardIds={calledCards} cardsById={cardsById} />
           <TableroIA board={iaBoard} markedCards={iaMarked} />
           
-          {/* Botón Play */}
+          {/* Botón Play debajo del tablero IA */}
           <button
             type="button"
             onClick={startCalling}
             disabled={isPlaying}
-            className="mt-auto transform rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 py-3 text-sm font-black text-white shadow-lg transition hover:scale-105 active:scale-95 disabled:cursor-not-allowed disabled:bg-white/20 disabled:text-white/60 disabled:hover:scale-100"
+            className="transform rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 py-3 text-sm font-black text-white shadow-lg transition hover:scale-105 active:scale-95 disabled:cursor-not-allowed disabled:bg-white/20 disabled:text-white/60 disabled:hover:scale-100"
           >
             {isPlaying ? '⏸️' : '▶️'}
           </button>
