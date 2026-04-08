@@ -31,6 +31,7 @@ interface GameState {
   selectBoard: () => void;
   startGame: () => void;
   generateBoards: () => void;
+  resetGame: () => void;
   startCalling: () => void;
   callNextCard: () => void;
   markCard: (cardId: number) => void;
@@ -55,6 +56,21 @@ export const useGameStore = create<GameState>((set, get) => ({
   
   setCurrentBoardIndex: (index: number) => set({ currentBoardIndex: index }),
   
+  resetGame: () => {
+    set({
+      currentBoardIndex: 0,
+      selectedBoard: null,
+      gamePhase: 'selection',
+      isPlaying: false,
+      currentCard: null,
+      calledCards: [],
+      remainingCards: [],
+      humanMarked: [],
+      iaMarked: [],
+      winner: null,
+    });
+  },
+
   selectBoard: () => {
     const { allBoards, currentBoardIndex } = get();
     set({ 

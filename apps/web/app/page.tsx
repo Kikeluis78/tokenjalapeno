@@ -11,105 +11,74 @@ export default function Page() {
   const [showSpinner, setShowSpinner] = useState<boolean>(true);
   const [isVerified, setIsVerified] = useState<boolean>(false);
 
-  const handleSpinnerComplete = () => {
-    setShowSpinner(false);
-  };
-
-  const handleVerify = () => {
-    setIsVerified(true);
-  };
-
-  const handlePlayGame = () => {
-    router.push('/game');
-  };
-
   if (showSpinner) {
-    return <Spinner onComplete={handleSpinnerComplete} />;
+    return <Spinner onComplete={() => setShowSpinner(false)} />;
   }
 
   if (!isVerified) {
-    return <VerifyModal onVerify={handleVerify} />;
+    return <VerifyModal onVerify={() => setIsVerified(true)} />;
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-900 via-red-800 to-yellow-700 relative overflow-hidden">
-      {/* Fondo jalapeño con marca de agua */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="relative w-full h-full max-w-2xl opacity-10">
-          <Image
-            src="/jalapeñoFondo.png"
-            alt="Background"
-            fill
-            className="object-contain"
-            priority
-          />
-        </div>
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#1a0b2e] via-[#2d1b3d] to-[#1a0b2e] px-4 py-6">
+      {/* Efectos de fondo */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -left-20 top-20 h-72 w-72 animate-pulse rounded-full bg-purple-600/20 blur-3xl" />
+        <div className="absolute -right-20 bottom-40 h-96 w-96 animate-pulse rounded-full bg-red-600/20 blur-3xl" style={{ animationDelay: '1s' }} />
+        <div className="absolute left-1/2 top-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 animate-pulse rounded-full bg-amber-500/10 blur-3xl" style={{ animationDelay: '2s' }} />
       </div>
 
-      {/* Header con logo */}
-      <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
-        <div className="relative w-16 h-16">
-          <Image
-            src="/logoHome.png"
-            alt="Jalapeño Token"
-            fill
-            className="object-contain"
-          />
-        </div>
-        <h1 className="text-lg font-black text-red-600 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]" style={{ fontFamily: 'var(--font-alfa-slab)' }}>
-          JALAPEÑO TOKEN<sup className="text-xs">®</sup>
-        </h1>
-      </div>
-
-      {/* Menú principal */}
-      <div className="min-h-screen flex items-center justify-center px-6 pt-24 pb-8 relative z-10">
-        <div className="w-full max-w-sm space-y-4">
-          {/* Humano vs IA - ACTIVO */}
-          <button 
-            onClick={handlePlayGame}
-            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-black text-xl py-6 px-6 rounded-2xl shadow-2xl transform transition hover:scale-105 active:scale-95"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="text-4xl">🤖</span>
-                <span>HUMANO VS IA</span>
-              </div>
-              <span className="text-2xl">▶️</span>
+      <div className="relative mx-auto flex min-h-[100dvh] w-full max-w-[480px] flex-col justify-between gap-6">
+        <div className="space-y-6">
+          <header className="space-y-4 pt-8 text-center">
+            <div className="relative mx-auto h-24 w-64">
+              <Image
+                src="/tituloLoteria.png"
+                alt="Lotería Mexicana"
+                fill
+                className="object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
+                priority
+              />
             </div>
-          </button>
+            <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-400 to-pink-400 drop-shadow-lg">
+              Jalapeño
+            </h1>
+            <p className="text-sm text-white/70 px-4">
+              Juego claro, táctil y listo para seguir creciendo.
+            </p>
+          </header>
 
-          {/* Torneo Semanal - BLOQUEADO */}
-          <button disabled className="w-full bg-gray-700/50 text-gray-400 font-black text-xl py-6 px-6 rounded-2xl shadow-xl opacity-60 cursor-not-allowed">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="text-4xl">🏆</span>
-                <span>TORNEO SEMANAL</span>
+          <section className="space-y-4 px-2">
+            <button
+              type="button"
+              onClick={() => router.push('/game')}
+              className="group relative w-full overflow-hidden rounded-2xl border-2 border-yellow-500/30 bg-gradient-to-br from-yellow-600/20 via-red-600/20 to-pink-600/20 p-6 text-left shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-yellow-400/50 hover:shadow-2xl hover:shadow-yellow-500/20 active:scale-[0.98]"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/0 via-yellow-500/10 to-yellow-500/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="relative">
+                <span className="mb-2 block text-xl font-bold text-white">🎮 Humano vs IA</span>
+                <span className="block text-sm text-white/70">Entrar al juego y seleccionar tablero.</span>
               </div>
-              <span className="text-2xl">🔒</span>
-            </div>
-          </button>
+            </button>
 
-          {/* Torneo Mensual - BLOQUEADO */}
-          <button disabled className="w-full bg-gray-700/50 text-gray-400 font-black text-xl py-6 px-6 rounded-2xl shadow-xl opacity-60 cursor-not-allowed">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="text-4xl">👑</span>
-                <span>TORNEO MENSUAL</span>
-              </div>
-              <span className="text-2xl">🔒</span>
-            </div>
-          </button>
+            <button
+              type="button"
+              disabled
+              className="relative w-full overflow-hidden rounded-2xl border-2 border-white/10 bg-gradient-to-br from-gray-800/40 to-gray-900/40 p-6 text-left opacity-50"
+            >
+              <span className="mb-2 block text-xl font-bold text-white/50">🏆 Torneo semanal</span>
+              <span className="block text-sm text-white/40">Disponible después.</span>
+            </button>
 
-          {/* Zona de Recompensas - BLOQUEADO */}
-          <button disabled className="w-full bg-gray-700/50 text-gray-400 font-black text-xl py-6 px-6 rounded-2xl shadow-xl opacity-60 cursor-not-allowed">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="text-4xl">🎁</span>
-                <span>RECOMPENSAS</span>
-              </div>
-              <span className="text-2xl">🔒</span>
-            </div>
-          </button>
+            <button
+              type="button"
+              disabled
+              className="relative w-full overflow-hidden rounded-2xl border-2 border-white/10 bg-gradient-to-br from-gray-800/40 to-gray-900/40 p-6 text-left opacity-50"
+            >
+              <span className="mb-2 block text-xl font-bold text-white/50">🎁 Recompensas</span>
+              <span className="block text-sm text-white/40">Se integra al final.</span>
+            </button>
+          </section>
         </div>
       </div>
     </div>

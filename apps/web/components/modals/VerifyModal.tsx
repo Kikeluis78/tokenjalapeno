@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 
 interface VerifyModalProps {
   onVerify: () => void;
@@ -13,7 +12,7 @@ export const VerifyModal = ({ onVerify }: VerifyModalProps) => {
   const handleVerify = () => {
     setIsVerifying(true);
     
-    // Simular verificación (2 segundos)
+    // Simular verificación (aquí irá la lógica de World ID)
     setTimeout(() => {
       setIsVerifying(false);
       onVerify();
@@ -21,55 +20,54 @@ export const VerifyModal = ({ onVerify }: VerifyModalProps) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4">
-      <div className="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl relative overflow-hidden">
-        {/* Fondo jalapeño muy pequeño y transparente */}
-        <div className="absolute top-4 right-4 w-16 h-16 opacity-10">
-          <Image
-            src="/jalapeñoFondo.png"
-            alt="Background"
-            fill
-            className="object-contain"
-          />
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-black/90 via-purple-900/30 to-black/90 px-4 backdrop-blur-sm">
+      <div className="relative w-full max-w-md overflow-hidden rounded-3xl bg-gradient-to-br from-white via-blue-50 to-purple-50 p-8 shadow-2xl">
+        {/* Efectos de fondo */}
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -right-10 -top-10 h-40 w-40 animate-pulse rounded-full bg-blue-400/20 blur-3xl" />
+          <div className="absolute -bottom-10 -left-10 h-40 w-40 animate-pulse rounded-full bg-purple-400/20 blur-3xl" style={{ animationDelay: '1s' }} />
         </div>
 
-        {/* Icono World ID */}
-        <div className="flex justify-center mb-6 relative z-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-            <span className="text-4xl">🌍</span>
-          </div>
-        </div>
-
-        {/* Título */}
-        <h2 className="text-2xl font-black text-gray-900 text-center mb-3 relative z-10">
-          Verifica tu Humanidad
-        </h2>
-
-        {/* Descripción */}
-        <p className="text-gray-600 text-center mb-8 relative z-10">
-          Necesitas verificar que eres humano con World ID para jugar y ganar recompensas
-        </p>
-
-        {/* Botón de verificación */}
-        <button
-          onClick={handleVerify}
-          disabled={isVerifying}
-          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 text-white font-black text-lg py-4 rounded-2xl shadow-lg transition transform hover:scale-105 active:scale-95 relative z-10"
-        >
-          {isVerifying ? (
-            <div className="flex items-center justify-center gap-2">
-              <div className="w-5 h-5 border-3 border-white border-t-transparent rounded-full animate-spin" />
-              <span>Verificando...</span>
+        {/* Contenido */}
+        <div className="relative z-10">
+          {/* Icono World ID */}
+          <div className="mb-6 flex justify-center">
+            <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 via-blue-600 to-purple-600 shadow-lg shadow-blue-500/50 animate-pulse">
+              <span className="text-5xl">🌍</span>
             </div>
-          ) : (
-            'Verificar con World ID'
-          )}
-        </button>
+          </div>
 
-        {/* Nota */}
-        <p className="text-xs text-gray-400 text-center mt-4 relative z-10">
-          Powered by World ID
-        </p>
+          {/* Título */}
+          <h2 className="mb-3 text-center text-3xl font-black text-gray-900">
+            Verifica tu Humanidad
+          </h2>
+
+          {/* Descripción */}
+          <p className="mb-8 text-center text-gray-600">
+            Usa World ID para verificar que eres humano y acceder al juego con recompensas
+          </p>
+
+          {/* Botón de verificación */}
+          <button
+            onClick={handleVerify}
+            disabled={isVerifying}
+            className="w-full transform rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 py-4 text-lg font-black text-white shadow-lg shadow-blue-500/30 transition hover:scale-105 hover:from-blue-700 hover:to-purple-700 active:scale-95 disabled:opacity-50 disabled:hover:scale-100"
+          >
+            {isVerifying ? (
+              <div className="flex items-center justify-center gap-2">
+                <div className="h-5 w-5 animate-spin rounded-full border-3 border-white border-t-transparent" />
+                <span>Verificando...</span>
+              </div>
+            ) : (
+              '🔐 Verificar con World ID'
+            )}
+          </button>
+
+          {/* Nota */}
+          <p className="mt-4 text-center text-xs text-gray-400">
+            Powered by Worldcoin
+          </p>
+        </div>
       </div>
     </div>
   );

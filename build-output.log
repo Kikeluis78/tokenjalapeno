@@ -1,0 +1,42 @@
+
+> jalapeno-loteria-mexicana@0.0.1 build
+> turbo build --filter=web
+
+• turbo 2.9.5
+
+   • Packages in scope: web
+   • Running build in 1 packages
+   • Remote caching disabled
+
+web:build: cache miss, executing 0e65f29db8c27ea7
+web:build: 
+web:build: > web@0.0.1 build
+web:build: > next build
+web:build: 
+web:build: ▲ Next.js 16.2.2 (Turbopack)
+web:build: 
+web:build:   Creating an optimized production build ...
+web:build: ✓ Compiled successfully in 72s
+web:build:   Running TypeScript ...
+web:build:   Finished TypeScript in 26.2s ...
+web:build:   Collecting page data using 1 worker ...
+web:build:   Generating static pages using 1 worker (0/5) ...
+web:build:   Generating static pages using 1 worker (1/5) 
+web:build:   Generating static pages using 1 worker (2/5) 
+web:build:   Generating static pages using 1 worker (3/5) 
+web:build: ✓ Generating static pages using 1 worker (5/5) in 1410ms
+web:build:   Finalizing page optimization ...
+web:build: 
+web:build: Route (app)
+web:build: ┌ ○ /
+web:build: ├ ○ /_not-found
+web:build: └ ○ /game
+web:build: 
+web:build: 
+web:build: ○  (Static)  prerendered as static content
+web:build: 
+
+ Tasks:    1 successful, 1 total
+Cached:    0 cached, 1 total
+  Time:    1m52.934s 
+

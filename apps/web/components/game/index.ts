@@ -1,5 +1,11 @@
 export { BoardCarousel } from './BoardCarousel';
 export { CardRain } from './CardRain';
+export { Footer } from './Footer';
 export { GameBoard } from './GameBoard';
 export { GamePlay } from './GamePlay';
+export { HeaderCarrusel } from './HeaderCarrusel';
+export { SelectionFooter } from './SelectionFooter';
+export { TableroIA } from './TableroIA';
+export { TableroUsuario } from './TableroUsuario';
+export { ContadorCartas } from './ContadorCartas';
 export { VictoryModal } from './VictoryModal';
