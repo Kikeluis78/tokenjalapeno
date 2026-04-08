@@ -8,25 +8,27 @@ interface HeaderCarruselProps {
 
 export const HeaderCarrusel = ({ currentCard }: HeaderCarruselProps) => {
   return (
-    <section className="rounded-2xl border border-white/10 bg-white/5 p-4">
-      <p className="mb-3 text-center text-xs font-semibold uppercase tracking-[0.2em] text-white/60">
-        Carta actual
-      </p>
-
-      <div className="flex min-h-28 flex-col items-center justify-center rounded-2xl bg-black/20 px-4 py-5 text-center">
-        {currentCard ? (
-          <>
-            <span className="mb-2 text-5xl leading-none">{currentCard.emoji}</span>
-            <h2 className="text-lg font-bold text-white">{currentCard.name}</h2>
-            <p className="mt-2 text-xs text-white/70">{currentCard.phrase}</p>
-          </>
-        ) : (
-          <>
-            <span className="mb-2 text-5xl leading-none text-white/30">🎴</span>
-            <p className="text-sm font-medium text-white/60">Esperando primera carta</p>
-          </>
-        )}
+    <section className="rounded-xl border border-white/10 bg-white/5 p-2">
+      <div className="mb-1 flex items-center gap-1.5">
+        <span className="text-xs">🎴</span>
+        <h3 className="text-[10px] font-bold uppercase tracking-wide text-white/80">Carta actual</h3>
       </div>
+
+      {currentCard ? (
+        <div className="rounded-lg border border-white/20 bg-gradient-to-br from-purple-600/30 to-pink-600/30 p-2">
+          <div className="flex items-center gap-2">
+            <span className="text-3xl">{currentCard.emoji}</span>
+            <div className="flex-1">
+              <p className="text-xs font-bold text-white">{currentCard.name}</p>
+              <p className="text-[9px] italic text-white/70">{currentCard.phrase}</p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="rounded-lg border border-dashed border-white/20 bg-black/20 p-3 text-center">
+          <p className="text-[10px] text-white/50">Esperando...</p>
+        </div>
+      )}
     </section>
   );
 };
