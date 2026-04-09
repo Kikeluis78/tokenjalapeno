@@ -1,6 +1,7 @@
 'use client';
 
 import { Card } from '@/lib/cards';
+import { useGameStore } from '@/lib/game/store';
 
 interface TableroUsuarioProps {
   board: Card[];
@@ -10,8 +11,10 @@ interface TableroUsuarioProps {
 }
 
 export const TableroUsuario = ({ board, calledCards, markedCards, onMarkCard }: TableroUsuarioProps) => {
+  const { shakeCardId } = useGameStore();
+
   return (
-    <section className="flex max-h-[50vh] flex-col  bg-gradient-to-br from-green-600 to-green-700 p-2 shadow-xl">
+    <section className="flex max-h-[50vh] flex-col rounded-xl bg-gradient-to-br from-green-600 to-green-700 p-2 shadow-xl">
       <div className="mb-1.5 flex items-center gap-2 px-1">
         <span className="text-sm">👤</span>
         <h3 className="text-[10px] font-bold uppercase tracking-wide text-white drop-shadow">Tu Tablero</h3>
@@ -23,6 +26,7 @@ export const TableroUsuario = ({ board, calledCards, markedCards, onMarkCard }: 
           {board.map((card) => {
             const isCalled = calledCards.includes(card.id);
             const isMarked = markedCards.includes(card.id);
+            const shouldShake = shakeCardId === card.id;
 
             return (
               <button
@@ -37,6 +41,7 @@ export const TableroUsuario = ({ board, calledCards, markedCards, onMarkCard }: 
                     : isCalled
                       ? 'bg-amber-400/80'
                       : 'bg-gradient-to-br from-gray-900 to-gray-800',
+                  shouldShake ? 'animate-shake' : '',
                 ].join(' ')}
               >
                 <div className="flex h-full flex-col items-center justify-center gap-0.5">
@@ -46,7 +51,7 @@ export const TableroUsuario = ({ board, calledCards, markedCards, onMarkCard }: 
                   </span>
                 </div>
                 {isMarked && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-emerald-600/40">
+                  <div className="absolute inset-0 flex items-center justify-center bg-emerald-600/60">
                     <span className="text-5xl drop-shadow-lg">🥜</span>
                   </div>
                 )}
@@ -55,6 +60,17 @@ export const TableroUsuario = ({ board, calledCards, markedCards, onMarkCard }: 
           })}
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+          20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        .animate-shake {
+          animation: shake 0.5s ease-in-out infinite;
+        }
+      `}</style>
     </section>
   );
 };

@@ -11,11 +11,13 @@ interface GameState {
   // Estado del juego
   gamePhase: 'selection' | 'transition' | 'playing' | 'finished';
   isPlaying: boolean;
+  autoPlay: boolean; // Modo automático
   
   // Cartas cantadas
   currentCard: Card | null;
   calledCards: number[]; // IDs de cartas cantadas
   remainingCards: Card[];
+  shakeCardId: number | null; // Carta que debe temblar
   
   // Marcado
   humanMarked: number[]; // IDs marcados por humano
@@ -36,6 +38,8 @@ interface GameState {
   callNextCard: () => void;
   markCard: (cardId: number) => void;
   checkVictory: () => void;
+  toggleAutoPlay: () => void;
+  setShakeCard: (cardId: number | null) => void;
 }
 
 export const useGameStore = create<GameState>((set, get) => ({
@@ -45,9 +49,11 @@ export const useGameStore = create<GameState>((set, get) => ({
   iaBoard: [],
   gamePhase: 'selection',
   isPlaying: false,
+  autoPlay: false,
   currentCard: null,
   calledCards: [],
   remainingCards: [],
+  shakeCardId: null,
   humanMarked: [],
   iaMarked: [],
   humanScore: 0,
@@ -56,15 +62,21 @@ export const useGameStore = create<GameState>((set, get) => ({
   
   setCurrentBoardIndex: (index: number) => set({ currentBoardIndex: index }),
   
+  toggleAutoPlay: () => set({ autoPlay: !get().autoPlay }),
+  
+  setShakeCard: (cardId: number | null) => set({ shakeCardId: cardId }),
+  
   resetGame: () => {
     set({
       currentBoardIndex: 0,
       selectedBoard: null,
       gamePhase: 'selection',
       isPlaying: false,
+      autoPlay: false,
       currentCard: null,
       calledCards: [],
       remainingCards: [],
+      shakeCardId: null,
       humanMarked: [],
       iaMarked: [],
       winner: null,
@@ -94,7 +106,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   },
   
   callNextCard: () => {
-    const { remainingCards, iaBoard, iaMarked } = get();
+    const { remainingCards, iaBoard, iaMarked, selectedBoard, humanMarked, autoPlay } = get();
     
     if (remainingCards.length === 0) return;
     
@@ -107,12 +119,31 @@ export const useGameStore = create<GameState>((set, get) => ({
       newIaMarked.push(nextCard.id);
     }
     
+    // Si autoPlay está activado, marcar automáticamente para humano también
+    let newHumanMarked = [...humanMarked];
+    if (autoPlay && selectedBoard?.some(card => card.id === nextCard.id) && !humanMarked.includes(nextCard.id)) {
+      newHumanMarked.push(nextCard.id);
+    }
+    
     set({
       currentCard: nextCard,
       calledCards: [...get().calledCards, nextCard.id],
       remainingCards: newRemaining,
-      iaMarked: newIaMarked
+      iaMarked: newIaMarked,
+      humanMarked: newHumanMarked,
+      shakeCardId: null, // Resetear shake
     });
+    
+    // Si NO es autoPlay y el humano tiene la carta, activar shake después de 5 segundos
+    if (!autoPlay && selectedBoard?.some(card => card.id === nextCard.id) && !humanMarked.includes(nextCard.id)) {
+      setTimeout(() => {
+        const currentState = get();
+        // Solo shake si aún no ha sido marcada
+        if (!currentState.humanMarked.includes(nextCard.id)) {
+          set({ shakeCardId: nextCard.id });
+        }
+      }, 5000);
+    }
     
     // Verificar victoria después de marcar
     setTimeout(() => get().checkVictory(), 100);

@@ -18,6 +18,7 @@ export const GamePlay = () => {
     iaBoard,
     currentCard,
     isPlaying,
+    autoPlay,
     calledCards,
     humanMarked,
     iaMarked,
@@ -25,6 +26,7 @@ export const GamePlay = () => {
     startCalling,
     callNextCard,
     markCard,
+    toggleAutoPlay,
   } = useGameStore();
 
   useEffect(() => {
@@ -70,6 +72,20 @@ export const GamePlay = () => {
           <ContadorCartas calledCardIds={calledCards} cardsById={cardsById} />
           <CartasSalidas calledCardIds={calledCards} cardsById={cardsById} />
           <TableroIA board={iaBoard} markedCards={iaMarked} />
+          
+          {/* Toggle AutoPlay */}
+          <button
+            type="button"
+            onClick={toggleAutoPlay}
+            className={[
+              'transform rounded-lg py-2 text-xs font-bold transition hover:scale-105 active:scale-95',
+              autoPlay
+                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
+                : 'bg-white/10 text-white/60',
+            ].join(' ')}
+          >
+            {autoPlay ? '🤖 Auto' : '👆 Manual'}
+          </button>
           
           {/* Botón Play debajo del tablero IA */}
           <button

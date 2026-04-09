@@ -24,7 +24,7 @@ export const TableroIA = ({ board, markedCards }: TableroIAProps) => {
               key={card.id}
               className={[
                 'aspect-square border border-gray-700',
-                isMarked ? 'bg-rose-500/30' : 'bg-gray-900/50',
+                isMarked ? 'bg-rose-500/70' : 'bg-gray-900/50',
               ].join(' ')}
             >
               <div className="flex h-full flex-col items-center justify-center">

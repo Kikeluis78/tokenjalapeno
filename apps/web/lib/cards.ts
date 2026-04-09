@@ -11,7 +11,7 @@ export const LOTTERY_CARDS: Card[] = [
   { id: 3, name: "La Dama", emoji: "👸", phrase: "Puliendo el paso por toda la plaza" },
   { id: 4, name: "El Sombrero", emoji: "🎩", phrase: "Tan bonito y elegante" },
   { id: 5, name: "El Paraguas", emoji: "☂️", phrase: "Los usas para la lluvia" },
-  { id: 6, name: "La Sirena", emoji: "🧜♀️", phrase: "Con los encantos del mar" },
+  { id: 6, name: "La Sirena", emoji: "🧜", phrase: "Con los encantos del mar" },
   { id: 7, name: "La Escalera", emoji: "🪜", phrase: "Súbete a ella y bajarás" },
   { id: 8, name: "La Botella", emoji: "🍾", phrase: "La herramienta del borracho" },
   { id: 9, name: "El Barril", emoji: "🛢️", phrase: "Tanto corre el que lo carga" },
