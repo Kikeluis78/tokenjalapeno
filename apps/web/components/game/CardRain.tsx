@@ -37,10 +37,9 @@ export const CardRain = () => {
       {rainCards.map((item) => (
         <motion.div
           key={item.id}
-          initial={{ y: -100, x: `${item.x}%`, rotate: 0, opacity: 0 }}
+          initial={{ y: -100, x: `${item.x}%`, opacity: 0 }}
           animate={{ 
             y: '110vh', 
-            rotate: 360,
             opacity: [0, 0.4, 0.4, 0]
           }}
           transition={{
