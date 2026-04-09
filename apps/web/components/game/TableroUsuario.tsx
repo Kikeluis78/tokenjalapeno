@@ -33,13 +33,13 @@ export const TableroUsuario = ({ board, calledCards, markedCards, onMarkCard }: 
                 key={card.id}
                 type="button"
                 onClick={() => onMarkCard(card.id)}
-                disabled={!isCalled}
+                disabled={!isCalled || isMarked}
                 className={[
                   'relative border border-gray-700 p-2 text-center transition active:scale-95 disabled:cursor-not-allowed',
                   isMarked
                     ? 'bg-emerald-500/90'
                     : isCalled
-                      ? 'bg-amber-400/80'
+                      ? 'bg-amber-400'
                       : 'bg-gradient-to-br from-gray-900 to-gray-800',
                   shouldShake ? 'animate-shake' : '',
                 ].join(' ')}

@@ -8,14 +8,13 @@ interface HeaderCarruselProps {
 }
 
 export const HeaderCarrusel = ({ currentCard }: HeaderCarruselProps) => {
-  // TODO: Implementar audio con Web Speech API o grabaciones
+  // Reproducir audio con Web Speech API
   useEffect(() => {
     if (currentCard) {
-      // Aquí se reproducirá el audio de la frase
-      // const utterance = new SpeechSynthesisUtterance(currentCard.phrase);
-      // utterance.lang = 'es-MX';
-      // window.speechSynthesis.speak(utterance);
-      console.log('🔊 Frase:', currentCard.phrase);
+      const utterance = new SpeechSynthesisUtterance(currentCard.phrase);
+      utterance.lang = 'es-MX';
+      utterance.rate = 0.9; // Velocidad natural
+      window.speechSynthesis.speak(utterance);
     }
   }, [currentCard]);
 
@@ -31,7 +30,6 @@ export const HeaderCarrusel = ({ currentCard }: HeaderCarruselProps) => {
           <div className="flex flex-col items-center gap-1 text-center">
             <span className="text-4xl">{currentCard.emoji}</span>
             <p className="text-xs font-bold text-white">{currentCard.name}</p>
-            <p className="text-[8px] italic text-white/70">"{currentCard.phrase}"</p>
           </div>
         </div>
       ) : (

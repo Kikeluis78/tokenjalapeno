@@ -68,9 +68,8 @@ export const GamePlay = () => {
 
         {/* Columna derecha */}
         <div className="flex w-32 flex-col gap-2">
-          <HeaderCarrusel currentCard={currentCard} />
           <ContadorCartas calledCardIds={calledCards} cardsById={cardsById} />
-          <CartasSalidas calledCardIds={calledCards} cardsById={cardsById} />
+          <HeaderCarrusel currentCard={currentCard} />
           <TableroIA board={iaBoard} markedCards={iaMarked} />
           
           {/* Toggle AutoPlay */}
