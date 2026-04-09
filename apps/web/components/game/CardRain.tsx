@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useGameStore } from '@/lib/game/store';
 import { LOTTERY_CARDS } from '@/lib/cards';
@@ -8,8 +8,19 @@ import Image from 'next/image';
 
 export const CardRain = () => {
   const { startGame } = useGameStore();
+  const [cards, setCards] = useState<{ id: number; left: string; delay: number; emoji: string }[]>([]);
 
   useEffect(() => {
+    // Generar 15 cartas con posiciones aleatorias
+    const newCards = Array.from({ length: 15 }).map((_, i) => ({
+      id: i,
+      left: `${Math.random() * 120 - 10}%`, // Cubre más del ancho visible
+      delay: Math.random() * 2,
+      emoji: LOTTERY_CARDS[Math.floor(Math.random() * LOTTERY_CARDS.length)].emoji,
+    }));
+    setCards(newCards);
+
+    // Iniciar juego después de 3 segundos
     const timer = setTimeout(() => {
       startGame();
     }, 3000);
@@ -17,63 +28,63 @@ export const CardRain = () => {
     return () => clearTimeout(timer);
   }, [startGame]);
 
-  // Crear cortina de cartas: 15 columnas x 4 filas = 60 cartas
-  const rainCards = Array.from({ length: 60 }, (_, i) => {
-    const col = i % 15; // 15 columnas
-    const row = Math.floor(i / 15); // 4 filas
-    
-    return {
-      id: i,
-      card: LOTTERY_CARDS[Math.floor(Math.random() * LOTTERY_CARDS.length)],
-      delay: row * 0.3 + Math.random() * 0.2, // Filas escalonadas
-      x: (col / 14) * 100, // Distribuir columnas de 0% a 100%
-      duration: 2.5 + Math.random() * 0.5
-    };
-  });
-
   return (
-    <div className="fixed inset-0 overflow-hidden bg-gradient-to-br from-purple-900 via-pink-800 to-orange-700">
-      {/* Lluvia de cartas - cubrir toda la pantalla horizontalmente */}
-      {rainCards.map((item) => (
-        <motion.div
-          key={item.id}
-          initial={{ y: -100, x: `${item.x}%`, opacity: 0 }}
-          animate={{ 
-            y: '110vh', 
-            opacity: [0, 0.4, 0.4, 0]
-          }}
-          transition={{
-            duration: item.duration,
-            delay: item.delay,
-            ease: 'linear'
-          }}
-          className="absolute"
-        >
-          <div className="flex h-20 w-16 flex-col items-center justify-center rounded-lg bg-white p-3 shadow-2xl">
-            <span className="text-3xl">{item.card.emoji}</span>
-          </div>
-        </motion.div>
-      ))}
-
-      {/* Logo central */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <motion.div
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-          className="text-center"
-        >
-          <div className="relative mx-auto h-32 w-80 drop-shadow-2xl">
-            <Image
-              src="/tituloLoteria2.png"
-              alt="Lotería Mexicana"
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
-        </motion.div>
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-purple-900 via-pink-800 to-orange-700">
+      
+      {/* Lluvia de cartas */}
+      <div className="pointer-events-none absolute inset-0 h-full w-full">
+        {cards.map((card) => (
+          <motion.div
+            key={card.id}
+            initial={{ y: '-10vh', opacity: 0, rotate: 0 }}
+            animate={{
+              y: '110vh',
+              opacity: [0, 1, 1, 0],
+              rotate: 360,
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              delay: card.delay,
+              ease: 'linear',
+            }}
+            style={{ left: card.left }}
+            className="absolute flex h-20 w-16 items-center justify-center rounded-lg border-2 border-green-500 bg-white shadow-2xl"
+          >
+            <span className="text-4xl">{card.emoji}</span>
+          </motion.div>
+        ))}
       </div>
+
+      {/* Centro - Logo y barra de progreso */}
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        className="relative z-10 w-full max-w-md px-4 text-center"
+      >
+        <div className="relative mx-auto mb-6 h-32 w-80 drop-shadow-2xl">
+          <Image
+            src="/tituloLoteria2.png"
+            alt="Lotería Mexicana"
+            fill
+            className="object-contain"
+            priority
+          />
+        </div>
+
+        <h2 className="mb-4 text-3xl font-bold tracking-widest text-white">
+          REPARTIENDO...
+        </h2>
+
+        <div className="h-2 w-full overflow-hidden rounded-full bg-slate-700">
+          <motion.div
+            className="h-full bg-gradient-to-r from-green-500 to-yellow-500"
+            initial={{ width: '0%' }}
+            animate={{ width: '100%' }}
+            transition={{ duration: 3, ease: 'linear' }}
+          />
+        </div>
+      </motion.div>
     </div>
   );
 };
