@@ -49,7 +49,7 @@ export const BoardCarousel = () => {
         <div className="absolute -right-20 bottom-40 h-96 w-96 animate-pulse rounded-full bg-yellow-600/20 blur-3xl" style={{ animationDelay: '1s' }} />
       </div>
 
-      <div className="relative mx-auto flex min-h-[150dvh] w-full max-w-[420px] flex-col justify-center gap-2">
+      <div className="relative mx-auto flex min-h-[50dvh] w-full max-w-[420px] flex-col justify-center gap-2">
         {/* Header */}
         <header className="text-center">
           <h1 className="text-lg font-bold uppercase tracking-wider text-white">Selecciona tablero</h1>

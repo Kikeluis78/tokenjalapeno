@@ -17,14 +17,19 @@ export const CardRain = () => {
     return () => clearTimeout(timer);
   }, [startGame]);
 
-  // Generar 60 cartas distribuidas uniformemente en horizontal (0-100%)
-  const rainCards = Array.from({ length: 60 }, (_, i) => ({
-    id: i,
-    card: LOTTERY_CARDS[Math.floor(Math.random() * LOTTERY_CARDS.length)],
-    delay: Math.random() * 2,
-    x: (i / 60) * 100, // Distribuir uniformemente de 0% a 100%
-    duration: 2.5 + Math.random() * 1.5
-  }));
+  // Crear cortina de cartas: 15 columnas x 4 filas = 60 cartas
+  const rainCards = Array.from({ length: 60 }, (_, i) => {
+    const col = i % 15; // 15 columnas
+    const row = Math.floor(i / 15); // 4 filas
+    
+    return {
+      id: i,
+      card: LOTTERY_CARDS[Math.floor(Math.random() * LOTTERY_CARDS.length)],
+      delay: row * 0.3 + Math.random() * 0.2, // Filas escalonadas
+      x: (col / 14) * 100, // Distribuir columnas de 0% a 100%
+      duration: 2.5 + Math.random() * 0.5
+    };
+  });
 
   return (
     <div className="fixed inset-0 overflow-hidden bg-gradient-to-br from-purple-900 via-pink-800 to-orange-700">
