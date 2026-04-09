@@ -17,12 +17,12 @@ export const CardRain = () => {
     return () => clearTimeout(timer);
   }, [startGame]);
 
-  // Generar 60 cartas distribuidas uniformemente en toda la pantalla
+  // Generar 60 cartas distribuidas uniformemente en horizontal (0-100%)
   const rainCards = Array.from({ length: 60 }, (_, i) => ({
     id: i,
     card: LOTTERY_CARDS[Math.floor(Math.random() * LOTTERY_CARDS.length)],
     delay: Math.random() * 2,
-    x: (i * 100 / 60) + Math.random() * 5, // Distribuir uniformemente 0-100%
+    x: (i / 60) * 100, // Distribuir uniformemente de 0% a 100%
     duration: 2.5 + Math.random() * 1.5
   }));
 

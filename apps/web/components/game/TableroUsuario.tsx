@@ -11,7 +11,7 @@ interface TableroUsuarioProps {
 
 export const TableroUsuario = ({ board, calledCards, markedCards, onMarkCard }: TableroUsuarioProps) => {
   return (
-    <section className="flex max-h-[40vh] flex-col rounded-xl bg-gradient-to-br from-green-600 to-green-700 p-2 shadow-xl">
+    <section className="flex max-h-[50vh] flex-col  bg-gradient-to-br from-green-600 to-green-700 p-2 shadow-xl">
       <div className="mb-1.5 flex items-center gap-2 px-1">
         <span className="text-sm">👤</span>
         <h3 className="text-[10px] font-bold uppercase tracking-wide text-white drop-shadow">Tu Tablero</h3>

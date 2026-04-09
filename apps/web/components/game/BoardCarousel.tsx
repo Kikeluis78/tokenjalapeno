@@ -49,7 +49,7 @@ export const BoardCarousel = () => {
         <div className="absolute -right-20 bottom-40 h-96 w-96 animate-pulse rounded-full bg-yellow-600/20 blur-3xl" style={{ animationDelay: '1s' }} />
       </div>
 
-      <div className="relative mx-auto flex min-h-[100dvh] w-full max-w-[420px] flex-col justify-center gap-4">
+      <div className="relative mx-auto flex min-h-[150dvh] w-full max-w-[420px] flex-col justify-center gap-2">
         {/* Header */}
         <header className="text-center">
           <h1 className="text-lg font-bold uppercase tracking-wider text-white">Selecciona tablero</h1>
@@ -59,7 +59,7 @@ export const BoardCarousel = () => {
         {/* Tablero con fondo verde */}
         <section className="relative">
           {/* Contenedor verde (fondo del tablero) */}
-          <div className="rounded-3xl bg-gradient-to-br from-green-600 to-green-700 p-4 shadow-2xl">
+          <div className=" bg-gradient-to-br from-green-600 to-green-700 p-4 shadow-2xl">
             {/* Borde blanco grueso */}
             <div className="rounded-2xl border-[6px] border-white bg-white p-2 shadow-inner">
               {/* Grid de cartas 4x4 sin gaps */}
