@@ -105,7 +105,7 @@ export const BoardCarousel = () => {
             {/* Mano animada indicando swipe */}
             {showHand && (
               <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                <div className="animate-[swipe_2s_ease-in-out_infinite] text-6xl drop-shadow-2xl">
+                <div className="animate-bounce text-6xl drop-shadow-2xl">
                   👆
                 </div>
               </div>
@@ -117,29 +117,11 @@ export const BoardCarousel = () => {
         <button
           type="button"
           onClick={selectBoard}
-          className="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-500 bg-[length:200%_100%] py-4 text-lg font-black text-white shadow-lg shadow-blue-500/50 transition-all hover:scale-105 hover:shadow-xl hover:shadow-blue-500/60 active:scale-95 animate-[gradient_3s_ease_infinite,pulse_2s_ease-in-out_infinite]"
+          className="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-500 py-4 text-lg font-black text-white shadow-lg shadow-blue-500/50 transition-all hover:scale-105 hover:shadow-xl hover:shadow-blue-500/60 active:scale-95 animate-pulse"
         >
           <span className="relative z-10">Seleccionar</span>
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100 animate-[shine_2s_ease-in-out_infinite]" />
         </button>
       </div>
-
-      <style jsx>{`
-        @keyframes swipe {
-          0%, 100% { transform: translateX(-20px); opacity: 0.6; }
-          50% { transform: translateX(20px); opacity: 1; }
-        }
-
-        @keyframes gradient {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-
-        @keyframes shine {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-      `}</style>
     </div>
   );
 };

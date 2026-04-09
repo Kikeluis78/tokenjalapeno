@@ -11,15 +11,15 @@ interface TableroUsuarioProps {
 
 export const TableroUsuario = ({ board, calledCards, markedCards, onMarkCard }: TableroUsuarioProps) => {
   return (
-    <section className="flex h-full flex-col rounded-xl bg-gradient-to-br from-green-600 to-green-700 p-2 shadow-xl">
+    <section className="flex max-h-[40vh] flex-col rounded-xl bg-gradient-to-br from-green-600 to-green-700 p-2 shadow-xl">
       <div className="mb-1.5 flex items-center gap-2 px-1">
         <span className="text-sm">👤</span>
         <h3 className="text-[10px] font-bold uppercase tracking-wide text-white drop-shadow">Tu Tablero</h3>
       </div>
 
       {/* Grid de cartas sin espacios */}
-      <div className="flex-1 overflow-hidden rounded-lg">
-        <div className="grid h-full grid-cols-4 gap-0">
+      <div className="overflow-hidden rounded-lg">
+        <div className="grid grid-cols-4 gap-0">
           {board.map((card) => {
             const isCalled = calledCards.includes(card.id);
             const isMarked = markedCards.includes(card.id);
