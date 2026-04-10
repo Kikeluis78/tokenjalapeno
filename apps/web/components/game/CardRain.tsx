@@ -85,10 +85,10 @@ export const CardRain = () => {
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        className="relative z-10 w-full max-w-md px-4 text-center"
+        className="relative z-10 w-full max-w-md px-4 text-center mt-auto mb-20"
       >
-        <h2 className="mb-4 text-3xl font-bold tracking-widest text-white">
-          PREPARANDO JUEGO.......
+        <h2 className="mb-4 text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-pink-400 to-purple-500 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+          🎮 PREPARANDO JUEGO 🎲
         </h2>
 
         <div className="h-2 w-full overflow-hidden rounded-full bg-slate-700">
