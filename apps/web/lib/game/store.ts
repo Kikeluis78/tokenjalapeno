@@ -169,15 +169,16 @@ export const useGameStore = create<GameState>((set, get) => ({
       shakeCardId: null, // Resetear shake
     });
     
-    // Si NO es autoPlay y el humano tiene la carta, activar shake después de 7 segundos
+    // Si NO es autoPlay y el humano tiene la carta, activar shake después de 10 segundos
     if (!autoPlay && selectedBoard?.some(card => card.id === nextCard.id) && !humanMarked.includes(nextCard.id)) {
       setTimeout(() => {
         const currentState = get();
-        // Solo shake si aún no ha sido marcada
-        if (!currentState.humanMarked.includes(nextCard.id)) {
+        // Solo shake si aún no ha sido marcada y el usuario la tiene en su tablero
+        if (!currentState.humanMarked.includes(nextCard.id) && 
+            currentState.selectedBoard?.some(card => card.id === nextCard.id)) {
           set({ shakeCardId: nextCard.id });
         }
-      }, 7000);
+      }, 10000); // 10 segundos
     }
     
     // Verificar victoria después de marcar

@@ -8,16 +8,20 @@ import Image from 'next/image';
 
 export const CardRain = () => {
   const { startGame } = useGameStore();
-  const [cards, setCards] = useState<{ id: number; left: string; delay: number; emoji: string }[]>([]);
+  const [cards, setCards] = useState<{ id: number; left: string; delay: number; emoji: string; size: 'small' | 'medium' | 'large' }[]>([]);
 
   useEffect(() => {
-    // Generar 15 cartas con posiciones aleatorias
-    const newCards = Array.from({ length: 15 }).map((_, i) => ({
-      id: i,
-      left: `${Math.random() * 120 - 10}%`, // Cubre más del ancho visible
-      delay: Math.random() * 2,
-      emoji: LOTTERY_CARDS[Math.floor(Math.random() * LOTTERY_CARDS.length)].emoji,
-    }));
+    // Generar 20 cartas con tamaños variados
+    const newCards = Array.from({ length: 20 }).map((_, i) => {
+      const sizes = ['small', 'medium', 'large'] as const;
+      return {
+        id: i,
+        left: `${Math.random() * 120 - 10}%`,
+        delay: Math.random() * 2,
+        emoji: LOTTERY_CARDS[Math.floor(Math.random() * LOTTERY_CARDS.length)].emoji,
+        size: sizes[Math.floor(Math.random() * sizes.length)]
+      };
+    });
     setCards(newCards);
 
     // Iniciar juego después de 3 segundos
@@ -28,9 +32,30 @@ export const CardRain = () => {
     return () => clearTimeout(timer);
   }, [startGame]);
 
+  const getSizeClasses = (size: 'small' | 'medium' | 'large') => {
+    switch (size) {
+      case 'small': return 'h-12 w-10 text-2xl';
+      case 'medium': return 'h-16 w-12 text-3xl';
+      case 'large': return 'h-20 w-16 text-4xl';
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-purple-900 via-pink-800 to-orange-700">
       
+      {/* Logo de fondo más grande */}
+      <div className="absolute inset-0 flex items-center justify-center opacity-20">
+        <div className="relative h-[60vh] w-[90vw]">
+          <Image
+            src="/tituloLoteria2.png"
+            alt="Fondo"
+            fill
+            className="object-contain"
+            priority
+          />
+        </div>
+      </div>
+
       {/* Lluvia de cartas */}
       <div className="pointer-events-none absolute inset-0 h-full w-full">
         {cards.map((card) => (
@@ -39,7 +64,7 @@ export const CardRain = () => {
             initial={{ y: '-10vh', opacity: 0, rotate: 0 }}
             animate={{
               y: '110vh',
-              opacity: [0, 1, 1, 0],
+              opacity: [0, 0.3, 0.3, 0],
               rotate: 360,
             }}
             transition={{
@@ -49,9 +74,9 @@ export const CardRain = () => {
               ease: 'linear',
             }}
             style={{ left: card.left }}
-            className="absolute flex h-20 w-16 items-center justify-center rounded-lg border-2 border-green-500 bg-white shadow-2xl"
+            className={`absolute flex items-center justify-center rounded-lg border-2 border-green-500 bg-white shadow-2xl ${getSizeClasses(card.size)}`}
           >
-            <span className="text-4xl">{card.emoji}</span>
+            <span>{card.emoji}</span>
           </motion.div>
         ))}
       </div>

@@ -64,7 +64,7 @@ export const GamePlay = () => {
 
       <div className="mx-auto flex h-[100dvh] w-full max-w-[480px] gap-3 pt-20 pb-24">
         {/* Columna izquierda - Tablero Usuario */}
-        <div className="flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col pt-4">
           <TableroUsuario
             board={selectedBoard}
             calledCards={calledCards}
