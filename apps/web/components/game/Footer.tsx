@@ -1,27 +1,62 @@
 'use client';
 
 interface FooterProps {
-  isPlaying: boolean;
-  onPlay: () => void;
+  humanScore: number;
+  iaScore: number;
 }
 
-export const Footer = ({ isPlaying, onPlay }: FooterProps) => {
+export const Footer = ({ humanScore, iaScore }: FooterProps) => {
   return (
-    <section className="space-y-2">
-      <button
-        type="button"
-        onClick={onPlay}
-        disabled={isPlaying}
-        className="w-full transform rounded-2xl bg-gradient-to-r from-emerald-500 to-green-600 py-4 text-base font-black text-white shadow-lg transition hover:scale-105 active:scale-95 disabled:cursor-not-allowed disabled:bg-white/20 disabled:text-white/60 disabled:hover:scale-100"
-      >
-        {isPlaying ? '⏸️ Jugando...' : '▶️ Iniciar Juego'}
-      </button>
+    <footer className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-black/70 backdrop-blur-sm border-t border-white/10 px-4 py-3">
+      <div className="mx-auto flex max-w-[480px] items-center justify-between gap-4">
+        {/* Usuario - Izquierda */}
+        <div className="flex flex-col items-center gap-2">
+          <div className="flex items-center gap-2">
+            {/* Avatar circular */}
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 text-xl shadow-lg">
+              👤
+            </div>
+            {/* Bandera */}
+            <span className="text-2xl">🏳️</span>
+          </div>
+          
+          {/* Victorias del usuario */}
+          <div className="flex gap-1">
+            {Array.from({ length: humanScore }).map((_, i) => (
+              <div key={i} className="flex h-6 w-6 items-center justify-center rounded-full bg-red-500/20 text-sm">
+                🌶️
+              </div>
+            ))}
+            {humanScore === 0 && (
+              <span className="text-xs text-white/40">Sin victorias</span>
+            )}
+          </div>
+        </div>
 
-      <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-        <p className="text-center text-[10px] leading-relaxed text-white/60">
-          Completa tu tablero antes que la IA
-        </p>
+        {/* IA - Derecha */}
+        <div className="flex flex-col items-center gap-2">
+          <div className="flex items-center gap-2">
+            {/* Bandera México */}
+            <span className="text-2xl">🇲🇽</span>
+            {/* Avatar circular */}
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-pink-500 text-xl shadow-lg">
+              🤖
+            </div>
+          </div>
+          
+          {/* Victorias de la IA */}
+          <div className="flex gap-1">
+            {Array.from({ length: iaScore }).map((_, i) => (
+              <div key={i} className="flex h-6 w-6 items-center justify-center rounded-full bg-purple-500/20 text-sm">
+                🤖
+              </div>
+            ))}
+            {iaScore === 0 && (
+              <span className="text-xs text-white/40">Sin victorias</span>
+            )}
+          </div>
+        </div>
       </div>
-    </section>
+    </footer>
   );
 };

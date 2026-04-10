@@ -7,9 +7,9 @@ import { useGameStore } from '@/lib/game/store';
 import { HeaderCarrusel } from './HeaderCarrusel';
 import { TableroUsuario } from './TableroUsuario';
 import { ContadorCartas } from './ContadorCartas';
-import { CartasSalidas } from './CartasSalidas';
 import { TableroIA } from './TableroIA';
 import { VictoryModal } from './VictoryModal';
+import { Footer } from './Footer';
 
 export const GamePlay = () => {
   const router = useRouter();
@@ -23,6 +23,8 @@ export const GamePlay = () => {
     humanMarked,
     iaMarked,
     winner,
+    humanScore,
+    iaScore,
     startCalling,
     callNextCard,
     markCard,
@@ -97,6 +99,9 @@ export const GamePlay = () => {
           </button>
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer humanScore={humanScore} iaScore={iaScore} />
 
       {winner && <VictoryModal />}
     </div>
