@@ -81,22 +81,12 @@ export const CardRain = () => {
         ))}
       </div>
 
-      {/* Centro - Logo y barra de progreso */}
+      {/* Centro - Barra de progreso */}
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         className="relative z-10 w-full max-w-md px-4 text-center"
       >
-        <div className="relative mx-auto mb-6 h-32 w-[80%] drop-shadow-2xl">
-          <Image
-            src="/tituloLoteria2.png"
-            alt="Lotería Mexicana"
-            fill
-            className="object-contain"
-            priority
-          />
-        </div>
-
         <h2 className="mb-4 text-3xl font-bold tracking-widest text-white">
           PREPARANDO JUEGO.......
         </h2>
