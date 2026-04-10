@@ -45,12 +45,12 @@ export const CardRain = () => {
       
       {/* Logo de fondo más grande */}
       <div className="absolute inset-0 flex items-center justify-center opacity-20">
-        <div className="relative h-[60vh] w-[90vw]">
+        <div className="relative h-full w-full">
           <Image
-            src="/tituloLoteria2.png"
+            src="/juego2.png"
             alt="Fondo"
             fill
-            className="object-contain"
+            className="object-cover"
             priority
           />
         </div>
