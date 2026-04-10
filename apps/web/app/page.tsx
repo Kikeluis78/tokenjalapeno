@@ -27,6 +27,17 @@ export default function Page() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#1a0b2e] via-[#2d1b3d] to-[#1a0b2e] px-4 py-6">
+      {/* Fondo de agua completo */}
+      <div className="absolute inset-0">
+        <Image
+          src="/juego2.png"
+          alt="Fondo"
+          fill
+          className="object-cover opacity-30"
+          priority
+        />
+      </div>
+
       {/* Efectos de fondo */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -left-20 top-20 h-72 w-72 animate-pulse rounded-full bg-purple-600/20 blur-3xl" />
