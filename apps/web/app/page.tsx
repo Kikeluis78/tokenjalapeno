@@ -33,8 +33,9 @@ export default function Page() {
           src="/juego2.png"
           alt="Fondo"
           fill
-          className="object-cover opacity-30"
+          className="object-cover object-center opacity-30"
           priority
+          style={{ objectPosition: 'center' }}
         />
       </div>
 
@@ -47,16 +48,8 @@ export default function Page() {
 
       <div className="relative mx-auto flex min-h-[100dvh] w-full max-w-[480px] flex-col justify-between gap-6">
         <div className="space-y-6">
-          <header className="space-y-4 pt-8 text-center">
-            <div className="relative mx-auto h-32 w-full max-w-md">
-              <Image
-                src="/texto.png"
-                alt="Lotería Mexicana"
-                fill
-                className="object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
-                priority
-              />
-            </div>
+          <header className="pt-8 text-center">
+            {/* Header sin imagen */}
           </header>
 
           <section className="space-y-4 px-2">
@@ -64,14 +57,14 @@ export default function Page() {
               type="button"
               onClick={() => router.push('/game')}
               disabled={!canPlayFree}
-              className="group relative w-full overflow-hidden rounded-2xl border-2 border-yellow-500/30 bg-gradient-to-br from-yellow-600/20 via-red-600/20 to-pink-600/20 p-6 text-left shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-yellow-400/50 hover:shadow-2xl hover:shadow-yellow-500/20 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative w-full overflow-hidden rounded-2xl border-2 border-yellow-400 bg-gradient-to-br from-yellow-500 via-orange-500 to-red-500 p-6 text-left shadow-2xl shadow-yellow-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-3xl hover:shadow-yellow-400/60 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/0 via-yellow-500/10 to-yellow-500/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               <div className="relative">
-                <span className="mb-2 block text-xl font-bold text-white">
+                <span className="mb-2 block text-2xl font-black text-white drop-shadow-lg">
                   🎮 Humano vs IA {!canPlayFree && '🔒'}
                 </span>
-                <span className="block text-sm text-white/70">
+                <span className="block text-sm font-bold text-white/90 drop-shadow">
                   {canPlayFree ? 'Entrar al juego y seleccionar tablero.' : 'En cooldown. Compra un juego abajo.'}
                 </span>
               </div>
@@ -84,12 +77,12 @@ export default function Page() {
                   buyGameWithWLD();
                   router.push('/game');
                 }}
-                className="group relative w-full overflow-hidden rounded-2xl border-2 border-blue-500/30 bg-gradient-to-br from-blue-600/20 via-cyan-600/20 to-blue-600/20 p-6 text-left shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-500/20 active:scale-[0.98]"
+                className="group relative w-full overflow-hidden rounded-2xl border-2 border-cyan-400 bg-gradient-to-br from-cyan-500 via-blue-500 to-purple-500 p-6 text-left shadow-2xl shadow-cyan-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-3xl hover:shadow-cyan-400/60 active:scale-[0.98]"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 <div className="relative">
-                  <span className="mb-2 block text-xl font-bold text-white">💎 Comprar juego</span>
-                  <span className="block text-sm text-white/70">0.001 WLD - Juega inmediatamente</span>
+                  <span className="mb-2 block text-2xl font-black text-white drop-shadow-lg">💎 Comprar juego</span>
+                  <span className="block text-sm font-bold text-white/90 drop-shadow">0.001 WLD - Juega inmediatamente</span>
                 </div>
               </button>
             )}
@@ -97,18 +90,18 @@ export default function Page() {
             <button
               type="button"
               disabled
-              className="relative w-full overflow-hidden rounded-2xl border-2 border-white/10 bg-gradient-to-br from-gray-800/40 to-gray-900/40 p-6 text-left opacity-50"
+              className="relative w-full overflow-hidden rounded-2xl border-2 border-white/20 bg-gradient-to-br from-gray-700/50 to-gray-900/50 p-6 text-left opacity-40"
             >
-              <span className="mb-2 block text-xl font-bold text-white/50">🏆 Torneo semanal</span>
+              <span className="mb-2 block text-xl font-bold text-white/60">🏆 Torneo semanal</span>
               <span className="block text-sm text-white/40">Disponible después.</span>
             </button>
 
             <button
               type="button"
               disabled
-              className="relative w-full overflow-hidden rounded-2xl border-2 border-white/10 bg-gradient-to-br from-gray-800/40 to-gray-900/40 p-6 text-left opacity-50"
+              className="relative w-full overflow-hidden rounded-2xl border-2 border-white/20 bg-gradient-to-br from-gray-700/50 to-gray-900/50 p-6 text-left opacity-40"
             >
-              <span className="mb-2 block text-xl font-bold text-white/50">🎁 Recompensas</span>
+              <span className="mb-2 block text-xl font-bold text-white/60">🎁 Recompensas</span>
               <span className="block text-sm text-white/40">Se integra al final.</span>
             </button>
           </section>
