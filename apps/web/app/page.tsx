@@ -27,16 +27,17 @@ export default function Page() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#1a0b2e] via-[#2d1b3d] to-[#1a0b2e] px-4 py-6">
-      {/* Fondo de agua completo */}
-      <div className="absolute inset-0">
-        <Image
-          src="/juego2.png"
-          alt="Fondo"
-          fill
-          className="object-cover object-center opacity-30"
-          priority
-          style={{ objectPosition: 'center' }}
-        />
+      {/* Fondo de agua completo - más estrecho */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="relative h-full w-[80%]">
+          <Image
+            src="/juego2.png"
+            alt="Fondo"
+            fill
+            className="object-contain opacity-30"
+            priority
+          />
+        </div>
       </div>
 
       {/* Efectos de fondo */}
@@ -46,9 +47,9 @@ export default function Page() {
         <div className="absolute left-1/2 top-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 animate-pulse rounded-full bg-amber-500/10 blur-3xl" style={{ animationDelay: '2s' }} />
       </div>
 
-      <div className="relative mx-auto flex min-h-[100dvh] w-full max-w-[480px] flex-col justify-between gap-6">
+      <div className="relative mx-auto flex min-h-[100dvh] w-full max-w-[480px] flex-col justify-center gap-6">
         <div className="space-y-6">
-          <header className="pt-8 text-center">
+          <header className="pt-4 text-center">
             {/* Header sin imagen */}
           </header>
 
