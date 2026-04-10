@@ -27,8 +27,8 @@ export default function Page() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#1a0b2e] via-[#2d1b3d] to-[#1a0b2e] px-4 py-6">
-      {/* Fondo de agua completo - más estrecho */}
-      <div className="absolute inset-0 flex items-center justify-center">
+      {/* Fondo de agua completo - más estrecho y arriba */}
+      <div className="absolute top-0 left-0 right-0 bottom-[40%] flex items-start justify-center pt-20">
         <div className="relative h-full w-[80%]">
           <Image
             src="/juego2.png"
@@ -91,19 +91,19 @@ export default function Page() {
             <button
               type="button"
               disabled
-              className="relative w-full overflow-hidden rounded-2xl border-2 border-white/20 bg-gradient-to-br from-gray-700/50 to-gray-900/50 p-6 text-left opacity-40"
+              className="relative w-full overflow-hidden rounded-2xl border-2 border-purple-500/30 bg-gradient-to-br from-purple-600/30 via-pink-600/30 to-red-600/30 p-6 text-left opacity-60"
             >
-              <span className="mb-2 block text-xl font-bold text-white/60">🏆 Torneo semanal</span>
-              <span className="block text-sm text-white/40">Disponible después.</span>
+              <span className="mb-2 block text-xl font-bold text-white/70">🏆 Torneo semanal</span>
+              <span className="block text-sm text-white/50">Disponible después.</span>
             </button>
 
             <button
               type="button"
               disabled
-              className="relative w-full overflow-hidden rounded-2xl border-2 border-white/20 bg-gradient-to-br from-gray-700/50 to-gray-900/50 p-6 text-left opacity-40"
+              className="relative w-full overflow-hidden rounded-2xl border-2 border-green-500/30 bg-gradient-to-br from-green-600/30 via-emerald-600/30 to-teal-600/30 p-6 text-left opacity-60"
             >
-              <span className="mb-2 block text-xl font-bold text-white/60">🎁 Recompensas</span>
-              <span className="block text-sm text-white/40">Se integra al final.</span>
+              <span className="mb-2 block text-xl font-bold text-white/70">🎁 Recompensas</span>
+              <span className="block text-sm text-white/50">Se integra al final.</span>
             </button>
           </section>
         </div>
