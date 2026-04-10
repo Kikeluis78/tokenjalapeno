@@ -1,15 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Spinner } from '@/components/spinner';
 import { VerifyModal } from '@/components/modals';
+import { useGameStore } from '@/lib/game/store';
 import Image from 'next/image';
 
 export default function Page() {
   const router = useRouter();
   const [showSpinner, setShowSpinner] = useState<boolean>(true);
   const [isVerified, setIsVerified] = useState<boolean>(false);
+  const { canPlayFree, buyGameWithWLD, updateCooldown } = useGameStore();
+
+  useEffect(() => {
+    updateCooldown();
+  }, [updateCooldown]);
 
   if (showSpinner) {
     return <Spinner onComplete={() => setShowSpinner(false)} />;
@@ -52,14 +58,36 @@ export default function Page() {
             <button
               type="button"
               onClick={() => router.push('/game')}
-              className="group relative w-full overflow-hidden rounded-2xl border-2 border-yellow-500/30 bg-gradient-to-br from-yellow-600/20 via-red-600/20 to-pink-600/20 p-6 text-left shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-yellow-400/50 hover:shadow-2xl hover:shadow-yellow-500/20 active:scale-[0.98]"
+              disabled={!canPlayFree}
+              className="group relative w-full overflow-hidden rounded-2xl border-2 border-yellow-500/30 bg-gradient-to-br from-yellow-600/20 via-red-600/20 to-pink-600/20 p-6 text-left shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-yellow-400/50 hover:shadow-2xl hover:shadow-yellow-500/20 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/0 via-yellow-500/10 to-yellow-500/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               <div className="relative">
-                <span className="mb-2 block text-xl font-bold text-white">🎮 Humano vs IA</span>
-                <span className="block text-sm text-white/70">Entrar al juego y seleccionar tablero.</span>
+                <span className="mb-2 block text-xl font-bold text-white">
+                  🎮 Humano vs IA {!canPlayFree && '🔒'}
+                </span>
+                <span className="block text-sm text-white/70">
+                  {canPlayFree ? 'Entrar al juego y seleccionar tablero.' : 'En cooldown. Compra un juego abajo.'}
+                </span>
               </div>
             </button>
+
+            {!canPlayFree && (
+              <button
+                type="button"
+                onClick={() => {
+                  buyGameWithWLD();
+                  router.push('/game');
+                }}
+                className="group relative w-full overflow-hidden rounded-2xl border-2 border-blue-500/30 bg-gradient-to-br from-blue-600/20 via-cyan-600/20 to-blue-600/20 p-6 text-left shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-500/20 active:scale-[0.98]"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="relative">
+                  <span className="mb-2 block text-xl font-bold text-white">💎 Comprar juego</span>
+                  <span className="block text-sm text-white/70">0.001 WLD - Juega inmediatamente</span>
+                </div>
+              </button>
+            )}
 
             <button
               type="button"

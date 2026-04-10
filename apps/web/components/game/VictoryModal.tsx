@@ -15,7 +15,8 @@ export const VictoryModal = () => {
     gameStartTime,
     claimRewards,
     playDoubleOrNothing,
-    doubleOrNothingCount
+    doubleOrNothingCount,
+    buyGameWithWLD
   } = useGameStore();
   
   const [reward, setReward] = useState(0);
@@ -118,6 +119,17 @@ export const VictoryModal = () => {
             className="w-full rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-3 text-sm font-black text-white shadow-lg transition hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             🎲 Doble o Nada {doubleOrNothingCount >= 3 && '(Máximo alcanzado)'}
+          </button>
+          
+          <button
+            type="button"
+            onClick={() => {
+              buyGameWithWLD();
+              router.push('/game');
+            }}
+            className="w-full rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 px-4 py-3 text-sm font-black text-white shadow-lg transition hover:scale-105 active:scale-95"
+          >
+            💎 Comprar juego (0.001 WLD)
           </button>
           
           <button

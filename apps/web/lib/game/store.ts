@@ -56,6 +56,7 @@ interface GameState {
   updateCooldown: () => void;
   claimRewards: () => void;
   playDoubleOrNothing: () => void;
+  buyGameWithWLD: () => void;
 }
 
 export const useGameStore = create<GameState>((set, get) => ({
@@ -314,5 +315,21 @@ export const useGameStore = create<GameState>((set, get) => ({
       doubleOrNothingCount: doubleOrNothingCount + 1,
       // Mantener cooldown y balance
     });
+  },
+  
+  buyGameWithWLD: () => {
+    // TODO: Integrar con MiniKit Pay
+    // const payment = await MiniKit.commandsAsync.pay({...})
+    
+    // Simular compra exitosa
+    console.log('💎 Juego comprado con 0.001 WLD');
+    
+    // Habilitar juego inmediato
+    set({
+      canPlayFree: true,
+      cooldownRemaining: 0,
+    });
+    
+    alert('✅ Juego comprado! Puedes jugar ahora.');
   }
 }));
