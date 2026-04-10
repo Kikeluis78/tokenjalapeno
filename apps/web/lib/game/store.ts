@@ -37,6 +37,8 @@ interface GameState {
   totalGames: number;
   currentStreak: number;
   gameStartTime: number | null;
+  lastReward: number;
+  doubleOrNothingCount: number;
   
   // Acciones
   setCurrentBoardIndex: (index: number) => void;
@@ -53,6 +55,7 @@ interface GameState {
   setShakeCard: (cardId: number | null) => void;
   updateCooldown: () => void;
   claimRewards: () => void;
+  playDoubleOrNothing: () => void;
 }
 
 export const useGameStore = create<GameState>((set, get) => ({
@@ -82,6 +85,8 @@ export const useGameStore = create<GameState>((set, get) => ({
   totalGames: 0,
   currentStreak: 0,
   gameStartTime: null,
+  lastReward: 0,
+  doubleOrNothingCount: 0,
   
   setCurrentBoardIndex: (index: number) => set({ currentBoardIndex: index }),
   
@@ -217,9 +222,10 @@ export const useGameStore = create<GameState>((set, get) => ({
         weeklyWins: get().weeklyWins + 1,
         totalGames: get().totalGames + 1,
         currentStreak: currentStreak + 1,
+        lastReward: reward,
         lastPlayTime: Date.now(),
         canPlayFree: false,
-        cooldownRemaining: 8 * 60 * 60 // 8 horas en segundos
+        cooldownRemaining: 8 * 60 * 60
       });
       return;
     }
@@ -235,7 +241,8 @@ export const useGameStore = create<GameState>((set, get) => ({
         iaScore: get().iaScore + 1,
         jalapenoBalance: get().jalapenoBalance + reward,
         totalGames: get().totalGames + 1,
-        currentStreak: 0, // Resetear racha
+        currentStreak: 0,
+        lastReward: reward,
         lastPlayTime: Date.now(),
         canPlayFree: false,
         cooldownRemaining: 8 * 60 * 60
@@ -279,5 +286,33 @@ export const useGameStore = create<GameState>((set, get) => ({
     // Simular cobro de recompensas
     // TODO: Integrar con smart contract real
     console.log('💰 Recompensas cobradas:', get().jalapenoBalance);
+  },
+  
+  playDoubleOrNothing: () => {
+    const { lastReward, doubleOrNothingCount } = get();
+    
+    // Máximo 3 doble o nada consecutivos
+    if (doubleOrNothingCount >= 3) {
+      alert('⚠️ Máximo 3 "Doble o Nada" consecutivos');
+      return;
+    }
+    
+    // Resetear juego y permitir jugar inmediatamente
+    set({
+      currentBoardIndex: 0,
+      selectedBoard: null,
+      gamePhase: 'selection',
+      isPlaying: false,
+      autoPlay: false,
+      currentCard: null,
+      calledCards: [],
+      remainingCards: [],
+      shakeCardId: null,
+      humanMarked: [],
+      iaMarked: [],
+      winner: null,
+      doubleOrNothingCount: doubleOrNothingCount + 1,
+      // Mantener cooldown y balance
+    });
   }
 }));

@@ -10,6 +10,7 @@ import { ContadorCartas } from './ContadorCartas';
 import { TableroIA } from './TableroIA';
 import { VictoryModal } from './VictoryModal';
 import { Footer } from './Footer';
+import { Header } from './Header';
 
 export const GamePlay = () => {
   const router = useRouter();
@@ -50,15 +51,18 @@ export const GamePlay = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#1a0b2e] via-[#2d1b3d] to-[#1a0b2e] px-3 py-3">
+      {/* Header con balance y stats */}
+      <Header />
+      
       {/* Botón salir */}
       <button
         onClick={() => router.push('/')}
-        className="absolute left-3 top-3 z-10 rounded-lg bg-red-600/90 px-3 py-1.5 text-xs font-bold text-white shadow-lg transition hover:bg-red-700 active:scale-95"
+        className="absolute left-3 top-16 z-10 rounded-lg bg-red-600/90 px-3 py-1.5 text-xs font-bold text-white shadow-lg transition hover:bg-red-700 active:scale-95"
       >
-        ← Salir del juego
+        ← Salir
       </button>
 
-      <div className="mx-auto flex h-[100dvh] w-full max-w-[480px] gap-3 pt-12">
+      <div className="mx-auto flex h-[100dvh] w-full max-w-[480px] gap-3 pt-20 pb-24">
         {/* Columna izquierda - Tablero Usuario */}
         <div className="flex flex-1 flex-col">
           <TableroUsuario

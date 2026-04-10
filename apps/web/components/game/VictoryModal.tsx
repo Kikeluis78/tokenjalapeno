@@ -13,7 +13,9 @@ export const VictoryModal = () => {
     weeklyWins, 
     currentStreak,
     gameStartTime,
-    claimRewards
+    claimRewards,
+    playDoubleOrNothing,
+    doubleOrNothingCount
   } = useGameStore();
   
   const [reward, setReward] = useState(0);
@@ -108,10 +110,14 @@ export const VictoryModal = () => {
           
           <button
             type="button"
-            onClick={() => { resetGame(); router.push('/game'); }}
-            className="w-full rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-3 text-sm font-black text-white shadow-lg transition hover:scale-105 active:scale-95"
+            onClick={() => {
+              playDoubleOrNothing();
+              router.push('/game');
+            }}
+            disabled={doubleOrNothingCount >= 3}
+            className="w-full rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-3 text-sm font-black text-white shadow-lg transition hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            🎲 Doble o Nada
+            🎲 Doble o Nada {doubleOrNothingCount >= 3 && '(Máximo alcanzado)'}
           </button>
           
           <button
