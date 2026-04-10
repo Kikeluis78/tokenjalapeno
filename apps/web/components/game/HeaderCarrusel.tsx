@@ -8,12 +8,12 @@ interface HeaderCarruselProps {
 }
 
 export const HeaderCarrusel = ({ currentCard }: HeaderCarruselProps) => {
-  // Reproducir audio con Web Speech API
+  // Reproducir audio con Web Speech API - solo el nombre de la carta
   useEffect(() => {
     if (currentCard) {
-      const utterance = new SpeechSynthesisUtterance(currentCard.phrase);
+      const utterance = new SpeechSynthesisUtterance(currentCard.name);
       utterance.lang = 'es-MX';
-      utterance.rate = 0.9; // Velocidad natural
+      utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
     }
   }, [currentCard]);

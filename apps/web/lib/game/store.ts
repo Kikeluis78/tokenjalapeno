@@ -72,7 +72,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       selectedBoard: null,
       gamePhase: 'selection',
       isPlaying: false,
-      autoPlay: false,
+      autoPlay: false, // Siempre manual por defecto
       currentCard: null,
       calledCards: [],
       remainingCards: [],
