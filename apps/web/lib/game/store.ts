@@ -35,6 +35,7 @@ interface GameState {
   generateBoards: () => void;
   resetGame: () => void;
   startCalling: () => void;
+  pauseCalling: () => void;
   callNextCard: () => void;
   markCard: (cardId: number) => void;
   checkVictory: () => void;
@@ -104,6 +105,10 @@ export const useGameStore = create<GameState>((set, get) => ({
   
   startCalling: () => {
     set({ isPlaying: true });
+  },
+  
+  pauseCalling: () => {
+    set({ isPlaying: false });
   },
   
   callNextCard: () => {

@@ -38,9 +38,7 @@ export const TableroUsuario = ({ board, calledCards, markedCards, onMarkCard }: 
                   'relative border border-gray-700 p-2 text-center transition active:scale-95 disabled:cursor-not-allowed',
                   isMarked
                     ? 'bg-emerald-500/90'
-                    : isCalled
-                      ? 'bg-amber-400'
-                      : 'bg-gradient-to-br from-gray-900 to-gray-800',
+                    : 'bg-gradient-to-br from-gray-900 to-gray-800',
                   shouldShake ? 'animate-shake' : '',
                 ].join(' ')}
               >

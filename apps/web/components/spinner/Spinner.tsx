@@ -28,12 +28,12 @@ export const Spinner = ({ onComplete }: SpinnerProps) => {
   return (
     <div className="fixed inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-[#2b0f3a] via-[#5b1736] to-[#8a3a12] px-4 py-6">
       <div className="mb-8 flex w-full max-w-lg justify-center">
-        <div className="relative h-40 w-full animate-[floatTitle_3.2s_ease-in-out_infinite] sm:h-48">
+        <div className="relative h-40 w-[80%] animate-[floatTitle_3.2s_ease-in-out_infinite] sm:h-48">
           <Image
             src="/tituloLoteria.png"
             alt="Lotería Mexicana"
             fill
-            sizes="(max-width: 640px) 200vw, 512px"
+            sizes="(max-width: 640px) 80vw, 512px"
             className="object-contain drop-shadow-[0_12px_28px_rgba(0,0,0,0.5)]"
             priority
             unoptimized

@@ -26,6 +26,7 @@ export const GamePlay = () => {
     humanScore,
     iaScore,
     startCalling,
+    pauseCalling,
     callNextCard,
     markCard,
     toggleAutoPlay,
@@ -88,12 +89,11 @@ export const GamePlay = () => {
             {autoPlay ? '🤖 Automático' : 'Automático'}
           </button>
           
-          {/* Botón Play debajo del tablero IA */}
+          {/* Botón Play/Pause debajo del tablero IA */}
           <button
             type="button"
-            onClick={startCalling}
-            disabled={isPlaying}
-            className="transform rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 py-3 text-sm font-black text-white shadow-lg transition hover:scale-105 active:scale-95 disabled:cursor-not-allowed disabled:bg-white/20 disabled:text-white/60 disabled:hover:scale-100"
+            onClick={isPlaying ? pauseCalling : startCalling}
+            className="transform rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 py-3 text-sm font-black text-white shadow-lg transition hover:scale-105 active:scale-95"
           >
             {isPlaying ? '⏸️' : '▶️'}
           </button>
