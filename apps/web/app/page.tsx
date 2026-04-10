@@ -37,9 +37,9 @@ export default function Page() {
       <div className="relative mx-auto flex min-h-[100dvh] w-full max-w-[480px] flex-col justify-between gap-6">
         <div className="space-y-6">
           <header className="space-y-4 pt-8 text-center">
-            <div className="relative mx-auto h-24 w-64">
+            <div className="relative mx-auto h-32 w-full max-w-md">
               <Image
-                src="/juego.png"
+                src="/texto.png"
                 alt="Lotería Mexicana"
                 fill
                 className="object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
