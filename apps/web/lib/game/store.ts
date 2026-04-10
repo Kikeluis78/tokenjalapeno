@@ -28,6 +28,16 @@ interface GameState {
   iaScore: number;
   winner: 'human' | 'ia' | null;
   
+  // Recompensas
+  jalapenoBalance: number;
+  lastPlayTime: number | null;
+  canPlayFree: boolean;
+  cooldownRemaining: number;
+  weeklyWins: number;
+  totalGames: number;
+  currentStreak: number;
+  gameStartTime: number | null;
+  
   // Acciones
   setCurrentBoardIndex: (index: number) => void;
   selectBoard: () => void;
@@ -41,6 +51,8 @@ interface GameState {
   checkVictory: () => void;
   toggleAutoPlay: () => void;
   setShakeCard: (cardId: number | null) => void;
+  updateCooldown: () => void;
+  claimRewards: () => void;
 }
 
 export const useGameStore = create<GameState>((set, get) => ({
@@ -60,6 +72,16 @@ export const useGameStore = create<GameState>((set, get) => ({
   humanScore: 0,
   iaScore: 0,
   winner: null,
+  
+  // Recompensas iniciales
+  jalapenoBalance: 100, // Bienvenida
+  lastPlayTime: null,
+  canPlayFree: true,
+  cooldownRemaining: 0,
+  weeklyWins: 0,
+  totalGames: 0,
+  currentStreak: 0,
+  gameStartTime: null,
   
   setCurrentBoardIndex: (index: number) => set({ currentBoardIndex: index }),
   
@@ -99,7 +121,8 @@ export const useGameStore = create<GameState>((set, get) => ({
       gamePhase: 'playing',
       remainingCards: shuffled,
       isPlaying: false,
-      autoPlay: false // Asegurar que siempre inicie en manual
+      autoPlay: false,
+      gameStartTime: Date.now() // Registrar inicio
     });
   },
   
@@ -170,28 +193,52 @@ export const useGameStore = create<GameState>((set, get) => ({
   },
   
   checkVictory: () => {
-    const { selectedBoard, iaBoard, humanMarked, iaMarked } = get();
+    const { selectedBoard, humanMarked, iaMarked, gameStartTime, currentStreak } = get();
     
     if (!selectedBoard) return;
     
+    const gameDuration = gameStartTime ? (Date.now() - gameStartTime) / 1000 : 0; // segundos
+    
     // Verificar si humano ganó (16 cartas marcadas)
     if (humanMarked.length === 16) {
+      let reward = 100; // Victoria base
+      
+      // Bonus por victoria rápida (< 2 minutos)
+      if (gameDuration < 120) {
+        reward += 25;
+      }
+      
       set({ 
         winner: 'human',
         gamePhase: 'finished',
         isPlaying: false,
-        humanScore: get().humanScore + 1
+        humanScore: get().humanScore + 1,
+        jalapenoBalance: get().jalapenoBalance + reward,
+        weeklyWins: get().weeklyWins + 1,
+        totalGames: get().totalGames + 1,
+        currentStreak: currentStreak + 1,
+        lastPlayTime: Date.now(),
+        canPlayFree: false,
+        cooldownRemaining: 8 * 60 * 60 // 8 horas en segundos
       });
       return;
     }
     
     // Verificar si IA ganó
     if (iaMarked.length === 16) {
+      const reward = 50; // Premio de consolación
+      
       set({ 
         winner: 'ia',
         gamePhase: 'finished',
         isPlaying: false,
-        iaScore: get().iaScore + 1
+        iaScore: get().iaScore + 1,
+        jalapenoBalance: get().jalapenoBalance + reward,
+        totalGames: get().totalGames + 1,
+        currentStreak: 0, // Resetear racha
+        lastPlayTime: Date.now(),
+        canPlayFree: false,
+        cooldownRemaining: 8 * 60 * 60
       });
     }
   },
@@ -209,5 +256,28 @@ export const useGameStore = create<GameState>((set, get) => ({
     const iaBoard = iaShuffled.slice(0, 16);
     
     set({ allBoards: boards, iaBoard });
+  },
+  
+  updateCooldown: () => {
+    const { lastPlayTime, cooldownRemaining } = get();
+    
+    if (!lastPlayTime) {
+      set({ canPlayFree: true, cooldownRemaining: 0 });
+      return;
+    }
+    
+    const elapsed = Math.floor((Date.now() - lastPlayTime) / 1000);
+    const remaining = Math.max(0, (8 * 60 * 60) - elapsed);
+    
+    set({
+      cooldownRemaining: remaining,
+      canPlayFree: remaining === 0
+    });
+  },
+  
+  claimRewards: () => {
+    // Simular cobro de recompensas
+    // TODO: Integrar con smart contract real
+    console.log('💰 Recompensas cobradas:', get().jalapenoBalance);
   }
 }));
