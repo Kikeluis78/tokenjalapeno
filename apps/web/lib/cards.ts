@@ -49,7 +49,7 @@ export const LOTTERY_CARDS: Card[] = [
   { id: 41, name: "La Rosa", emoji: "🌹", phrase: "Rosita, Rosaura, Rosa" },
   { id: 42, name: "La Calavera", emoji: "☠️", phrase: "Al pasar por el panteón" },
   { id: 43, name: "La Campana", emoji: "🔔", phrase: "Tú me tiras la campana" },
-  { id: 44, name: "El Jarrafon", emoji: "🏺", phrase: "El refresco del obrero" },
+  { id: 44, name: "El Jarrón", emoji: "🏺", phrase: "El refresco del obrero" },
   { id: 45, name: "El Venado", emoji: "🦌", phrase: "Saltando va buscando" },
   { id: 46, name: "El Sol", emoji: "☀️", phrase: "El que a todos alumbra" },
   { id: 47, name: "La Corona", emoji: "👑", phrase: "La que usan los reyes" },

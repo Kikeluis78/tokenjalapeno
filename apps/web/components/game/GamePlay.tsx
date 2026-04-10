@@ -85,7 +85,7 @@ export const GamePlay = () => {
                 : 'bg-white/10 text-white/60',
             ].join(' ')}
           >
-            {autoPlay ? '🤖 Auto' : '👆 Manual'}
+            {autoPlay ? '🤖 Automático' : 'Automático'}
           </button>
           
           {/* Botón Play debajo del tablero IA */}

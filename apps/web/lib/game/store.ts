@@ -97,7 +97,8 @@ export const useGameStore = create<GameState>((set, get) => ({
     set({ 
       gamePhase: 'playing',
       remainingCards: shuffled,
-      isPlaying: false
+      isPlaying: false,
+      autoPlay: false // Asegurar que siempre inicie en manual
     });
   },
   

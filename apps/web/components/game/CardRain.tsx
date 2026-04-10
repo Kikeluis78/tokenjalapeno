@@ -62,7 +62,7 @@ export const CardRain = () => {
         animate={{ scale: 1, opacity: 1 }}
         className="relative z-10 w-full max-w-md px-4 text-center"
       >
-        <div className="relative mx-auto mb-6 h-32 w-80 drop-shadow-2xl">
+        <div className="relative mx-auto mb-6 h-32 w-130 drop-shadow-2xl">
           <Image
             src="/tituloLoteria2.png"
             alt="Lotería Mexicana"
@@ -73,7 +73,7 @@ export const CardRain = () => {
         </div>
 
         <h2 className="mb-4 text-3xl font-bold tracking-widest text-white">
-          REPARTIENDO...
+          PREPARANDO JUEGO.......
         </h2>
 
         <div className="h-2 w-full overflow-hidden rounded-full bg-slate-700">

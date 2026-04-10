@@ -33,7 +33,7 @@ export const Spinner = ({ onComplete }: SpinnerProps) => {
             src="/tituloLoteria.png"
             alt="Lotería Mexicana"
             fill
-            sizes="(max-width: 640px) 100vw, 512px"
+            sizes="(max-width: 640px) 200vw, 512px"
             className="object-contain drop-shadow-[0_12px_28px_rgba(0,0,0,0.5)]"
             priority
             unoptimized
