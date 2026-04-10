@@ -46,12 +46,6 @@ export default function Page() {
                 priority
               />
             </div>
-            <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-400 to-pink-400 drop-shadow-lg">
-              Jalapeño
-            </h1>
-            <p className="text-sm text-white/70 px-4">
-              Juego claro, táctil y listo para seguir creciendo.
-            </p>
           </header>
 
           <section className="space-y-4 px-2">
@@ -59,16 +53,26 @@ export default function Page() {
               type="button"
               onClick={() => router.push('/game')}
               disabled={!canPlayFree}
-              className="group relative w-full overflow-hidden rounded-2xl border-2 border-yellow-500/30 bg-gradient-to-br from-yellow-600/20 via-red-600/20 to-pink-600/20 p-6 text-left shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-yellow-400/50 hover:shadow-2xl hover:shadow-yellow-500/20 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative w-full overflow-hidden rounded-2xl border-2 border-yellow-500/30 bg-gradient-to-br from-yellow-600/20 via-red-600/20 to-pink-600/20 p-4 text-left shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-yellow-400/50 hover:shadow-2xl hover:shadow-yellow-500/20 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/0 via-yellow-500/10 to-yellow-500/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              <div className="relative">
-                <span className="mb-2 block text-xl font-bold text-white">
-                  🎮 Humano vs IA {!canPlayFree && '🔒'}
-                </span>
-                <span className="block text-sm text-white/70">
-                  {canPlayFree ? 'Entrar al juego y seleccionar tablero.' : 'En cooldown. Compra un juego abajo.'}
-                </span>
+              <div className="relative flex items-center gap-4">
+                <div className="relative h-20 w-20 flex-shrink-0">
+                  <Image
+                    src="/selecionarjuego.png"
+                    alt="Seleccionar Juego"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <div className="flex-1">
+                  <span className="mb-1 block text-lg font-bold text-white">
+                    Humano vs IA {!canPlayFree && '🔒'}
+                  </span>
+                  <span className="block text-xs text-white/70">
+                    {canPlayFree ? 'Entrar al juego y seleccionar tablero.' : 'En cooldown. Compra un juego abajo.'}
+                  </span>
+                </div>
               </div>
             </button>
 
