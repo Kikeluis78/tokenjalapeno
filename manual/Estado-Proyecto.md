@@ -1,5 +1,5 @@
 # Estado del Proyecto - Jalapeño Lottery
-**Última actualización**: 07 de abril de 2026, 23:55 CST
+**Última actualización**: 14 de abril de 2026, 12:44 CST
 
 ---
 
@@ -28,16 +28,19 @@ Mini App de lotería mexicana integrada con World ID, desplegada en Vercel. Jueg
   - `next-themes@^0.4.6` - Temas
 
 ### 3. Flujo de Navegación Completo
-- ✅ **Spinner** - Animación de carga inicial (2.5s)
-  - Logo tituloLoteria.png grande
-  - Logo spinner con animación pulse
-  - Barra de progreso al 100%
+- ✅ **Spinner** - Carrusel automático de presentación (18s)
+  - Página 1 (4s): Logo tituloLoteria.png + logo spinner con animación
+  - Página 2 (6s): Imagen juego2.png + overlay + explicación del juego
+  - Página 3 (8s): Imagen juego.png + reglas de repartición de tokens
+  - Barra de progreso sincronizada
 - ✅ **Modal World ID** - Verificación de humanidad (simulado)
+  - Margen inferior mejorado
 - ✅ **Home** - Página principal con diseño mejorado
   - Fondo degradado con efectos animados
   - Botón "Humano vs IA" con gradiente y animaciones
   - Logo del título
 - ✅ **Carrusel** - Selección de tablero
+  - Título mejorado: "¡Elige tu Tablero de la Suerte! 🍀"
   - Tablero verde con borde blanco
   - 16 cartas sin espacios (gap: 0)
   - Flechas rojas/naranjas atractivas
@@ -50,6 +53,12 @@ Mini App de lotería mexicana integrada con World ID, desplegada en Vercel. Jueg
 - ✅ **GamePlay** - Juego activo
 
 ### 4. Sistema de Juego Implementado
+- ✅ **Modal Tutorial** (Primera vez)
+  - Aparece antes de empezar el juego
+  - Tablero de ejemplo con mano animada
+  - Explica cómo tocar las cartas
+  - Checkbox "No mostrar más" (localStorage)
+  - Diseño atractivo con instrucciones claras
 - ✅ **Tablero Humano**
   - Fondo verde sin borde blanco
   - 16 cartas en grid 4x4 sin espacios
@@ -57,10 +66,17 @@ Mini App de lotería mexicana integrada con World ID, desplegada en Vercel. Jueg
   - Marcado con cacahuate 🥜
   - Solo permite marcar cartas cantadas
   - Estados: Normal (gris) → Cantada (amarilla) → Marcada (verde + 🥜)
+  - **Animación de ayuda**: Pulso cada 12 segundos en TODAS las cartas no marcadas
 - ✅ **Carta Actual**
   - Muestra solo emoji + nombre
-  - Sin phrase (preparado para audio)
+  - **Audio mejorado**: Reproduce nombre inmediatamente con Web Speech API
+  - Cancela audio anterior antes de reproducir nuevo
   - Compacta en columna derecha
+- ✅ **Botón Play/Pause**
+  - Icono de mano animada 👆 cuando está pausado
+  - Texto "Toca para empezar"
+  - Debajo del tablero IA
+  - Inicia/pausa el juego
 - ✅ **Contador de Cartas**
   - Muestra restantes/total (ej: 40/54)
 - ✅ **Cartas Salidas**
@@ -68,9 +84,6 @@ Mini App de lotería mexicana integrada con World ID, desplegada en Vercel. Jueg
 - ✅ **Tablero IA**
   - Marcado automático
   - Mismo estilo que humano
-- ✅ **Botón Play/Pause**
-  - Debajo del tablero IA
-  - Inicia/pausa el juego
 - ✅ **Botón Salir**
   - "← Salir del juego" arriba izquierda
   - Regresa al Home
@@ -90,15 +103,16 @@ Mini App de lotería mexicana integrada con World ID, desplegada en Vercel. Jueg
 ```
 apps/web/components/
 ├── spinner/
-│   └── Spinner.tsx              ✅
+│   └── Spinner.tsx              ✅ (Carrusel 3 páginas)
 ├── modals/
-│   └── VerifyModal.tsx          ✅
+│   ├── VerifyModal.tsx          ✅
+│   └── TutorialModal.tsx        ✅ (Nuevo)
 └── game/
     ├── BoardCarousel.tsx        ✅
     ├── CardRain.tsx             ✅
-    ├── GamePlay.tsx             ✅
-    ├── HeaderCarrusel.tsx       ✅ (Carta Actual)
-    ├── TableroUsuario.tsx       ✅
+    ├── GamePlay.tsx             ✅ (Con tutorial)
+    ├── HeaderCarrusel.tsx       ✅ (Audio mejorado)
+    ├── TableroUsuario.tsx       ✅ (Pulso cada 12s)
     ├── TableroIA.tsx            ✅
     ├── ContadorCartas.tsx       ✅
     ├── CartasSalidas.tsx        ✅
@@ -109,20 +123,99 @@ apps/web/components/
 ### 7. Control de Versiones
 - ✅ Repositorio: `github.com/Kikeluis78/tokenjalapeno`
 - ✅ Branch principal: `main`
-- ✅ Último commit: `5f72714` - "Mejorar UX de juego con cacahuate"
+- ✅ Último commit: `8f8dbd9` - "Modal tutorial, botón play mejorado, audio inmediato y pulso cada 12s"
 - ✅ Desplegado en Vercel automáticamente
+
+---
+
+## 📝 Sesión 14 de Abril 2026
+
+### Mejoras Implementadas
+
+#### 1. Carrusel de Presentación (Spinner)
+- **Duración total**: 18 segundos
+- **Página 1** (0-4s): Home con título y logo
+- **Página 2** (4-10s): Imagen juego2.png + explicación del juego
+  - Overlay negro 60%
+  - Texto: "Diviértete jugando el tradicional juego de lotería mexicana"
+  - "¡Hasta 30,000 tokens Jalapeño! 🌶️"
+- **Página 3** (10-18s): Imagen juego.png + reglas de repartición
+  - Overlay negro 70%
+  - Recompensas:
+    - 🎮 Avances a la IA: 3 jalapeños
+    - 🤖 Gana la IA: 1 jalapeño
+    - 🏆 Torneo semanal: 100 jalapeños
+    - 👑 Torneo mensual: 1000 jalapeños
+- Transiciones suaves con fadeIn
+- Barra de progreso sincronizada
+
+#### 2. Modal Tutorial Interactivo
+- Aparece la primera vez que entras al juego
+- Tablero de ejemplo (2x2) con 4 cartas
+- Mano animada 👆 señalando la primera carta
+- Instrucciones claras: "Cuando salga una carta, toca la imagen en tu tablero"
+- Objetivo: "Completa una línea para ganar"
+- Checkbox "No mostrar más" con localStorage
+- Botón "¡Entendido! 🚀"
+
+#### 3. Mejoras en Botón Play
+- Icono de mano animada 👆 cuando está pausado
+- Texto "Toca para empezar" en dos líneas
+- Solo visible cuando el juego no está corriendo
+- Diseño más intuitivo
+
+#### 4. Sistema de Audio Mejorado
+- Reproduce nombre de carta inmediatamente al salir
+- Cancela audio anterior antes de reproducir nuevo
+- Usa `useRef` para evitar repeticiones
+- Delay de 50ms para limpieza
+- Web Speech API con voz es-MX
+
+#### 5. Animación de Ayuda Inteligente
+- Pulsa TODAS las cartas cantadas pero no marcadas
+- Activación cada 12 segundos
+- Solo cuando el juego está corriendo
+- Animación de pulso con sombra amarilla
+- Se repite 2 veces y dura 2 segundos total
+- Ayuda visual para no perder cartas
+
+#### 6. Mejoras Visuales Menores
+- Título selector de tablero: "¡Elige tu Tablero de la Suerte! 🍀"
+- Modal de verificación con más margen inferior
+- Clase Tailwind optimizada: `max-w-120` en lugar de `max-w-[480px]`
+
+### Archivos Modificados
+```
+apps/web/
+├── components/
+│   ├── modals/
+│   │   ├── TutorialModal.tsx        [NUEVO]
+│   │   ├── VerifyModal.tsx          [MODIFICADO]
+│   │   └── index.ts                 [MODIFICADO]
+│   └── game/
+│       ├── BoardCarousel.tsx        [MODIFICADO]
+│       ├── GamePlay.tsx             [MODIFICADO]
+│       ├── HeaderCarrusel.tsx       [MODIFICADO]
+│       └── TableroUsuario.tsx       [MODIFICADO]
+├── hooks/
+│   └── useSpinner/
+│       └── index.ts                 [MODIFICADO]
+└── app/
+    └── page.tsx                     [MODIFICADO]
+```
+
+### Decisiones de Diseño
+- **18 segundos** para presentación: Balance entre informativo y no tedioso
+- **Tutorial obligatorio primera vez**: Reduce confusión de nuevos usuarios
+- **Pulso cada 12 segundos**: Suficiente tiempo para pensar, no molesto
+- **Audio inmediato**: Mejor experiencia, más realista
+- **Mano en botón Play**: Guía visual clara para iniciar
 
 ---
 
 ## 🚧 Pendiente para Próxima Sesión
 
 ### 1. Mejoras Visuales (ALTA PRIORIDAD)
-- [ ] **CardRain** - Mejorar animación de lluvia de cartas
-  - Actualmente: "horrible" según feedback
-  - Mejorar distribución y animación
-- [ ] **Tablero Humano** - Reducir altura de cartas
-  - Actualmente: "muy alto"
-  - Ajustar proporción para mejor UX
 - [ ] **Footer** - Implementar barra inferior
   - Datos de usuario (wallet ID de Worldcoin)
   - Datos de IA
@@ -134,13 +227,7 @@ apps/web/components/
   - Animaciones
   - Mostrar estadísticas
 
-### 2. Audio (MEDIA PRIORIDAD)
-- [ ] Integrar sistema de audio
-- [ ] Reproducir phrase antes de mostrar carta
-- [ ] Voz del cantador (TTS o grabaciones)
-- [ ] Efectos de sonido (marcar carta, victoria, etc.)
-
-### 3. Integración World ID (ALTA PRIORIDAD)
+### 2. Integración World ID (ALTA PRIORIDAD)
 - [ ] Configurar cuenta en Developer Portal
 - [ ] Obtener credenciales (`app_id`, `rp_id`, `signing_key`)
 - [ ] Implementar `MiniKitProvider` en layout
@@ -251,17 +338,42 @@ Loteria Mexicana/
 ## 🐛 Problemas Conocidos
 
 ### Activos (Para Próxima Sesión)
-- ⚠️ CardRain: Animación necesita mejora
-- ⚠️ Tablero Humano: Cartas muy altas
 - ⚠️ Footer: No implementado
 - ⚠️ Modal Victoria: Diseño básico
 
-### Resueltos
+### Resueltos (Sesión 14 Abril)
+- ✅ Spinner: Ahora es carrusel informativo de 3 páginas
+- ✅ Tutorial: Modal implementado con checkbox localStorage
+- ✅ Audio: Reproduce inmediatamente sin repetir
+- ✅ Ayuda visual: Pulso cada 12s en todas las cartas no marcadas
+- ✅ Botón Play: Mano animada y texto indicativo
+- ✅ Título selector: Más atractivo y motivador
+
+### Resueltos (Sesiones Anteriores)
 - ✅ Flujo de navegación completo
 - ✅ Cartas sin espacios en tablero
 - ✅ Marcado con cacahuate
 - ✅ Velocidad de juego ajustada
 - ✅ Botón salir con texto claro
+
+---
+
+## 📝 Notas Importantes
+
+### Token WGoal (WordGoal2026)
+- **Contract Address**: `0x1a1e80a27093665a2e6e7f3af3b69bb64fe79cd7`
+- **Supply Total**: 100,000,000 tokens
+- **Red**: World Chain (Puf)
+- **Creado**: Hace 5 meses
+- **Estado**: Sin liquidez inicial (gratis)
+- **Plan**: Integrar después de Jalapeño para circulación
+- **Uso futuro**: Sección de recompensas especiales, torneos premium
+
+### Liquidez en Puf.world
+- **Token gratis (0 WLD)**: Sin liquidez, depende de compras
+- **Token con liquidez (6+ WLD)**: Tradeable inmediatamente
+- **Recomendado para Jalapeño**: 50+ WLD para buena circulación
+- **Beneficios**: Más liquidez = más confianza = más trading = más fees
 
 ---
 
@@ -292,23 +404,32 @@ Loteria Mexicana/
 
 ## 🎯 Roadmap
 
-### Sesión Actual (Completada)
+### Sesión 14 Abril 2026 (Completada)
+- ✅ Carrusel de presentación con 3 páginas (18s)
+- ✅ Modal tutorial interactivo con localStorage
+- ✅ Sistema de audio mejorado (inmediato, sin repetir)
+- ✅ Animación de ayuda cada 12s en todas las cartas
+- ✅ Botón Play con mano animada e indicaciones
+- ✅ Mejoras visuales (título selector, margen modal)
+
+### Sesión Anterior (Completada)
 - ✅ Flujo completo de navegación
 - ✅ Sistema de juego funcional
 - ✅ Diseño visual mejorado
 - ✅ Interacción táctil con cacahuate
 
 ### Próxima Sesión
-1. **Mejoras visuales** (CardRain, altura tablero, footer, modal)
-2. **Sistema de recompensas** (métrica y distribución)
-3. **Documentación Jalapeño Token** (local, no subir)
+1. **Footer con estadísticas** (wallet, puntaje, victorias)
+2. **Modal de victoria mejorado** (animaciones, stats)
+3. **Integración World ID** (verificación real)
 
 ### Sesiones Futuras
-1. **Integración World ID** (verificación real)
-2. **Sistema de audio** (TTS o grabaciones)
-3. **Smart Contracts** (Jalapeño Token)
+1. **Sistema de recompensas** (Jalapeño Token)
+2. **Integración WGoal** (sección especial)
+3. **Smart Contracts** (distribución de tokens)
 4. **Backend/API** (gestión de rondas y premios)
 5. **Testing** (unitarios, integración, E2E)
+6. **Optimización** (performance, SEO, PWA)
 
 ---
 
@@ -322,4 +443,4 @@ Loteria Mexicana/
 ---
 
 **Preparado por**: Kiro AI Assistant  
-**Fecha**: 07 de abril de 2026, 23:55 CST
+**Fecha**: 14 de abril de 2026, 12:44 CST
