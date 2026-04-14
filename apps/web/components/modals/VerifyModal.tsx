@@ -20,8 +20,8 @@ export const VerifyModal = ({ onVerify }: VerifyModalProps) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-gradient-to-br from-black/90 via-purple-900/30 to-black/90 px-4 backdrop-blur-sm">
-      <div className="relative w-full max-w-md overflow-hidden rounded-t-3xl bg-gradient-to-br from-white via-blue-50 to-purple-50 p-8 pb-6 shadow-2xl animate-[slideUp_0.4s_ease-out]">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-gradient-to-br from-black/90 via-purple-900/30 to-black/90 px-4 pb-8 backdrop-blur-sm">
+      <div className="relative w-full max-w-md overflow-hidden rounded-t-3xl bg-gradient-to-br from-white via-blue-50 to-purple-50 p-8 pb-8 shadow-2xl animate-[slideUp_0.4s_ease-out]">
         {/* Efectos de fondo */}
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -right-10 -top-10 h-40 w-40 animate-pulse rounded-full bg-blue-400/20 blur-3xl" />

@@ -51,9 +51,11 @@ export const BoardCarousel = () => {
 
       <div className="relative mx-auto flex min-h-[50dvh] w-full max-w-[420px] flex-col justify-center gap-2">
         {/* Header */}
-        <header className="text-center">
-          <h1 className="text-lg font-bold uppercase tracking-wider text-white">Selecciona tablero</h1>
-          <p className="text-xs text-white/60">Tablero {currentBoardIndex + 1} de {allBoards.length}</p>
+        <header className="mb-2 text-center">
+          <h1 className="mb-2 text-3xl font-black uppercase tracking-wide text-yellow-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+            ¡Elige tu Tablero de la Suerte! 🍀
+          </h1>
+          <p className="text-sm font-bold text-white/80">Tablero {currentBoardIndex + 1} de {allBoards.length}</p>
         </header>
 
         {/* Tablero con fondo verde */}
