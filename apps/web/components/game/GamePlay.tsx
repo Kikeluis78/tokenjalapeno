@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LOTTERY_CARDS } from '@/lib/cards';
 import { useGameStore } from '@/lib/game/store';
@@ -11,9 +11,12 @@ import { TableroIA } from './TableroIA';
 import { VictoryModal } from './VictoryModal';
 import { Footer } from './Footer';
 import { Header } from './Header';
+import { TutorialModal } from '@/components/modals';
 
 export const GamePlay = () => {
   const router = useRouter();
+  const [showTutorial, setShowTutorial] = useState(false);
+  
   const {
     selectedBoard,
     iaBoard,
@@ -32,6 +35,14 @@ export const GamePlay = () => {
     markCard,
     toggleAutoPlay,
   } = useGameStore();
+
+  // Verificar si mostrar tutorial
+  useEffect(() => {
+    const hideTutorial = localStorage.getItem('hideTutorial');
+    if (!hideTutorial) {
+      setShowTutorial(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -93,13 +104,22 @@ export const GamePlay = () => {
             {autoPlay ? '🤖 Automático' : 'Automático'}
           </button>
           
-          {/* Botón Play/Pause debajo del tablero IA */}
+          {/* Botón Play/Pause con mano */}
           <button
             type="button"
             onClick={isPlaying ? pauseCalling : startCalling}
-            className="transform rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 py-3 text-sm font-black text-white shadow-lg transition hover:scale-105 active:scale-95"
+            className="relative transform rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 py-3 text-sm font-black text-white shadow-lg transition hover:scale-105 active:scale-95"
           >
-            {isPlaying ? '⏸️' : '▶️'}
+            <div className="flex flex-col items-center gap-1">
+              <span className="text-2xl">{isPlaying ? '⏸️' : '▶️'}</span>
+              {!isPlaying && (
+                <>
+                  <span className="text-[10px] leading-none">Toca para</span>
+                  <span className="text-[10px] leading-none">empezar</span>
+                  <span className="absolute -right-1 -top-1 animate-bounce text-xl">👆</span>
+                </>
+              )}
+            </div>
           </button>
         </div>
       </div>
@@ -108,6 +128,9 @@ export const GamePlay = () => {
       <Footer humanScore={humanScore} iaScore={iaScore} />
 
       {winner && <VictoryModal />}
+      
+      {/* Tutorial Modal */}
+      {showTutorial && <TutorialModal onClose={() => setShowTutorial(false)} />}
     </div>
   );
 };
