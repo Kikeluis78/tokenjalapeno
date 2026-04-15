@@ -34,12 +34,12 @@ export const Spinner = ({ onComplete }: SpinnerProps) => {
           
           {/* Título en posición absoluta arriba */}
           <div className="absolute top-8 left-0 right-0 flex justify-center px-4">
-            <div className="relative h-48 w-full max-w-4xl animate-[floatTitle_3.2s_ease-in-out_infinite] sm:h-64 sm:max-w-5xl">
+            <div className="relative h-64 w-full max-w-5xl animate-[floatTitle_3.2s_ease-in-out_infinite] sm:h-80 sm:max-w-6xl">
               <Image
                 src="/tituloLoteria.png"
                 alt="Lotería Mexicana"
                 fill
-                sizes="(max-width: 640px) 100vw, 1280px"
+                sizes="(max-width: 640px) 100vw, 1536px"
                 className="object-contain drop-shadow-[0_12px_28px_rgba(0,0,0,0.5)]"
                 priority
                 unoptimized
@@ -49,14 +49,14 @@ export const Spinner = ({ onComplete }: SpinnerProps) => {
 
           {/* Logo centrado */}
           <div className="flex w-full max-w-sm justify-center">
-            <div className="relative flex h-56 w-56 items-center justify-center rounded-full bg-linear-to-br from-red-500 via-amber-400 to-green-500 p-1.5 shadow-[0_20px_45px_rgba(0,0,0,0.45)]">
-              <div className="relative h-full w-full overflow-hidden rounded-full bg-[#1f2937] p-3 animate-[pulse_2s_ease-in-out_infinite]">
+            <div className="relative flex h-40 w-40 items-center justify-center rounded-full bg-linear-to-br from-red-500 via-amber-400 to-green-500 p-1.5 shadow-[0_20px_45px_rgba(0,0,0,0.45)]">
+              <div className="relative h-full w-full overflow-hidden rounded-full bg-[#1f2937] p-2 animate-[pulse_2s_ease-in-out_infinite]">
                 <div className="relative h-full w-full overflow-hidden rounded-full ring-4 ring-white/10">
                   <Image
                     src="/logoSpinner.png"
                     alt="Jalapeño Token"
                     fill
-                    sizes="224px"
+                    sizes="160px"
                     className="object-cover scale-[1.08] rounded-full"
                     priority
                     unoptimized

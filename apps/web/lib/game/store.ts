@@ -227,7 +227,7 @@ export const useGameStore = create<GameState>((set, get) => ({
         lastReward: reward,
         lastPlayTime: Date.now(),
         canPlayFree: false,
-        cooldownRemaining: 8 * 60 * 60
+        cooldownRemaining: 4 * 60 * 60 // 4 horas
       });
       return;
     }
@@ -247,7 +247,7 @@ export const useGameStore = create<GameState>((set, get) => ({
         lastReward: reward,
         lastPlayTime: Date.now(),
         canPlayFree: false,
-        cooldownRemaining: 8 * 60 * 60
+        cooldownRemaining: 4 * 60 * 60 // 4 horas
       });
     }
   },
@@ -276,7 +276,7 @@ export const useGameStore = create<GameState>((set, get) => ({
     }
     
     const elapsed = Math.floor((Date.now() - lastPlayTime) / 1000);
-    const remaining = Math.max(0, (8 * 60 * 60) - elapsed);
+    const remaining = Math.max(0, (4 * 60 * 60) - elapsed); // 4 horas
     
     set({
       cooldownRemaining: remaining,

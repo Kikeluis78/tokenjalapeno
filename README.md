@@ -4,9 +4,16 @@ Mini App de lotería mexicana integrada con World ID para el ecosistema World Ap
 
 ## 🚀 Estado del Proyecto
 
-**Última actualización**: 05 de abril de 2026
+**Última actualización**: 14 de abril de 2026
 
-Ver [Estado-Proyecto.md](./manual/Estado-Proyecto.md) para detalles completos.
+### ✅ Mejoras Recientes
+- **UX/UI Onboarding**: Ruta completa de guía paso a paso para nuevos usuarios
+- **Instrucciones claras**: Textos mejorados en Home, selección de tableros y tutorial
+- **Ayudas visuales**: Manita animada y textos explicativos que desaparecen al interactuar
+- **Tablero de ejemplo**: Modal de tutorial con tablero 4x4 real
+
+Ver [Estado-Proyecto.md](./manual/Estado-Proyecto.md) para detalles completos.  
+Ver [Mejoras-UX-UI.md](./manual/Mejoras-UX-UI.md) para detalles de las mejoras de interfaz.
 
 ## 📦 Stack Tecnológico
 

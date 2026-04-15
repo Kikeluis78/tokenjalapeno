@@ -6,6 +6,7 @@ import { Spinner } from '@/components/spinner';
 import { VerifyModal } from '@/components/modals';
 import { useGameStore } from '@/lib/game/store';
 import { ReferralSystem } from '@/components/referral/ReferralSystem';
+import { requestNotificationPermission, notifyGameReady, scheduleNotification } from '@/lib/notifications';
 import Image from 'next/image';
 
 export default function Page() {
@@ -13,14 +14,44 @@ export default function Page() {
 
   const [showSpinner, setShowSpinner] = useState(true);
   const [isVerified, setIsVerified] = useState(false);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
 
-  const { canPlayFree, buyGameWithWLD, updateCooldown } = useGameStore();
+  const { canPlayFree, buyGameWithWLD, updateCooldown, cooldownRemaining } = useGameStore();
 
   // ✅ Solo una vez
   useEffect(() => {
     updateCooldown();
+    
+    // Actualizar cooldown cada minuto
+    const interval = setInterval(() => {
+      updateCooldown();
+    }, 60000);
+    
+    return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Programar notificación cuando termine el cooldown
+  useEffect(() => {
+    if (!notificationsEnabled || canPlayFree || cooldownRemaining === 0) return;
+
+    const timeoutId = scheduleNotification(cooldownRemaining * 1000, () => {
+      notifyGameReady();
+    });
+
+    return () => clearTimeout(timeoutId);
+  }, [cooldownRemaining, canPlayFree, notificationsEnabled]);
+
+  const handleEnableNotifications = async () => {
+    const granted = await requestNotificationPermission();
+    setNotificationsEnabled(granted);
+    
+    if (granted) {
+      alert('✅ Notificaciones activadas! Te avisaremos cuando puedas jugar.');
+    } else {
+      alert('❌ Necesitas permitir notificaciones en tu navegador.');
+    }
+  };
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-linear-to-br from-[#1a0b2e] via-[#2d1b3d] to-[#1a0b2e]">
@@ -34,9 +65,9 @@ export default function Page() {
       {/* 📦 Contenido */}
       <div className="relative mx-auto flex min-h-screen w-full max-w-md flex-col px-4 py-6">
 
-        {/* 🎨 Header - Logo/Título */}
-        <div className="flex items-center justify-center py-4">
-          <div className="relative h-20 w-48">
+        {/* 🎨 Header - Logo/Título en esquina superior derecha */}
+        <div className="absolute right-4 top-4 z-10">
+          <div className="relative h-16 w-32">
             <Image
               src="/tituloLoteria.png"
               alt="Lotería Mexicana"
@@ -47,42 +78,20 @@ export default function Page() {
           </div>
         </div>
 
-        {/* 📖 Instrucciones */}
-        <div className="mb-6 rounded-2xl border-2 border-yellow-500/40 bg-linear-to-br from-blue-600/20 to-purple-600/20 p-4 backdrop-blur-sm">
-          <h2 className="mb-3 text-center text-xl font-black text-yellow-300">
-            🎯 ¿Cómo Jugar?
-          </h2>
-          <ul className="space-y-2 text-sm text-white/90">
-            <li className="flex items-start gap-2">
-              <span className="text-yellow-300">•</span>
-              <span>Elige un tablero de 16 cartas</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-yellow-300">•</span>
-              <span>Toca las cartas que salgan</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-yellow-300">•</span>
-              <span>Completa una línea para ganar</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-green-400">🌶️</span>
-              <span className="font-bold text-green-400">Gana tokens en cada partida</span>
-            </li>
-          </ul>
-        </div>
+        {/* Espaciador para el logo */}
+        <div className="h-20" />
 
-        {/* 🎮 Botón Principal - JUGAR */}
+        {/* 🎮 Botón Principal - JUGAR con animación gelatina */}
         <button
           onClick={() => router.push('/game')}
           disabled={!canPlayFree}
-          className="mb-4 w-full transform rounded-2xl bg-linear-to-br from-yellow-500 via-orange-500 to-red-500 p-6 text-center font-black text-white shadow-2xl transition hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100"
+          className="mb-4 w-full transform rounded-2xl bg-linear-to-br from-yellow-500 via-orange-500 to-red-500 p-6 text-center font-black text-white shadow-2xl transition hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100 animate-[jelly_3s_ease-in-out_infinite]"
         >
           <div className="text-2xl">🎮 JUGAR AHORA</div>
           <div className="mt-2 text-sm font-normal opacity-90">
             {canPlayFree
-              ? 'Gratis cada 24 horas'
-              : '🔒 En cooldown - Compra abajo'}
+              ? 'Juega cada 4 horas gratis'
+              : `🔒 Espera ${Math.floor(cooldownRemaining / 3600)}h ${Math.floor((cooldownRemaining % 3600) / 60)}m`}
           </div>
         </button>
 
@@ -93,10 +102,21 @@ export default function Page() {
               buyGameWithWLD();
               router.push('/game');
             }}
-            className="mb-6 w-full transform rounded-2xl bg-linear-to-br from-cyan-500 to-purple-600 p-4 text-center font-bold text-white shadow-xl transition hover:scale-105 active:scale-95"
+            className="mb-4 w-full transform rounded-2xl bg-linear-to-br from-cyan-500 to-purple-600 p-4 text-center font-bold text-white shadow-xl transition hover:scale-105 active:scale-95"
           >
             <div className="text-lg">💎 Comprar Juego Ahora</div>
             <div className="mt-1 text-xs opacity-80">Solo 0.001 WLD</div>
+          </button>
+        )}
+
+        {/* 🔔 Botón de Notificaciones */}
+        {!canPlayFree && !notificationsEnabled && (
+          <button
+            onClick={handleEnableNotifications}
+            className="mb-6 w-full transform rounded-xl border-2 border-blue-500/40 bg-linear-to-br from-blue-600/20 to-indigo-600/20 p-3 text-center font-bold text-white backdrop-blur-sm transition hover:scale-105 active:scale-95"
+          >
+            <div className="text-sm">🔔 Activar Notificaciones</div>
+            <div className="mt-1 text-xs opacity-80">Te avisaremos cuando puedas jugar</div>
           </button>
         )}
 
@@ -148,6 +168,24 @@ export default function Page() {
       {!isVerified && !showSpinner && (
         <VerifyModal onVerify={() => setIsVerified(true)} />
       )}
+
+      {/* Animación gelatina */}
+      <style jsx>{`
+        @keyframes jelly {
+          0%, 100% {
+            transform: scale(1, 1);
+          }
+          25% {
+            transform: scale(0.98, 1.02);
+          }
+          50% {
+            transform: scale(1.02, 0.98);
+          }
+          75% {
+            transform: scale(0.99, 1.01);
+          }
+        }
+      `}</style>
     </div>
   );
 }

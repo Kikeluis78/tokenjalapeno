@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LOTTERY_CARDS } from '@/lib/cards';
 import { useGameStore } from '@/lib/game/store';
+import { notifyGameResult } from '@/lib/notifications';
 import { HeaderCarrusel } from './HeaderCarrusel';
 import { TableroUsuario } from './TableroUsuario';
 import { ContadorCartas } from './ContadorCartas';
@@ -16,6 +17,7 @@ import { TutorialModal } from '@/components/modals';
 export const GamePlay = () => {
   const router = useRouter();
   const [showTutorial, setShowTutorial] = useState(false);
+  const [showPlayHint, setShowPlayHint] = useState(true);
   
   const {
     selectedBoard,
@@ -29,6 +31,7 @@ export const GamePlay = () => {
     winner,
     humanScore,
     iaScore,
+    lastReward,
     startCalling,
     pauseCalling,
     callNextCard,
@@ -54,9 +57,21 @@ export const GamePlay = () => {
     return () => clearInterval(interval);
   }, [isPlaying, callNextCard]);
 
+  // Notificar cuando hay un ganador
+  useEffect(() => {
+    if (winner && lastReward > 0) {
+      notifyGameResult(winner === 'human', lastReward);
+    }
+  }, [winner, lastReward]);
+
   const cardsById = useMemo(() => {
     return new Map(LOTTERY_CARDS.map((card) => [card.id, card]));
   }, []);
+
+  const handleStartGame = () => {
+    setShowPlayHint(false);
+    startCalling();
+  };
 
   if (!selectedBoard) return null;
 
@@ -104,23 +119,31 @@ export const GamePlay = () => {
             {autoPlay ? '🤖 Automático' : 'Automático'}
           </button>
           
-          {/* Botón Play/Pause con mano */}
-          <button
-            type="button"
-            onClick={isPlaying ? pauseCalling : startCalling}
-            className="relative transform rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 py-3 text-sm font-black text-white shadow-lg transition hover:scale-105 active:scale-95"
-          >
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-2xl">{isPlaying ? '⏸️' : '▶️'}</span>
-              {!isPlaying && (
-                <>
-                  <span className="text-[10px] leading-none">Toca para</span>
-                  <span className="text-[10px] leading-none">empezar</span>
-                  <span className="absolute -right-1 -top-1 animate-bounce text-xl">👆</span>
-                </>
-              )}
-            </div>
-          </button>
+          {/* Botón Play/Pause con mano y texto */}
+          <div className="relative">
+            <button
+              type="button"
+              onClick={isPlaying ? pauseCalling : handleStartGame}
+              className="relative w-full transform rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 py-2.5 text-sm font-black text-white shadow-lg transition hover:scale-105 active:scale-95"
+            >
+              <div className="flex items-center justify-center gap-1">
+                <span className="text-xl">{isPlaying ? '⏸️' : '▶️'}</span>
+                <span className="text-xs">{isPlaying ? 'Pausa' : 'Play'}</span>
+              </div>
+            </button>
+            
+            {/* Mano y texto de ayuda - solo cuando no está jugando */}
+            {!isPlaying && showPlayHint && (
+              <div className="pointer-events-none absolute -right-12 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1">
+                <div className="animate-bounce text-4xl drop-shadow-2xl">
+                  👆
+                </div>
+                <div className="whitespace-nowrap rounded-lg bg-black/80 px-2 py-1 text-[9px] font-bold text-yellow-300 shadow-lg">
+                  Presiona para iniciar
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 

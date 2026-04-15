@@ -1,0 +1,22 @@
+
+> jalapeno-loteria-mexicana@0.0.1 dev
+> turbo dev
+
+• turbo 2.9.5
+
+   • Packages in scope: @workspace/eslint-config, @workspace/typescript-config, @workspace/ui, web
+   • Running dev in 4 packages
+   • Remote caching disabled
+
+web:dev: cache bypass, force executing 2139c10b9041ece0
+web:dev: 
+web:dev: > web@0.0.1 dev
+web:dev: > next dev --turbopack
+web:dev: 
+web:dev: ▲ Next.js 16.2.2 (Turbopack)
+web:dev: - Local:         http://localhost:3000
+web:dev: - Network:       http://192.168.0.67:3000
+web:dev: ✓ Ready in 2.8s
+web:dev: 
+web:dev: [?25h
+ ERROR  run failed: command  exited (1)
