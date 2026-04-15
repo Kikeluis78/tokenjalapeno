@@ -30,8 +30,8 @@ export const Spinner = ({ onComplete }: SpinnerProps) => {
       
       {/* Página 1: Home con título y logo */}
       {currentSlide === 0 && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center px-4 py-6 animate-[fadeIn_0.5s_ease-in-out]">
-          <div className="mb-8 flex w-full max-w-6xl justify-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 px-4 animate-[fadeIn_0.5s_ease-in-out]">
+          <div className="flex w-full max-w-6xl justify-center">
             <div className="relative h-128 w-full animate-[floatTitle_3.2s_ease-in-out_infinite] sm:h-144">
               <Image
                 src="/tituloLoteria.png"
@@ -45,7 +45,7 @@ export const Spinner = ({ onComplete }: SpinnerProps) => {
             </div>
           </div>
 
-          <div className="mb-6 flex w-full max-w-sm justify-center">
+          <div className="flex w-full max-w-sm justify-center">
             <div className="relative flex h-56 w-56 items-center justify-center rounded-full bg-linear-to-br from-red-500 via-amber-400 to-green-500 p-1.5 shadow-[0_20px_45px_rgba(0,0,0,0.45)]">
               <div className="relative h-full w-full overflow-hidden rounded-full bg-[#1f2937] p-3 animate-[pulse_2s_ease-in-out_infinite]">
                 <div className="relative h-full w-full overflow-hidden rounded-full ring-4 ring-white/10">
