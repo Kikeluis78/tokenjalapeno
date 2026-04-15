@@ -32,71 +32,109 @@ export default function Page() {
       </div>
 
       {/* 📦 Contenido */}
-      <div className="relative mx-auto flex min-h-screen w-full max-w-120 flex-col justify-center gap-4 px-4 py-6">
+      <div className="relative mx-auto flex min-h-screen w-full max-w-md flex-col px-4 py-6">
 
-        {/* 📖 Instrucciones principales */}
-        <div className="rounded-xl bg-linear-to-br from-blue-600/20 to-purple-600/20 border-2 border-blue-500/30 p-4 backdrop-blur-sm">
-          <h2 className="text-lg font-black text-yellow-300 mb-2">🎯 ¿Cómo Jugar?</h2>
-          <ul className="space-y-1 text-sm text-white/90">
-            <li>• Elige un tablero de 16 cartas</li>
-            <li>• Toca las cartas que salgan</li>
-            <li>• Completa una línea para ganar</li>
-            <li>• Gana tokens en cada partida 🌶️</li>
+        {/* 🎨 Header - Logo/Título */}
+        <div className="flex items-center justify-center py-4">
+          <div className="relative h-20 w-48">
+            <Image
+              src="/tituloLoteria.png"
+              alt="Lotería Mexicana"
+              fill
+              className="object-contain drop-shadow-lg"
+              priority
+            />
+          </div>
+        </div>
+
+        {/* 📖 Instrucciones */}
+        <div className="mb-6 rounded-2xl border-2 border-yellow-500/40 bg-linear-to-br from-blue-600/20 to-purple-600/20 p-4 backdrop-blur-sm">
+          <h2 className="mb-3 text-center text-xl font-black text-yellow-300">
+            🎯 ¿Cómo Jugar?
+          </h2>
+          <ul className="space-y-2 text-sm text-white/90">
+            <li className="flex items-start gap-2">
+              <span className="text-yellow-300">•</span>
+              <span>Elige un tablero de 16 cartas</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-yellow-300">•</span>
+              <span>Toca las cartas que salgan</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-yellow-300">•</span>
+              <span>Completa una línea para ganar</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-green-400">🌶️</span>
+              <span className="font-bold text-green-400">Gana tokens en cada partida</span>
+            </li>
           </ul>
         </div>
 
-        <section className="space-y-3">
+        {/* 🎮 Botón Principal - JUGAR */}
+        <button
+          onClick={() => router.push('/game')}
+          disabled={!canPlayFree}
+          className="mb-4 w-full transform rounded-2xl bg-linear-to-br from-yellow-500 via-orange-500 to-red-500 p-6 text-center font-black text-white shadow-2xl transition hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100"
+        >
+          <div className="text-2xl">🎮 JUGAR AHORA</div>
+          <div className="mt-2 text-sm font-normal opacity-90">
+            {canPlayFree
+              ? 'Gratis cada 24 horas'
+              : '🔒 En cooldown - Compra abajo'}
+          </div>
+        </button>
 
-          {/* 🎮 Jugar */}
+        {/* 💎 Botón Secundario - Comprar */}
+        {!canPlayFree && (
           <button
-            onClick={() => router.push('/game')}
-            disabled={!canPlayFree}
-            className="w-full rounded-xl bg-linear-to-br from-yellow-500 to-red-500 p-4 text-left font-bold text-white shadow-lg transition hover:scale-[1.02] disabled:opacity-50"
+            onClick={() => {
+              buyGameWithWLD();
+              router.push('/game');
+            }}
+            className="mb-6 w-full transform rounded-2xl bg-linear-to-br from-cyan-500 to-purple-600 p-4 text-center font-bold text-white shadow-xl transition hover:scale-105 active:scale-95"
           >
-            <div className="text-lg">🎮 Humano vs IA {!canPlayFree && '🔒'}</div>
-            <div className="text-xs mt-1 opacity-80">
-              {canPlayFree
-                ? 'Juega gratis cada 24 horas'
-                : 'En cooldown. Compra abajo para jugar ahora.'}
+            <div className="text-lg">💎 Comprar Juego Ahora</div>
+            <div className="mt-1 text-xs opacity-80">Solo 0.001 WLD</div>
+          </button>
+        )}
+
+        {/* 🔮 Sección Próximamente */}
+        <div className="mb-6 space-y-3">
+          <h3 className="text-center text-sm font-bold text-white/60">
+            🚀 Próximamente
+          </h3>
+          
+          <div className="rounded-xl border border-purple-500/20 bg-linear-to-br from-purple-600/10 via-pink-600/10 to-red-600/10 p-3 backdrop-blur-sm">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-sm font-bold text-white/70">🏆 Torneo Semanal</div>
+                <div className="text-xs text-white/50">Compite y gana premios</div>
+              </div>
+              <div className="rounded-lg bg-purple-500/20 px-3 py-1 text-xs font-bold text-purple-300">
+                Pronto
+              </div>
             </div>
-          </button>
+          </div>
 
-          {/* 💎 Comprar */}
-          {!canPlayFree && (
-            <button
-              onClick={() => {
-                buyGameWithWLD();
-                router.push('/game');
-              }}
-              className="w-full rounded-xl bg-linear-to-br from-cyan-500 to-purple-500 p-4 text-left font-bold text-white shadow-lg transition hover:scale-[1.02]"
-            >
-              <div className="text-lg">💎 Comprar juego</div>
-              <div className="text-xs mt-1 opacity-80">0.001 WLD</div>
-            </button>
-          )}
+          <div className="rounded-xl border border-green-500/20 bg-linear-to-br from-green-600/10 via-emerald-600/10 to-teal-600/10 p-3 backdrop-blur-sm">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-sm font-bold text-white/70">🎁 Recompensas Diarias</div>
+                <div className="text-xs text-white/50">Bonos y sorpresas</div>
+              </div>
+              <div className="rounded-lg bg-green-500/20 px-3 py-1 text-xs font-bold text-green-300">
+                Pronto
+              </div>
+            </div>
+          </div>
+        </div>
 
-          <button
-            type="button"
-            disabled
-            className="relative w-full overflow-hidden rounded-xl border-2 border-purple-500/30 bg-linear-to-br from-purple-600/30 via-pink-600/30 to-red-600/30 p-4 text-left opacity-60"
-          >
-            <div className="text-lg font-bold text-white/70">🏆 Torneo semanal</div>
-            <div className="text-xs text-white/50">Disponible después.</div>
-          </button>
-
-          <button
-            type="button"
-            disabled
-            className="relative w-full overflow-hidden rounded-xl border-2 border-green-500/30 bg-linear-to-br from-green-600/30 via-emerald-600/30 to-teal-600/30 p-4 text-left opacity-60"
-          >
-            <div className="text-lg font-bold text-white/70">🎁 Recompensas</div>
-            <div className="text-xs text-white/50">Se integra al final.</div>
-          </button>
-
-        </section>
-
-        {/* Sistema de Referidos */}
-        <ReferralSystem />
+        {/* 👥 Sistema de Referidos */}
+        <div className="mt-auto">
+          <ReferralSystem />
+        </div>
       </div>
 
       {/* 🌀 Spinner como overlay */}
