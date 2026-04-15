@@ -25,19 +25,6 @@ export default function Page() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-linear-to-br from-[#1a0b2e] via-[#2d1b3d] to-[#1a0b2e]">
 
-      {/* 🌄 Fondo mejorado - más arriba */}
-      <div className="absolute top-0 left-0 right-0 h-[50%] flex items-start justify-center pt-8">
-        <div className="relative h-full w-[70%]">
-          <Image
-            src="/juego2.png"
-            alt="Fondo"
-            fill
-            className="object-contain opacity-30"
-            priority
-          />
-        </div>
-      </div>
-
       {/* ✨ Efectos */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -left-20 top-20 h-72 w-72 animate-pulse rounded-full bg-purple-600/20 blur-3xl" />
@@ -46,6 +33,17 @@ export default function Page() {
 
       {/* 📦 Contenido */}
       <div className="relative mx-auto flex min-h-screen w-full max-w-120 flex-col justify-center gap-4 px-4 py-6">
+
+        {/* 📖 Instrucciones principales */}
+        <div className="rounded-xl bg-linear-to-br from-blue-600/20 to-purple-600/20 border-2 border-blue-500/30 p-4 backdrop-blur-sm">
+          <h2 className="text-lg font-black text-yellow-300 mb-2">🎯 ¿Cómo Jugar?</h2>
+          <ul className="space-y-1 text-sm text-white/90">
+            <li>• Elige un tablero de 16 cartas</li>
+            <li>• Toca las cartas que salgan</li>
+            <li>• Completa una línea para ganar</li>
+            <li>• Gana tokens en cada partida 🌶️</li>
+          </ul>
+        </div>
 
         <section className="space-y-3">
 
@@ -58,8 +56,8 @@ export default function Page() {
             <div className="text-lg">🎮 Humano vs IA {!canPlayFree && '🔒'}</div>
             <div className="text-xs mt-1 opacity-80">
               {canPlayFree
-                ? 'Entrar al juego.'
-                : 'En cooldown. Compra abajo.'}
+                ? 'Juega gratis cada 24 horas'
+                : 'En cooldown. Compra abajo para jugar ahora.'}
             </div>
           </button>
 

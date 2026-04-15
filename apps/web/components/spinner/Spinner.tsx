@@ -26,18 +26,18 @@ export const Spinner = ({ onComplete }: SpinnerProps) => {
   };
 
   return (
-    <div className="fixed inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-[#2b0f3a] via-[#5b1736] to-[#8a3a12]">
+    <div className="fixed inset-0 flex flex-col items-center justify-center bg-linear-to-br from-[#2b0f3a] via-[#5b1736] to-[#8a3a12]">
       
       {/* Página 1: Home con título y logo */}
       {currentSlide === 0 && (
         <div className="absolute inset-0 flex flex-col items-center justify-center px-4 py-6 animate-[fadeIn_0.5s_ease-in-out]">
-          <div className="mb-8 flex w-full max-w-2xl justify-center">
-            <div className="relative h-64 w-full animate-[floatTitle_3.2s_ease-in-out_infinite] sm:h-72">
+          <div className="mb-8 flex w-full max-w-6xl justify-center">
+            <div className="relative h-128 w-full animate-[floatTitle_3.2s_ease-in-out_infinite] sm:h-144">
               <Image
                 src="/tituloLoteria.png"
                 alt="Lotería Mexicana"
                 fill
-                sizes="(max-width: 640px) 100vw, 768px"
+                sizes="(max-width: 640px) 100vw, 1536px"
                 className="object-contain drop-shadow-[0_12px_28px_rgba(0,0,0,0.5)]"
                 priority
                 unoptimized
@@ -46,7 +46,7 @@ export const Spinner = ({ onComplete }: SpinnerProps) => {
           </div>
 
           <div className="mb-6 flex w-full max-w-sm justify-center">
-            <div className="relative flex h-56 w-56 items-center justify-center rounded-full bg-gradient-to-br from-red-500 via-amber-400 to-green-500 p-1.5 shadow-[0_20px_45px_rgba(0,0,0,0.45)]">
+            <div className="relative flex h-56 w-56 items-center justify-center rounded-full bg-linear-to-br from-red-500 via-amber-400 to-green-500 p-1.5 shadow-[0_20px_45px_rgba(0,0,0,0.45)]">
               <div className="relative h-full w-full overflow-hidden rounded-full bg-[#1f2937] p-3 animate-[pulse_2s_ease-in-out_infinite]">
                 <div className="relative h-full w-full overflow-hidden rounded-full ring-4 ring-white/10">
                   <Image
@@ -114,23 +114,23 @@ export const Spinner = ({ onComplete }: SpinnerProps) => {
             <h2 className="mb-8 text-4xl font-black text-yellow-300 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
               Recompensas 🎁
             </h2>
-            <div className="space-y-4 text-left">
-              <div className="rounded-xl bg-black/50 p-4 backdrop-blur-sm">
+            <div className="space-y-4 text-justify">
+              <div className="rounded-xl bg-black/20 p-4 backdrop-blur-sm">
                 <p className="text-2xl font-bold text-white drop-shadow-lg">
                   🎮 Avances a la IA: <span className="text-green-400">3 jalapeños</span>
                 </p>
               </div>
-              <div className="rounded-xl bg-black/50 p-4 backdrop-blur-sm">
+              <div className="rounded-xl bg-black/20 p-4 backdrop-blur-sm">
                 <p className="text-2xl font-bold text-white drop-shadow-lg">
                   🤖 Gana la IA: <span className="text-yellow-400">1 jalapeño</span>
                 </p>
               </div>
-              <div className="rounded-xl bg-black/50 p-4 backdrop-blur-sm">
+              <div className="rounded-xl bg-black/20 p-4 backdrop-blur-sm">
                 <p className="text-2xl font-bold text-white drop-shadow-lg">
                   🏆 Torneo semanal: <span className="text-orange-400">100 jalapeños</span>
                 </p>
               </div>
-              <div className="rounded-xl bg-black/50 p-4 backdrop-blur-sm">
+              <div className="rounded-xl bg-black/20 p-4 backdrop-blur-sm">
                 <p className="text-2xl font-bold text-white drop-shadow-lg">
                   👑 Torneo mensual: <span className="text-red-400">1000 jalapeños</span>
                 </p>
