@@ -81,16 +81,22 @@ export default function Page() {
         {/* Espaciador para el logo */}
         <div className="h-20" />
 
-        {/* 🎮 Botón Principal - JUGAR con animación gelatina */}
+        {/* 🎮 Botón Principal - JUGAR con animación gelatina MEJORADA */}
         <button
           onClick={() => router.push('/game')}
           disabled={!canPlayFree}
-          className="mb-4 w-full transform rounded-2xl bg-linear-to-br from-yellow-500 via-orange-500 to-red-500 p-6 text-center font-black text-white shadow-2xl transition hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100 animate-[jelly_3s_ease-in-out_infinite]"
+          className="mb-4 w-full transform rounded-2xl bg-gradient-to-br from-yellow-500 via-orange-500 to-red-500 p-6 text-center font-black text-white shadow-2xl transition hover:scale-110 active:scale-95 disabled:opacity-50 disabled:hover:scale-100 animate-[jelly_2s_ease-in-out_infinite]"
+          style={{
+            boxShadow: canPlayFree 
+              ? '0 0 40px rgba(251, 146, 60, 0.6), 0 0 80px rgba(251, 146, 60, 0.3)' 
+              : undefined
+          }}
         >
-          <div className="text-2xl">🎮 JUGAR AHORA</div>
+          <div className="text-3xl mb-2">🎮</div>
+          <div className="text-2xl">JUGAR AHORA</div>
           <div className="mt-2 text-sm font-normal opacity-90">
             {canPlayFree
-              ? 'Juega cada 4 horas gratis'
+              ? '✨ ¡Juego disponible!'
               : `🔒 Espera ${Math.floor(cooldownRemaining / 3600)}h ${Math.floor((cooldownRemaining % 3600) / 60)}m`}
           </div>
         </button>
@@ -169,20 +175,20 @@ export default function Page() {
         <VerifyModal onVerify={() => setIsVerified(true)} />
       )}
 
-      {/* Animación gelatina */}
+      {/* Animación gelatina MEJORADA */}
       <style jsx>{`
         @keyframes jelly {
           0%, 100% {
             transform: scale(1, 1);
           }
           25% {
-            transform: scale(0.98, 1.02);
+            transform: scale(0.95, 1.05);
           }
           50% {
-            transform: scale(1.02, 0.98);
+            transform: scale(1.05, 0.95);
           }
           75% {
-            transform: scale(0.99, 1.01);
+            transform: scale(0.97, 1.03);
           }
         }
       `}</style>

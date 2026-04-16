@@ -119,27 +119,27 @@ export const GamePlay = () => {
             {autoPlay ? '🤖 Automático' : 'Automático'}
           </button>
           
-          {/* Botón Play/Pause con mano y texto */}
-          <div className="relative">
+          {/* Botón Play/Pause */}
+          <div className="relative flex flex-col items-center gap-2">
             <button
               type="button"
               onClick={isPlaying ? pauseCalling : handleStartGame}
-              className="relative w-full transform rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 py-2.5 text-sm font-black text-white shadow-lg transition hover:scale-105 active:scale-95"
+              className="relative w-full transform rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 py-3 text-sm font-black text-white shadow-lg transition hover:scale-105 active:scale-95"
             >
-              <div className="flex items-center justify-center gap-1">
-                <span className="text-xl">{isPlaying ? '⏸️' : '▶️'}</span>
-                <span className="text-xs">{isPlaying ? 'Pausa' : 'Play'}</span>
+              <div className="flex flex-col items-center justify-center gap-1">
+                <span className="text-2xl">{isPlaying ? '⏸️' : '▶️'}</span>
+                <span className="text-[10px]">{isPlaying ? 'Pausa' : 'Play'}</span>
               </div>
             </button>
             
-            {/* Mano y texto de ayuda - solo cuando no está jugando */}
+            {/* Mano y texto DEBAJO del botón - solo cuando no está jugando */}
             {!isPlaying && showPlayHint && (
-              <div className="pointer-events-none absolute -right-12 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1">
-                <div className="animate-bounce text-4xl drop-shadow-2xl">
+              <div className="pointer-events-none flex flex-col items-center gap-1 animate-bounce">
+                <div className="text-4xl drop-shadow-2xl">
                   👆
                 </div>
-                <div className="whitespace-nowrap rounded-lg bg-black/80 px-2 py-1 text-[9px] font-bold text-yellow-300 shadow-lg">
-                  Presiona para iniciar
+                <div className="rounded-lg bg-black/90 px-2 py-1 text-center text-[9px] font-bold text-yellow-300 shadow-lg border border-yellow-500/30">
+                  Toca para<br/>empezar
                 </div>
               </div>
             )}
