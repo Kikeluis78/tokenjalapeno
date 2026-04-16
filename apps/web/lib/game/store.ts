@@ -98,7 +98,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   winner: null,
   
   // Recompensas iniciales
-  jalapenoBalance: 100, // Bienvenida
+  jalapenoBalance: 20, // Bienvenida (como si usara código de referido)
   lastPlayTime: null,
   canPlayFree: true,
   cooldownRemaining: 0,
@@ -238,23 +238,28 @@ export const useGameStore = create<GameState>((set, get) => ({
     
     // Verificar si humano ganó (16 cartas marcadas)
     if (humanMarked.length === 16) {
-      let reward = 100; // Victoria base
+      const reward = 5; // Victoria: 5 JAL
       
-      // Bonus por victoria rápida (< 2 minutos)
-      if (gameDuration < 120) {
-        reward += 25;
-      }
+      // Bonus por rachas
+      let streakBonus = 0;
+      const newStreak = currentStreak + 1;
+      if (newStreak === 5) streakBonus = 10;
+      if (newStreak === 10) streakBonus = 25;
+      if (newStreak === 15) streakBonus = 50;
+      if (newStreak === 20) streakBonus = 100;
+      
+      const totalReward = reward + streakBonus;
       
       set({ 
         winner: 'human',
         gamePhase: 'finished',
         isPlaying: false,
         humanScore: get().humanScore + 1,
-        jalapenoBalance: get().jalapenoBalance + reward,
+        jalapenoBalance: get().jalapenoBalance + totalReward,
         weeklyWins: get().weeklyWins + 1,
         totalGames: get().totalGames + 1,
-        currentStreak: currentStreak + 1,
-        lastReward: reward,
+        currentStreak: newStreak,
+        lastReward: totalReward,
         lastPlayTime: Date.now(),
         canPlayFree: false,
         cooldownRemaining: 4 * 60 * 60 // 4 horas
@@ -264,7 +269,7 @@ export const useGameStore = create<GameState>((set, get) => ({
     
     // Verificar si IA ganó
     if (iaMarked.length === 16) {
-      const reward = 50; // Premio de consolación
+      const reward = 2; // Derrota: 2 JAL (consolación)
       
       set({ 
         winner: 'ia',
@@ -273,7 +278,7 @@ export const useGameStore = create<GameState>((set, get) => ({
         iaScore: get().iaScore + 1,
         jalapenoBalance: get().jalapenoBalance + reward,
         totalGames: get().totalGames + 1,
-        currentStreak: 0,
+        currentStreak: 0, // Resetear racha
         lastReward: reward,
         lastPlayTime: Date.now(),
         canPlayFree: false,

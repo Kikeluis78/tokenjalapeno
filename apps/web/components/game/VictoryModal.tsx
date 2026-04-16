@@ -19,29 +19,31 @@ export const VictoryModal = () => {
     buyGameWithWLD,
     totalGames,
     humanScore,
-    iaScore
+    iaScore,
+    lastReward
   } = useGameStore();
   
   const [reward, setReward] = useState(0);
-  const [isQuickWin, setIsQuickWin] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
+    // Usar lastReward del store (ya incluye bonus de racha)
+    setReward(lastReward);
+    
     if (winner === 'human') {
-      const gameDuration = gameStartTime ? (Date.now() - gameStartTime) / 1000 : 0;
-      const quickWin = gameDuration < 120;
-      setIsQuickWin(quickWin);
-      setReward(quickWin ? 125 : 100);
       setShowConfetti(true);
       setTimeout(() => setShowConfetti(false), 3000);
-    } else {
-      setReward(50);
     }
-  }, [winner, gameStartTime]);
+  }, [winner, lastReward]);
 
   const isVictory = winner === 'human';
   const qualifiedForRaffle = weeklyWins >= 7;
   const gameDuration = gameStartTime ? Math.floor((Date.now() - gameStartTime) / 1000) : 0;
+  
+  // Detectar si hubo bonus de racha
+  const baseReward = isVictory ? 5 : 2;
+  const streakBonus = reward - baseReward;
+  const hasStreakBonus = streakBonus > 0;
 
   const formatTime = (seconds: number) => {
     const h = Math.floor(seconds / 3600);
@@ -100,9 +102,11 @@ export const VictoryModal = () => {
             <span className="text-5xl font-black text-yellow-400 animate-pulse">+{reward}</span>
             <span className="text-4xl">🌶️</span>
           </div>
-          {isQuickWin && (
-            <div className="inline-block rounded-full bg-green-500/20 px-3 py-1 border border-green-500/40">
-              <p className="text-xs font-bold text-green-400">⚡ +25 bonus victoria rápida</p>
+          {hasStreakBonus && (
+            <div className="inline-block rounded-full bg-orange-500/20 px-3 py-1 border border-orange-500/40">
+              <p className="text-xs font-bold text-orange-400">
+                🔥 +{streakBonus} bonus racha de {currentStreak}
+              </p>
             </div>
           )}
         </div>

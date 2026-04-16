@@ -1,3 +1,4 @@
+
 export interface Card {
   id: number;
   name: string;
@@ -17,9 +18,9 @@ export const LOTTERY_CARDS: Card[] = [
   { id: 9, name: "El Barril", emoji: "🛢️", phrase: "Tanto corre el que lo carga" },
   { id: 10, name: "El Árbol", emoji: "🌳", phrase: "El que a buen árbol se arrima" },
   { id: 11, name: "El Melón", emoji: "🍈", phrase: "Me lo das o me lo quitas" },
-  { id: 12, name: "El Superheroe", emoji: "🦸", phrase: "El valiente de la ciudad" },
+  { id: 12, name: "El Taco", emoji: "🌮", phrase: "El antojito mexicano" },
   { id: 13, name: "El Gorrito", emoji: "🎓", phrase: "Para la cabeza es" },
-  { id: 14, name: "La Muerte", emoji: "💀", phrase: "La que a todos nos lleva" },
+  { id: 14, name: "El Aguacate", emoji: "🥑", phrase: "Verde por fuera, oro por dentro" },
   { id: 15, name: "La Pera", emoji: "🍐", phrase: "El que espera desespera" },
   { id: 16, name: "La Bandera", emoji: "🇲🇽", phrase: "Verde, blanco y colorado" },
   { id: 17, name: "El Bandolón", emoji: "🪕", phrase: "Tocando su bandolón" },
@@ -31,7 +32,7 @@ export const LOTTERY_CARDS: Card[] = [
   { id: 23, name: "La Luna", emoji: "🌙", phrase: "El farol de los enamorados" },
   { id: 24, name: "El Cotorro", emoji: "🦜", phrase: "Ave de mil colores" },
   { id: 25, name: "La Cerveza", emoji: "🍺", phrase: "La que se sube a la cabeza" },
-  { id: 26, name: "Las Mascaras", emoji: "🎭", phrase: "Tras la máscara escondido" },
+  { id: 26, name: "El Circo", emoji: "🎪", phrase: "Payasos y acróbatas" },
   { id: 27, name: "El Corazón", emoji: "❤️", phrase: "No me extrañes corazón" },
   { id: 28, name: "La Sandía", emoji: "🍉", phrase: "La barriga que Juan tenía" },
   { id: 29, name: "El Tambor", emoji: "🥁", phrase: "No te arrugues cuero viejo" },
@@ -47,7 +48,7 @@ export const LOTTERY_CARDS: Card[] = [
   { id: 39, name: "El Nopal", emoji: "🌵", phrase: "Nopal de Castilla" },
   { id: 40, name: "El Alacrán", emoji: "🦂", phrase: "El que pica sin avisar" },
   { id: 41, name: "La Rosa", emoji: "🌹", phrase: "Rosita, Rosaura, Rosa" },
-  { id: 42, name: "La Calavera", emoji: "☠️", phrase: "Al pasar por el panteón" },
+  { id: 42, name: "El Águila", emoji: "🦅", phrase: "El ave de la bandera" },
   { id: 43, name: "La Campana", emoji: "🔔", phrase: "Tú me tiras la campana" },
   { id: 44, name: "El Jarrón", emoji: "🏺", phrase: "El refresco del obrero" },
   { id: 45, name: "El Venado", emoji: "🦌", phrase: "Saltando va buscando" },
