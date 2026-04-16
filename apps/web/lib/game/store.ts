@@ -171,12 +171,6 @@ export const useGameStore = create<GameState>((set, get) => ({
     // ⚡ REPRODUCIR AUDIO INMEDIATAMENTE
     speakCardName(nextCard.name);
     
-    // Marcar automáticamente si la IA tiene esta carta
-    let newIaMarked = [...iaMarked];
-    if (iaBoard.some(card => card.id === nextCard.id) && !iaMarked.includes(nextCard.id)) {
-      newIaMarked.push(nextCard.id);
-    }
-    
     // Si autoPlay está activado, marcar automáticamente para humano también
     let newHumanMarked = [...humanMarked];
     if (autoPlay && selectedBoard?.some(card => card.id === nextCard.id) && !humanMarked.includes(nextCard.id)) {
@@ -187,10 +181,23 @@ export const useGameStore = create<GameState>((set, get) => ({
       currentCard: nextCard,
       calledCards: [...get().calledCards, nextCard.id],
       remainingCards: newRemaining,
-      iaMarked: newIaMarked,
       humanMarked: newHumanMarked,
       shakeCardId: null, // Resetear shake
     });
+    
+    // ⚖️ IA marca con DELAY ALEATORIO (0.5-2s) para simular tiempo de reacción
+    if (iaBoard.some(card => card.id === nextCard.id) && !iaMarked.includes(nextCard.id)) {
+      const iaDelay = 500 + Math.random() * 1500; // 0.5-2 segundos
+      setTimeout(() => {
+        const currentState = get();
+        // Verificar que aún no esté marcada
+        if (!currentState.iaMarked.includes(nextCard.id)) {
+          set({ iaMarked: [...currentState.iaMarked, nextCard.id] });
+          // Verificar victoria después de marcar
+          setTimeout(() => get().checkVictory(), 100);
+        }
+      }, iaDelay);
+    }
     
     // Si NO es autoPlay y el humano tiene la carta, activar shake después de 10 segundos
     if (!autoPlay && selectedBoard?.some(card => card.id === nextCard.id) && !humanMarked.includes(nextCard.id)) {
@@ -204,7 +211,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       }, 10000); // 10 segundos
     }
     
-    // Verificar victoria después de marcar
+    // Verificar victoria después de marcar (para humano en autoPlay)
     setTimeout(() => get().checkVictory(), 100);
   },
   
