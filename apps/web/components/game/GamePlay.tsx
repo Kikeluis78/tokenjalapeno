@@ -148,7 +148,7 @@ export const GamePlay = () => {
       </div>
 
       {/* Footer */}
-      <Footer humanScore={humanScore} iaScore={iaScore} />
+      <Footer />
 
       {winner && <VictoryModal />}
       

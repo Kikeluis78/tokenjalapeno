@@ -1,33 +1,14 @@
 'use client';
 
 import { Card } from '@/lib/cards';
-import { useEffect, useRef } from 'react';
 
 interface HeaderCarruselProps {
   currentCard: Card | null;
 }
 
 export const HeaderCarrusel = ({ currentCard }: HeaderCarruselProps) => {
-  const hasSpoken = useRef<number | null>(null);
-
-  // Reproducir audio con Web Speech API - solo el nombre de la carta
-  useEffect(() => {
-    if (currentCard && hasSpoken.current !== currentCard.id) {
-      hasSpoken.current = currentCard.id;
-      
-      // Cancelar cualquier speech anterior
-      window.speechSynthesis.cancel();
-      
-      // Pequeño delay para asegurar que se cancele el anterior
-      setTimeout(() => {
-        const utterance = new SpeechSynthesisUtterance(currentCard.name);
-        utterance.lang = 'es-MX';
-        utterance.rate = 0.9;
-        utterance.volume = 1;
-        window.speechSynthesis.speak(utterance);
-      }, 50);
-    }
-  }, [currentCard]);
+  // El audio ahora se reproduce directamente en el store (callNextCard)
+  // para que sea INMEDIATO sin esperar el render
 
   return (
     <section className="rounded-xl border border-white/10 bg-white/5 p-2">

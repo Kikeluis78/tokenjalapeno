@@ -1,6 +1,26 @@
 import { create } from 'zustand';
 import { Card, LOTTERY_CARDS } from '@/lib/cards';
 
+// Función de shuffle real (Fisher-Yates)
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
+// Función para reproducir audio inmediatamente
+const speakCardName = (cardName: string) => {
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(cardName);
+  utterance.lang = 'es-MX';
+  utterance.rate = 0.9;
+  utterance.volume = 1;
+  window.speechSynthesis.speak(utterance);
+};
+
 interface GameState {
   // Tableros
   allBoards: Card[][];
@@ -121,8 +141,8 @@ export const useGameStore = create<GameState>((set, get) => ({
   },
   
   startGame: () => {
-    // Preparar cartas para cantar (barajadas)
-    const shuffled = [...LOTTERY_CARDS].sort(() => Math.random() - 0.5);
+    // Preparar cartas para cantar (barajadas con Fisher-Yates)
+    const shuffled = shuffleArray(LOTTERY_CARDS);
     set({ 
       gamePhase: 'playing',
       remainingCards: shuffled,
@@ -147,6 +167,9 @@ export const useGameStore = create<GameState>((set, get) => ({
     
     const nextCard = remainingCards[0];
     const newRemaining = remainingCards.slice(1);
+    
+    // ⚡ REPRODUCIR AUDIO INMEDIATAMENTE
+    speakCardName(nextCard.name);
     
     // Marcar automáticamente si la IA tiene esta carta
     let newIaMarked = [...iaMarked];
@@ -253,16 +276,15 @@ export const useGameStore = create<GameState>((set, get) => ({
   },
   
   generateBoards: () => {
-    // Generar 10 tableros aleatorios
+    // Generar 10 tableros aleatorios (cada uno único)
     const boards: Card[][] = [];
     for (let i = 0; i < 10; i++) {
-      const shuffled = [...LOTTERY_CARDS].sort(() => Math.random() - 0.5);
+      const shuffled = shuffleArray(LOTTERY_CARDS);
       boards.push(shuffled.slice(0, 16));
     }
     
-    // Generar tablero de IA
-    const iaShuffled = [...LOTTERY_CARDS].sort(() => Math.random() - 0.5);
-    const iaBoard = iaShuffled.slice(0, 16);
+    // Generar tablero de IA (siempre diferente)
+    const iaBoard = shuffleArray(LOTTERY_CARDS).slice(0, 16);
     
     set({ allBoards: boards, iaBoard });
   },
